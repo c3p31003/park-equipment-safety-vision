@@ -1,0 +1,70 @@
+@charset "UTF-8";
+/* 共通部分 */
+html {
+    font-size: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: "Yu Gothic Medium","游ゴシック Medium",YuGothic,"游ゴシック体","ヒラギノ角ゴ Pro W3",sans-serif;
+    line-height: 1.7;
+    color: #262626;
+    background-color: #FBFCFC;
+    overflow-x: clip;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+.wrapper {
+    max-width: auto;
+    margin: 0 auto;
+    margin: 0 3%;
+}
+
+.flexbox {
+    display: flex;
+    margin: 0 auto;
+}
+
+
+/* トップページ部分 */
+
+#mobile {
+    display: none; /* PCの時は非表示 */
+}
+
+.section {
+    margin: 30px ;
+}
+
+.section h1 {
+    font-size: 32px;
+    margin: 20px 0 20px 0;
+    border-bottom: 1.5px solid #848484;
+}
+
+.section h2, .top_account_section h1 {
+    font-size: 20px;
+    border-bottom: 1.5px solid #D2D2D2;
+}
+
+.section h3, .top_account_section h2 {
+    font-size: 16px;
+    border-bottom: 1.5px solid #D2D2D2;
+}
+
+.top_account_section {
+    margin-bottom: 50px;
+    padding: 20px;
+    border: 1.5px solid #94C3B6;
+}
+
+.top_CreatedDocument_section {
+    border: none;
+}
