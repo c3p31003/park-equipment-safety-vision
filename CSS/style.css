@@ -11,6 +11,7 @@ body {
     color: #262626;
     background-color: #FBFCFC;
     overflow-x: clip;
+    font-size: 20px;
 }
 
 a {
@@ -32,6 +33,14 @@ img {
     margin: 0 auto;
 }
 
+.hover-link {
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.hover-link:hover {
+    color: #50B4AA;
+}
 
 /* トップページ部分 */
 
@@ -45,24 +54,78 @@ img {
 
 .section h1 {
     font-size: 32px;
-    margin: 20px 0 20px 0;
+    margin: 20px 0 30px 0;
     border-bottom: 1.5px solid #848484;
 }
 
 .section h2, .top_account_section h1 {
     font-size: 20px;
+    padding: 12px 0 12px 0;
     border-bottom: 1.5px solid #D2D2D2;
+    margin-bottom: 12px;
 }
 
 .section h3, .top_account_section h2 {
-    font-size: 16px;
     border-bottom: 1.5px solid #D2D2D2;
 }
 
 .top_account_section {
+    width: 90%;
     margin-bottom: 50px;
     padding: 20px;
     border: 1.5px solid #94C3B6;
+}
+
+.top_account_section img {
+    width:13%;
+    margin-right: 20px;
+}
+
+.top_account_section h1 {
+    font-size: 28px;
+    border-bottom: none;
+}
+
+.top_account_section h2 {
+    margin-top: 24px;
+}
+
+.LogOut{
+    width: 24%;
+    margin: 0 auto;
+}
+
+.LogOut_button {
+    display: block;
+    background-color: #F4A5A7;
+    color: #fff;
+    margin: 20px 0 10px 0;
+    padding: 5px 16px;
+    border-radius: 30px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.LogOut_button:hover {
+  background-color: #FDCACB;
+}
+
+.top_document_section img {
+    margin-bottom: 5px;
+}
+
+.top_data_link {
+    margin: 0 20px 20px 60px;
+    border: 2.5px solid #94C3B6;
+    border-radius: 50px;
+}
+
+.top_data_link h2 {
+    margin: 2px 0 2px 0;
+    padding: 8px 20px 8px 30px;
+    border-bottom: none;
 }
 
 .top_CreatedDocument_section {
