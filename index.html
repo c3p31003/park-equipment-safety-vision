@@ -7,70 +7,136 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
     <link href="CSS/style.css" rel="stylesheet">
 </head>
-<body>
-    <header>
+    <body>
+        <header>
 
-    </header>
-    <div class="wrapper">
-        <div class="flexbox">
-            <div class="section">
-                <h1>アカウント</h1>
-                <div class="top_account_section">
-                    <div class="flexbox">
-                        <img src="img/Icon.svg">
-                        <h1>〇〇さん</h1>
+        </header>
+        <div class="wrapper">
+            <div class="flexbox">
+                <div class="section">
+                    <h1>アカウント</h1>
+                    <div class="top_account_section">
+                        <div class="flexbox">
+                            <img src="img/Icon.svg">
+                            <h1>〇〇さん</h1>
+                        </div>
+                        <h2>ＩＤ：</h2>
+                        <h2>管理している公園：</h2>
+                        <div class="LogOut"><a href="#" class="LogOut_button">ログアウト</a></div>
                     </div>
-                    <h2>ＩＤ：</h2>
-                    <h2>管理している公園：</h2>
-                    <div class="LogOut"><a href="#" class="LogOut_button">ログアウト</a></div>
+                    <div class="top_document_section" id="mobile"><!-- スマホ・タブレットのみ -->
+                        <h1>書類作成・データ</h1>
+                        <h2>日報作成</h2>
+                        <h2>結果報告書作成</h2>
+                        <h2>点検チェックシート</h2>
+                        <h2>書類一覧</h2>
+                        <h2>劣化進行記録・劣化予測</h2>
+                        <h2>写真閲覧</h2>
+                    </div>
+                    <div class="top_document_section" id="PC"><!-- PCのみ -->
+                        <h1>書類作成・データ</h1>
+                        <div class="flexbox">
+                            <div>
+                                <a href class="hover-link"><h2>日報作成　　　　　　　　　　<img src="img/arrow_button1.png"></h2></a>
+                                <a href class="hover-link"><h2>結果報告書作成　　　　　　　<img src="img/arrow_button1.png"></h2></a>
+                                <a href class="hover-link"><h2>点検チェックシート　　　　　<img src="img/arrow_button1.png"></h2></a>
+                            </div>
+                            <div>
+                                <div class="top_data_link"><a href class="hover-link"><h2>劣化進行記録・劣化予測　　　　　<img src="img/arrow_button2.png"></h2></a></div>
+                                <div class="top_data_link"><a href class="hover-link"><h2>写真閲覧　　　　　　　　　　　　<img src="img/arrow_button2.png"></h2></a></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="top_document_section" id="mobile"><!-- スマホ・タブレットのみ -->
-                    <h1>書類作成・データ</h1>
-                    <h2>日報作成</h2>
-                    <h2>結果報告書作成</h2>
+                <div class="section" id="mobile"><!-- スマホ・タブレットのみ -->
+                    <h1>遊具点検</h1>
+                    <h2>ブランコ</h2>
+                    <h2>すべり台</h2>
+                    <h2>ジャングルジム</h2>
+                    <h2>鉄棒</h2>
+                    <h2>複合遊具</h2>
+                    <h2>砂場</h2>
+                    <h2>健康遊具</h2>
+                    <h2>ターザンロープ</h2>
+                    <h2>シーソー</h2>
+                </div>
+                <div class="section top_CreatedDocument_section" id="PC"><!-- PCのみ -->
+                    <h1>過去に作成された書類</h1>
+                    <h2>日報</h2>
+                    <table>
+                    <tr>
+                        <th>書類名</th>
+                        <th>作成者</th>
+                        <th>最終更新日時</th>
+                    </tr>
+                    <tr>
+                        <td>令和✕年✕月✕日〇〇公園日報</td>
+                        <td>△△△△</td>
+                        <td>✕✕年✕月✕日</td>
+                    </tr>
+                    <tr>
+                        <td>令和✕年✕月✕日〇〇公園日報</td>
+                        <td>△△△△</td>
+                        <td>✕✕年✕月✕日</td>
+                    </tr>
+                    <tr>
+                        <td>令和✕年✕月✕日〇〇公園日報</td>
+                        <td>△△△△</td>
+                        <td>✕✕年✕月✕日</td>
+                    </tr>
+                    </table>
+                    <h2>結果報告書</h2>
+                    <table>
+                    <tr>
+                        <th>書類名</th>
+                        <th>作成者</th>
+                        <th>最終更新日時</th>
+                    </tr>
+                    <tr>
+                        <td>令和✕年度〇〇公園結果報告書</td>
+                        <td>△△△△</td>
+                        <td>✕✕年✕月✕日</td>
+                    </tr>
+                    <tr>
+                        <td>令和✕年度〇〇公園結果報告書</td>
+                        <td>△△△△</td>
+                        <td>✕✕年✕月✕日</td>
+                    </tr>
+                    <tr>
+                        <td>令和✕年度〇〇公園結果報告書</td>
+                        <td>△△△△</td>
+                        <td>✕✕年✕月✕日</td>
+                    </tr>
+                    </table>
                     <h2>点検チェックシート</h2>
-                    <h2>書類一覧</h2>
-                    <h2>劣化進行記録・劣化予測</h2>
-                    <h2>写真閲覧</h2>
+                    <table>
+                    <tr>
+                        <th>書類名</th>
+                        <th>作成者</th>
+                        <th>最終更新日時</th>
+                    </tr>
+                    <tr>
+                        <td>令和✕年度通常点検チェックシート</td>
+                        <td>△△△△</td>
+                        <td>✕✕年✕月✕日</td>
+                    </tr>
+                    <tr>
+                        <td>令和✕年度通常点検チェックシート</td>
+                        <td>△△△△</td>
+                        <td>✕✕年✕月✕日</td>
+                    </tr>
+                    <tr>
+                        <td>令和✕年度通常点検チェックシート</td>
+                        <td>△△△△</td>
+                        <td>✕✕年✕月✕日</td>
+                    </tr>
+                    </table>
+                    <h3 class="hover-link"><a href="#">書類一覧　　　　　<img src="img/arrow_button1.png"></a></h3>
                 </div>
-                <div class="top_document_section" id="PC"><!-- PCのみ -->
-                    <h1>書類作成・データ</h1>
-                    <div class="flexbox">
-                        <div>
-                            <a href class="hover-link"><h2>日報作成　　　　　　　　　　<img src="img/arrow_button1.png"></h2></a>
-                            <a href class="hover-link"><h2>結果報告書作成　　　　　　　<img src="img/arrow_button1.png"></h2></a>
-                            <a href class="hover-link"><h2>点検チェックシート　　　　　<img src="img/arrow_button1.png"></h2></a>
-                        </div>
-                        <div>
-                            <div class="top_data_link"><a href class="hover-link"><h2>劣化進行記録・劣化予測　　　　　<img src="img/arrow_button2.png"></h2></a></div>
-                            <div class="top_data_link"><a href class="hover-link"><h2>写真閲覧　　　　　　　　　　　　<img src="img/arrow_button2.png"></h2></a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="section" id="mobile"><!-- スマホ・タブレットのみ -->
-                <h1>遊具点検</h1>
-                <h2>ブランコ</h2>
-                <h2>すべり台</h2>
-                <h2>ジャングルジム</h2>
-                <h2>鉄棒</h2>
-                <h2>複合遊具</h2>
-                <h2>砂場</h2>
-                <h2>健康遊具</h2>
-                <h2>ターザンロープ</h2>
-                <h2>シーソー</h2>
-            </div>
-            <div class="section top_CreatedDocument_section" id="PC"><!-- PCのみ -->
-                <h1>過去に作成された書類</h1>
-                <h2>日報</h2>
-                <h2>結果報告書</h2>
-                <h2>点検チェックシート</h2>
-                <h3>書類一覧</h3>
             </div>
         </div>
-    </div>
-    <footer>
+        <footer>
 
-    </footer>
-</body>
+        </footer>
+    </body>
 </html>

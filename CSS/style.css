@@ -130,4 +130,40 @@ img {
 
 .top_CreatedDocument_section {
     border: none;
+    width: 48%;
+    font-size: 17px;
+}
+
+.top_CreatedDocument_section h2{
+    border: none;
+    margin: 20px 0 0 0; 
+    padding: 0;
+}
+
+.top_CreatedDocument_section h3{
+    font-size: 16px;
+    width: 180px;
+    margin: 10px 0 0 auto;
+}
+
+.top_CreatedDocument_section img{
+    width: 13%;
+    margin-bottom: 3px;
+}
+
+.top_CreatedDocument_section table{
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.top_CreatedDocument_section tr{
+    border: solid 1px #dbdada;
+    cursor: pointer;
+}
+
+.top_CreatedDocument_section table th,table td{
+    text-align: center;
+    width: 20%;
+    padding:  0 0 15px 0;
 }
