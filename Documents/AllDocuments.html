@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>遊具管理システム | 書類一覧</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
+        <link href="../CSS/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+
+        </header>
+        <div class="wrapper">
+            <div class="flexbox">
+                <div class="section">
+                    <div class="AllDocuments_search_section">
+                        <h1>書類一覧</h1>
+                        <h2>検索</h2>
+                        <label for="colors">点検年度</label>
+                        <select id="colors" name="colors">
+                            <option value="all" selected>すべて</option>
+                            <option value="7">令和７年度</option>
+                            <option value="6">令和６年度</option>
+                            <option value="5">令和５年度</option>
+                        </select>
+                        <label for="colors">公園名</label>
+                        <input type="search" name="search" placeholder="キーワードを入力">
+                        <label for="colors">作成者名</label>
+                        <input type="search" name="search" placeholder="キーワードを入力">
+                        <input type="submit" name="submit" value="検索">
+                    </div>
+                </div>
+            </div>
+            <div class="section AllDocuments_list_section">
+                <h2>日報</h2>
+                <table>
+                    <tr>
+                        <th>書類名</th>
+                        <th>作成者</th>
+                        <th>最終更新日時</th>
+                    </tr>
+                    <tr>
+                        <td>令和✕年度〇〇公園結果報告書</td>
+                        <td>△△△△</td>
+                        <td>✕✕年✕月✕日<button class="AllDocuments_list_EditButton">a</button><button class="AllDocuments_list_EditButton">a</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="section AllDocuments_list_section">
+                <h2>結果報告書</h2>
+                <table>
+                    <tr>
+                        <th>書類名</th>
+                        <th>作成者</th>
+                        <th>最終更新日時</th>
+                    </tr>
+                    <tr>
+                        <td>令和✕年度〇〇公園結果報告書</td>
+                        <td>△△△△</td>
+                        <td>✕✕年✕月✕日<button class="AllDocuments_list_EditButton">a</button><button class="AllDocuments_list_EditButton">a</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="section AllDocuments_list_section">
+                <h2>点検チェックシート</h2>
+                <table>
+                    <tr>
+                        <th>書類名</th>
+                        <th>作成者</th>
+                        <th>最終更新日時</th>
+                    </tr>
+                    <tr>
+                        <td>令和✕年度〇〇公園結果報告書</td>
+                        <td>△△△△</td>
+                        <td>✕✕年✕月✕日<button class="AllDocuments_list_EditButton">a</button><button class="AllDocuments_list_EditButton">a</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <footer>
+
+        </footer>
+    </body>
+</html>
