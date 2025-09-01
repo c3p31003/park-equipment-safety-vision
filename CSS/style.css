@@ -46,6 +46,22 @@ img {
     margin: 30px 30px 30px 0;
 }
 
+/* ログイン部分 */
+.contact_box {
+    text-align: center;
+}
+
+.contact_box p {
+    background-color: #dfeeea;
+    width: 40%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.button_LogIn {
+    background-color: #50B4AA;
+}
+
 /* トップページ部分 */
 /* PCのみ表示 */
 
