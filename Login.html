@@ -2,26 +2,52 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
-        <title>遊具管理システム | トップページ</title>
+        <title>遊具管理システム | ログインページ</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
-        <link href="CSS/style.css" rel="stylesheet">
-    </head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
 
-    <header class="wrapper" id="header">
-        <h1><a href="index.html"></a></h1>
-        <div class="alert"></div>
-        <div class="openbtn"><span></span><span></span><span></span></div>
-    </header>
-    <div class="contact_box">
-        <p>ID</p>
-        <form method="post" id="input_area">
-            <input type="text" name="name">
-        </form>
-        <p>PW</p>
-        <form method="post"  id="input_area">
-            <input type="password" name="password">
-        </form>
-        <a href="#" class="button_LogIn">ログイン</a>
-    </div>
+    </head>
+    <body>
+        <header id="header">
+            <div class="header_title"><h1>遊具管理システム</h1></div>
+            <div class="alert"></div>
+            <div class="openbtn"><span></span><span></span><span></span></div>
+        </header>
+        <div class="contact_box">
+            <img src="{{ url_for('static', filename='img/Icon.svg') }}" alt="アイコン">
+            <form method="post" id="login-form">
+                <p>ID<input type="text" name="employee_id"></p>
+            <!-- </form>
+            <form method="post"  id="input_area"> -->
+                <p>PW<input type="password" name="password"></p>
+                <button class="button_LogIn">ログイン</button>
+            </form>
+            <script>
+                document.getElementById("login-form").addEventListener("submit", function(e) {
+                    e.preventDefault(); // フォームの標準送信を止める
+                
+                    const formData = new FormData(this);
+                
+                    fetch("/api/login", {
+                        method: "POST",
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            window.location.href = data.redirect;
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(err => {
+                        alert("通信エラーが発生しました");
+                        console.error(err);
+                    });
+                });
+                </script>
+
+        </div>
+    </body>
 </html>
