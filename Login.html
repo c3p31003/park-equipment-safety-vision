@@ -5,7 +5,7 @@
         <title>遊具管理システム | ログインページ</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
-        <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
+        <link rel="stylesheet" href="CSS/style.css">
 
     </head>
     <body>
@@ -15,12 +15,10 @@
             <div class="openbtn"><span></span><span></span><span></span></div>
         </header>
         <div class="contact_box">
-            <img src="{{ url_for('static', filename='img/Icon.svg') }}" alt="アイコン">
+            <img src="img/Icon.svg" alt="アイコン">
             <form method="post" id="login-form">
                 <p>ID<input type="text" name="employee_id"></p>
-            <!-- </form>
-            <form method="post"  id="input_area"> -->
-                <p>PW<input type="password" name="password"></p>
+                <p>PW<input type="password" name="password"></p> 
                 <button class="button_LogIn">ログイン</button>
             </form>
             <script>
