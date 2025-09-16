@@ -5,11 +5,13 @@
         <title>遊具管理システム | トップページ</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
-        <link href="CSS/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
     </head>
     <body>
         <header>
-            
+            <div class="header_title"><a href="index.html"><h1>遊具管理システム</h1></a></div>
+            <div class="alert"></div>
+            <div class="openbtn"><span></span><span></span><span></span></div>
         </header>
         <div class="wrapper">
             <div class="flexbox">
@@ -139,7 +141,7 @@
                         <td>✕✕年✕月✕日</td>
                     </tr>
                     </table>
-                    <h3 class="hover-link"><a href="#">書類一覧　　　　　<img src="img/arrow_button1.png"></a></h3>
+                    <h3 class="hover-link"><a href="Documents/AllDocuments.html">書類一覧　　　　　<img src="img/arrow_button1.png"></a></h3>
                 </div>
             </div>
         </div>

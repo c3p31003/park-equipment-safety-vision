@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>遊具管理システム</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
+    <link href="../static/CSS/style.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+
+    </header>
+    <div class="wrapper">
+      <p id="page_route">トップ > 結果報告書作成</p>
+      <div id="daily_completed_container_top">
+          <button id="daily_completed" type="button">保存</button>
+      </div>
+      <div id="flex_container">
+        <div id="left_container">
+          <p class="daily_report_heading">公園名</p>
+          <input class="text_box wide_box" type="text" name="park">
+          <p class="daily_report_heading">報告者名</p>
+          <input class="text_box wide_box" type="text" name="reporter">
+          <p class="daily_report_heading">点検・報告日</p>
+          <div id="date_column_container">
+            <select class="text_box date_column" name="era_name">
+              <option value="令和">令和</option>
+              <option value="平成">平成</option>
+              <option value="昭和">昭和</option>
+            </select>
+            <select class="text_box date_column" name="year">
+              <option value="2025">2025</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+            </select>
+            <p class="date_text">年度</p>
+            <select class="text_box date_column" name="month">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </select>
+            <p class="date_text">月</p>
+            <select class="text_box date_column" name="date">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>   
+            </select>
+            <p>日</p>
+          </div>
+          <div  class="daily_report_heading" id="inspection_results_container">
+            <p>点検結果</p>
+            <div>
+              <input type="checkbox" name="result" value="全て問題なし">全て問題なし              
+            </div>
+          </div>
+          <table>
+            <tr>
+              <th>遊具名</th>
+              <th>異常の種類</th>
+            </tr>
+            <tr>
+              <td contenteditable=true></td>
+              <td contenteditable=true></td>
+            </tr>
+            <tr>
+              <td contenteditable=true></td>
+              <td contenteditable=true></td>
+            </tr>
+            <tr>
+              <td contenteditable=true></td>
+              <td contenteditable=true></td>
+            </tr>
+          </table>
+          <p class="daily_report_heading">備考</p>
+          <textarea class="text_box" name="remarks" rows="7" cols="50"></textarea>
+        </div>
+        <div id="right_container">
+          <div id="image_heading">
+            <p>写真</p>
+            <button id="add_photo" type="button">＋</button>
+          </div>
+          <div id="image_container">
+            <img src="../static/img/photo_image.png">
+            <img src="../static/img/photo_image.png">
+            <img src="../static/img/photo_image.png">
+            <img src="../static/img/photo_image.png">                
+          </div>
+        </div>
+      </div>
+      <div id="daily_completed_container_bottom">
+          <button id="daily_completed" type="button">保存</button>
+      </div>
+    </div>
+    <footer>
+       
+    </footer>
+</body>
+</html>
