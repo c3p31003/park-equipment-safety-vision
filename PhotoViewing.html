@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>遊具管理システム | 写真閲覧</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
+        <link href="CSS/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <div id="mobile"><!--  スマホ・タブレットのみ表示 -->
+            <label for="PE">遊具：</label>
+            <select id="PE" name="PE">
+                <option value="all" selected>すべて</option>
+                <option value="9">シーソー</option>
+                <option value="8">ターザンロープ</option>
+                <option value="7">ブランコ</option>
+                <option value="6">すべり台</option>
+                <option value="5">ジャングルジム</option>
+                <option value="4">鉄棒</option>
+                <option value="3">複合遊具</option>
+                <option value="2">砂場</option>
+                <option value="1">健康遊具</option>
+            </select>
+            <label for="category">カテゴリ：</label>
+            <select id="category" name="category">
+                <option value="all" selected>すべて</option>
+                <option value="3">石田</option>
+                <option value="2">亀裂</option>
+                <option value="1">錆び</option>
+            </select>
+            <div class="flexbox">
+
+            </div>
+
+        </div>
+            <div id="PC"><!--  PCのみ表示 -->
+                <form action="#" method="post">
+                    <p>遊具：<br>
+                        <input type="checkbox" name="PE_checkbox" value="9">シーソー<br>
+                        <input type="checkbox" name="PE_checkbox" value="8">ターザンロープ<br>
+                        <input type="checkbox" name="PE_checkbox" value="7">ブランコ<br>
+                        <input type="checkbox" name="PE_checkbox" value="6">すべり台<br>
+                        <input type="checkbox" name="PE_checkbox" value="5">ジャングルジム<br>
+                        <input type="checkbox" name="PE_checkbox" value="4">鉄棒<br>
+                        <input type="checkbox" name="PE_checkbox" value="3">複合遊具<br>
+                        <input type="checkbox" name="PE_checkbox" value="2">砂場<br>
+                        <input type="checkbox" name="PE_checkbox" value="1">健康遊具<br>
+                    </p>
+                    <p>カテゴリ：<br>
+                        <input type="checkbox" name="PE_category_checkbox" value="4">金属<br>
+                        <input type="checkbox" name="PE_category_checkbox" value="3">木材<br>
+                        <input type="checkbox" name="PE_category_checkbox" value="2">ゆがみ<br>
+                        <input type="checkbox" name="PE_category_checkbox" value="1">摩耗<br>
+                    </p>
+                    <p><input type="submit" value="絞り込む"></p>
+                </form>        
+                <div class="flexbox"><!--  写真が入る部分 -->
+
+                </div>
+            </div>
+
+    </body>
+</html>
