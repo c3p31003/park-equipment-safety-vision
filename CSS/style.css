@@ -225,8 +225,8 @@ header h1{
 
 /* 書類一覧ページ部分 */
 .AllDocuments_search_section {
-    width: 70%;
-    margin-bottom: 90px;
+    width:100%;
+    margin-bottom: 20px;
 }
 
 .AllDocuments_search_section h1{
@@ -239,6 +239,7 @@ header h1{
     gap: 10px;
     position: relative;
     width: 250px;
+    display:inline-block;
 }
 
 #year {
@@ -253,6 +254,7 @@ header h1{
 
 .AllDocuments_search_year select,.AllDocuments_search_section input{
     padding: 10px;
+    margin: 10px;
     font-size: 16px;
     border: solid 1px #D9D9D9;
     border-radius: 6px;
@@ -260,10 +262,14 @@ header h1{
     background-color: #fff;
 }
 
+#years_box {
+    width: 140px;
+}
+
 .AllDocuments_search_year::after { /* 「∨」を右端に表示 */
     content: '';
     position: absolute;
-    right: 10px;
+    right: 30px;
     top: 60%;
     transform: translateY(-50%);
     width: 16px;
@@ -283,6 +289,40 @@ header h1{
     font-size: 16px;
     cursor: pointer;
 }
+
+.AllDocuments_list_section h2 {
+    border: none;
+}
+
+.AllDocuments_list_section th{
+    padding: 8px;
+    padding: 10px;
+    border-bottom: solid 4px #D9D9D9;
+}
+
+.AllDocuments_list_section td {
+    padding: 10px;
+    border-bottom: solid 1px #D9D9D9;
+    text-align: left;
+}
+
+.AllDocuments_list_EditButton {
+    background-color: #50B4AA;
+    margin-left: 80px;
+}
+
+.AllDocuments_list_DeleteButton {
+    background-color: #ACACAC;
+    margin-left: 30px;
+}
+
+.AllDocuments_list_EditButton, .AllDocuments_list_DeleteButton {
+    padding: 5px 22px;  
+    border-radius: 5px;
+    color: #FBFCFC;
+}
+
+
 
 /*inspection_results、daily_report共通*/
 #inspection_completed,#daily_completed,#daily_completed,#add_photo {
