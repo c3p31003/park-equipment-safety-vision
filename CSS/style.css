@@ -516,6 +516,29 @@ header h1{
     margin-left: 0;
 }
 
+
+/*results_report（結果報告書作成画面）*/
+.inspection_details hr {
+  margin:20px 0px;
+  border: 1px solid #D9D9D9;
+}
+
+.inspection_details h1{
+  font-size: 130%;
+}
+
+.report_input_container {
+  display: flex;
+}
+
+.report_input {
+  margin-right:40px;
+}
+.report_inpurt_small {
+  display: none;
+}
+
+
 /* タブレット: 1024px〜 */
 @media screen and (max-width: 1024px) {
     /* トップページ */
@@ -669,6 +692,15 @@ header h1{
         max-width: 28%;
         margin: 4%;
         margin-left: 1%;
+    }
+    
+    /*results_report（結果報告書作成画面）*/
+    .report_inpurt_pc {
+        display: none;
+    }
+
+    .report_inpurt_small {
+        display: flex;
     }
 }
 
