@@ -451,10 +451,15 @@ header h1{
     display: flex;
 }
 
-.date_column {
-    width: 13%;
+#date_column_container select, .report_input_container select {
+    width: 16%;
+    padding-left:10px;
     margin-right: 5px;
-    text-align: center;
+    text-align: left;
+    background-image: url('../img/∨.png');
+    background-repeat: no-repeat;
+    background-position: top 60% right 5px;
+    background-size:16px auto;
 }
 
 .date_text {
