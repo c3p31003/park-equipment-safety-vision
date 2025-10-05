@@ -467,7 +467,7 @@ header h1{
 }
 
 /*点検結果*/
-#inspection_results_container {
+#daily_inspection_results_container {
     display: flex;
     justify-content: space-between;
     width: 40%
@@ -530,6 +530,10 @@ header h1{
 
 .inspection_details h1{
   font-size: 130%;
+}
+
+.inspection_details textarea {
+    width: 90%;
 }
 
 .report_input_container {
@@ -714,5 +718,15 @@ header h1{
     /*inspection_results（点検結果確認画面）*/
     #inspection_completed {
         height: 30%;
+    }
+
+    /*結果報告書作成画面,日報作成画面共通*/
+    #date_column_container select, .report_input_container select {
+        background-size:10px auto;
+    }
+
+    /*結果報告書作成画面,日報作成画面,点検結果確認画面共通*/
+    #results_report_container,#daily_report_container,#inspection_results_container{
+        font-size: 55%;
     }
 }
