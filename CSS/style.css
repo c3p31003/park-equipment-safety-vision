@@ -169,6 +169,7 @@ header h1{
 
 .top_document_section img {
     margin-bottom: 5px;
+    padding-left: 10px;
 }
 
 .top_data_link {
@@ -187,6 +188,7 @@ header h1{
     border: none;
     width: 48%;
     font-size: 17px;
+    margin-left: 10%;
 }
 
 .top_CreatedDocument_section h2{
@@ -341,6 +343,25 @@ header h1{
     margin-top: 3%;
 }
 
+/*TakePhoto_A（異常撮影画面）*/
+#TakePhoto_A {
+    width: 100%;
+}
+
+#TakePhoto_A p{
+    display: inline-block;
+}
+
+.BackButton {
+    padding: 0 8px 8px 0;
+}
+
+.PhotoButton{
+    width: 60px;
+    text-align: center;
+    margin: 0 auto;
+}
+
 /*inspection_results（点検結果確認画面）*/
 /*ページ経路の表示*/
 #page_route {
@@ -478,7 +499,7 @@ header h1{
     width: 80%;
 }
 
-#left_container table,th,td {
+#left_container table,#left_container th,#left_container td {
     border: 2px solid #D9D9D9;
 }
 
