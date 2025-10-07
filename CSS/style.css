@@ -605,7 +605,7 @@ header h1{
     margin-top: 40px;
 }
 
-.PE_search_category select {
+.PE_search_category select,.PE_search select {
     padding: 10px;
     margin: 10px;
     font-size: 16px;
@@ -615,6 +615,39 @@ header h1{
     background-color: #fff;
     width: 180px;
 }
+
+.PE_search_category label, .PE_search label {
+    cursor:default;
+}
+
+.PE_search_category::after {
+    content: '';
+    position: absolute;
+    left: 280px;
+    top: 16%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-image: url(../img/∨.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+.PE_search::after {
+    content: '';
+    position: absolute;
+    left: 280px;
+    top: 23.5%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-image: url(../img/∨.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
 
 /* タブレット: 1024px〜 */
 @media screen and (max-width: 1024px) {
