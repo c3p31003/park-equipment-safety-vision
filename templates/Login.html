@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>遊具管理システム | ログインページ</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    </head>
+    <body>
+        <header id="header">
+            <div class="header_title"><h1>遊具管理システム</h1></div>
+            <div class="alert"></div>
+            <div class="openbtn"><span></span><span></span><span></span></div>
+        </header>
+        <div class="contact_box">
+            <img src="{{ url_for('static', filename='img/Icon.svg') }}" alt="アイコン">
+            <form action="{{ url_for('home') }}" method="post" id="login-form">
+                <p>ID<input type="text" name="employee_id"></p>
+                <p>PW<input type="password" name="password"></p> 
+                <button class="button_LogIn">ログイン</button>
+            </form>
+        </div>
+    </body>
+</html>
