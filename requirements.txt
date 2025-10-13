@@ -1,0 +1,16 @@
+Flask==3.0.0
+Flask-SQLAlchemy==3.1.1
+Flask-Migrate==4.0.5
+PyMySQL==1.1.0
+python-dotenv==1.0.0
+cryptography==41.0.7
+
+# オプション: パスワードハッシュ化用
+# bcrypt==4.1.2
+# Flask-Bcrypt==1.0.1
+
+# オプション: CORS対応
+# Flask-CORS==4.0.0
+
+# オプション: 認証機能
+# Flask-JWT-Extended==4.5.3
