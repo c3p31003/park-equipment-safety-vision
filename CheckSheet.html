@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>遊具管理システム | トップページ</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
+        <link rel="stylesheet" href="CSS/style.css">
+    </head>
+    <body>
+        <header>
+            <div class="header_title"><a href="index.html"><h1>遊具管理システム</h1></a></div>
+            <div class="alert"></div>
+            <div class="openbtn"><span></span><span></span><span></span></div>
+        </header>
+        <div class="wrapper">
+            <div class="section">
+                <div class="CheckSheet_input_area AllDocuments_search_section">
+                    <label for="parks">公園名</label>
+                    <input type="search" name="search" placeholder="キーワードを入力">
+                    <label for="author">作成者名</label>
+                    <input type="search" name="search" placeholder="キーワードを入力">
+                    <input type="submit" name="submit" value="検索">
+                    <div class="AllDocuments_search_year">
+                        <label for="years">点検年度</label>
+                        <select id="years_box" name="years">
+                            <option value="all" selected>すべて</option>
+                            <option value="3">令和７年度</option>
+                            <option value="2">令和６年度</option>
+                            <option value="1">令和５年度</option>
+                        </select>
+                    </div>
+                    <div class="AllDocuments_search_year">
+                        <label for="years">設置年度</label>
+                        <select id="years_box" name="years">
+                            <option value="all" selected>令和</option>
+                            <option value="1">平成</option>
+                        </select>
+                    </div>
+                    <div class="AllDocuments_search_year">
+                        <select id="years_box" name="years">
+                            <option value="1">１年度</option>
+                            <option value="2">２年度</option>
+                            <option value="3">３年度</option>
+                            <option value="4">４年度</option>
+                            <option value="5">５年度</option>
+                            <option value="6">６年度</option>
+                            <option value="7">７年度</option>
+                            <option value="8">８年度</option>
+                            <option value="9">９年度</option>
+                            <option value="10">１０年度</option>
+                            <option value="11">１１年度</option>
+                            <option value="12">１２年度</option>
+                            <option value="13">１３年度</option>
+                            <option value="14">１４年度</option>
+                            <option value="15">１５年度</option>
+                            <option value="16">１６年度</option>
+                            <option value="17">１７年度</option>
+                            <option value="18">１８年度</option>
+                            <option value="19">１９年度</option>
+                            <option value="20">２０年度</option>
+                            <option value="21">２１年度</option>
+                            <option value="22">２２年度</option>
+                            <option value="23">２３年度</option>
+                            <option value="24">２４年度</option>
+                            <option value="25">２５年度</option>
+                            <option value="26">２６年度</option>
+                            <option value="27">２７年度</option>
+                            <option value="28">２８年度</option>
+                            <option value="29">２９年度</option>
+                            <option value="30">３０年度</option>
+                            <option value="31">３１年度</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+                <h1>点検日</h1>
+                <label for="years">設置年度</label>
+                <select id="years_box" name="years">
+                    <option value="all" selected>令和</option>
+                    <option value="1">平成</option>
+                </select>
+                <h1>点検時の記録</h1>
+                <h1>以下は措置及び総合結果</h1>
+                <h2>●点検時に実施した措置</h2>
+                <input type="checkbox" name="" value="">グリース・オイル等の注入（改善しない場合は、回転軸の磨耗を確認する。）
+                <input type="checkbox" name="" value="">ボルト・ナットの増し締め・交換
+                <input type="checkbox" name="" value="">吊金具の交換
+                <input type="checkbox" name="" value="">チェーンの交換
+                <input type="checkbox" name="" value="">座板の交換
+                <input type="checkbox" name="" value="">石・異物の除去、枝の剪定
+                <input type="checkbox" name="" value="">その他<input type="opinion" name="opinion">
+                <label for="author">所見</label>
+                <input type="opinion" name="opinion">
+                <h2>総合結果（総合結果については、点検時に実施した措置により補修等の対応済みの場合は、対応後の状態で記録する。）</h2>
+                <form>
+                    <label>
+                        <input type="radio" name="result" value="red"> Ａ：健全（△・×なし）
+                    </label>
+                    <label>
+                        <input type="radio" name="result" value="blue"> Ｂ：経過観察（△あり、×なし）
+                    </label>
+                    <label>
+                        <input type="radio" name="result" value="green"> Ｃ：要修繕・要対応（×あり）
+                    </label>
+                    <label>
+                        <input type="radio" name="result" value="green"> Ｄ：使用禁止措置<input type="opinion" name="opinion">
+                    </label>
+                </form><br>
+                <h2>以下は点検後の記録（担当者記入欄）</h2>
+                <h2>●対応方針</h2>
+                <input type="checkbox" name="" value="">整備班で対応予定
+                <input type="checkbox" name="" value="">修繕・修繕工事で対応予定
+                <input type="checkbox" name="" value="">施設改良工事で対応予定
+                <input type="checkbox" name="" value="">精密点検予定
+                <input type="checkbox" name="" value="">撤去予定
+                <input type="checkbox" name="" value="">その他<input type="opinion" name="opinion">
+                <h2>●対応方針</h2>
+                <select id="month_box" name="month">
+                    <option value="1">１</option>
+                    <option value="2">２</option>
+                    <option value="3">３</option>
+                    <option value="4">４</option>
+                    <option value="5">５</option>
+                    <option value="6">６</option>
+                    <option value="7">７</option>
+                    <option value="8">８</option>
+                    <option value="9">９</option>
+                    <option value="10">１０</option>
+                    <option value="11">１１</option>
+                    <option value="12">１２</option>
+                </select>
+                <form>
+                    <label>
+                        <input type="radio" name="result" value="red"> 上
+                    </label>
+                    <label>
+                        <input type="radio" name="result" value="blue"> 中
+                    </label>
+                    <label>
+                        <input type="radio" name="result" value="green"> 下
+                    </label>
+                </form>
+                <input type="checkbox" name="" value="">本格的な使用禁止措置
+                <select id="month_box" name="month">
+                    <option value="1">１</option>
+                    <option value="2">２</option>
+                    <option value="3">３</option>
+                    <option value="4">４</option>
+                    <option value="5">５</option>
+                    <option value="6">６</option>
+                    <option value="7">７</option>
+                    <option value="8">８</option>
+                    <option value="9">９</option>
+                    <option value="10">１０</option>
+                    <option value="11">１１</option>
+                    <option value="12">１２</option>
+                </select>
+                <select id="day_box" name="day">
+                    <option value="1">１</option>
+                    <option value="2">２</option>
+                    <option value="3">３</option>
+                    <option value="4">４</option>
+                    <option value="5">５</option>
+                    <option value="6">６</option>
+                    <option value="7">７</option>
+                    <option value="8">８</option>
+                    <option value="9">９</option>
+                    <option value="10">１０</option>
+                    <option value="11">１１</option>
+                    <option value="12">１２</option>
+                    <option value="13">１３</option>
+                    <option value="14">１４</option>
+                    <option value="15">１５</option>
+                    <option value="16">１６</option>
+                    <option value="17">１７</option>
+                    <option value="18">１８</option>
+                    <option value="19">１９</option>
+                    <option value="20">２０</option>
+                    <option value="21">２１</option>
+                    <option value="22">２２</option>
+                    <option value="23">２３</option>
+                    <option value="24">２４</option>
+                    <option value="25">２５</option>
+                    <option value="26">２６</option>
+                    <option value="27">２７</option>
+                    <option value="28">２８</option>
+                    <option value="29">２９</option>
+                    <option value="30">３０</option>
+                    <option value="31">３１</option>
+                </select>
+                <form>
+                    <label>
+                        <input type="radio" name="result" value="red"> 実施済み
+                    </label>
+                    <label>
+                        <input type="radio" name="result" value="blue"> 実施予定
+                    </label>
+                </form>
+                <label for="author">備考</label>
+                <input type="opinion" name="opinion">
+            </div>
+        </div>
+    </body>
+</html>
