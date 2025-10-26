@@ -16,28 +16,27 @@
         <div class="wrapper">
             <div class="section">
                 <div class="CheckSheet_input_area AllDocuments_search_section">
-                    <label for="parks">公園名</label>
-                    <input type="search" name="search" placeholder="キーワードを入力">
-                    <label for="author">作成者名</label>
-                    <input type="search" name="search" placeholder="キーワードを入力">
-                    <input type="submit" name="submit" value="検索">
-                    <div class="AllDocuments_search_year">
-                        <label for="years">点検年度</label>
+                    <label for="parks">公園名</label><br>
+                    <input type="search" name="search" placeholder="キーワードを入力"><br>
+                    <label for="author">作成者名</label><br>
+                    <input type="search" name="search" placeholder="キーワードを入力"><br>
+                    <div class="CheckSheet_search_year" id="CheckSheet_search_year">
+                        <label for="years">点検年度</label><br>
                         <select id="years_box" name="years">
                             <option value="all" selected>すべて</option>
                             <option value="3">令和７年度</option>
                             <option value="2">令和６年度</option>
                             <option value="1">令和５年度</option>
                         </select>
-                    </div>
-                    <div class="AllDocuments_search_year">
-                        <label for="years">設置年度</label>
+                    </div><br>
+                    <div class="CheckSheet_search_year" id="CheckSheet_search_year">
+                        <label for="years">設置年度</label><br>
                         <select id="years_box" name="years">
                             <option value="all" selected>令和</option>
                             <option value="1">平成</option>
                         </select>
                     </div>
-                    <div class="AllDocuments_search_year">
+                    <div class="CheckSheet_search_year">
                         <select id="years_box" name="years">
                             <option value="1">１年度</option>
                             <option value="2">２年度</option>
@@ -72,66 +71,171 @@
                             <option value="31">３１年度</option>
                         </select>
                     </div>
+                    
                 </div>
             </div>
-            <div class="section">
-                <h1>点検日</h1>
-                <label for="years">設置年度</label>
-                <select id="years_box" name="years">
-                    <option value="all" selected>令和</option>
-                    <option value="1">平成</option>
-                </select>
+            <div class="section check_area">
+                <p>点検日</p>
+                <div class="CheckSheet_set_date">
+                    <input type="date" id="date" min="">
+                </div>
+                <!-- 以下コメントアウトはバックエンドの処理の仕方によっては消してOK！ -->
+
+                <!-- <div class="CheckSheet_set_date"> -->
+                    <!-- <label for="years">点検日</label>
+                    <select id="month_box" name="month">
+                        <option value="1">１月</option>
+                        <option value="2">２月</option>
+                        <option value="3">３月</option>
+                        <option value="4">４月</option>
+                        <option value="5">５月</option>
+                        <option value="6">６月</option>
+                        <option value="7">７月</option>
+                        <option value="8">８月</option>
+                        <option value="9">９月</option>
+                        <option value="10">１０月</option>
+                        <option value="11">１１月</option>
+                        <option value="12">１２月</option>
+                    </select>
+                    <div class="CheckSheet_set_year">
+                        <select id="month_box" name="month">
+                            <option value="1">１日</option>
+                            <option value="2">２日</option>
+                            <option value="3">３日</option>
+                            <option value="4">４日</option>
+                            <option value="5">５日</option>
+                            <option value="6">６日</option>
+                            <option value="7">７日</option>
+                            <option value="8">８日</option>
+                            <option value="9">９日</option>
+                            <option value="10">１０日</option>
+                            <option value="11">１１日</option>
+                            <option value="12">１２日</option>
+                            <option value="13">１３日</option>
+                            <option value="14">１４日</option>
+                            <option value="15">１５日</option>
+                            <option value="16">１６日</option>
+                            <option value="17">１７日</option>
+                            <option value="18">１８日</option>
+                            <option value="19">１９日</option>
+                            <option value="20">２０日</option>
+                            <option value="21">２１日</option>
+                            <option value="22">２２日</option>
+                            <option value="23">２３日</option>
+                            <option value="24">２４日</option>
+                            <option value="25">２５日</option>
+                            <option value="26">２６日</option>
+                            <option value="27">２７日</option>
+                            <option value="28">２８日</option>
+                            <option value="29">２９日</option>
+                            <option value="30">３０日</option>
+                            <option value="31">３１日</option>
+                        </select> -->
+                    <!-- </div> -->
+                <!-- </div> -->
                 <h1>点検時の記録</h1>
-                <h1>以下は措置及び総合結果</h1>
+                <table class="CheckSheet_list">
+                    <thead>
+                    <tr>
+                        <th>点検部位</th>
+                        <th>項目</th>
+                        <th colspan="3">結果</th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>A<br>異常なし</th>
+                        <th>B<br>経過観察</th>
+                        <th>C<br>要対応</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ここに点検部位名</td>
+                            <td>ここに項目</td>
+                            <td>
+                            <input type="radio" id="engine1_a" name="engine1" value="A">
+                            <label class="checkbox_wrapper" for="engine1_a"></label>
+                            </td>
+                            <td>
+                            <input type="radio" id="engine1_b" name="engine1" value="B">
+                            <label class="checkbox_wrapper" for="engine1_b"></label>
+                            </td>
+                            <td>
+                            <input type="radio" id="engine1_c" name="engine1" value="C">
+                            <label class="checkbox_wrapper" for="engine1_c"></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ここに点検部位名</td>
+                            <td>ここに項目</td>
+                            <td>
+                            <input type="radio" id="engine2_a" name="engine2" value="A">
+                            <label class="checkbox_wrapper" for="engine2_a"></label>
+                            </td>
+                            <td>
+                            <input type="radio" id="engine2_b" name="engine2" value="B">
+                            <label class="checkbox_wrapper" for="engine2_b"></label>
+                            </td>
+                            <td>
+                            <input type="radio" id="engine2_c" name="engine2" value="C">
+                            <label class="checkbox_wrapper" for="engine2_c"></label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h1>措置及び総合結果</h1>
                 <h2>●点検時に実施した措置</h2>
-                <input type="checkbox" name="" value="">グリース・オイル等の注入（改善しない場合は、回転軸の磨耗を確認する。）
-                <input type="checkbox" name="" value="">ボルト・ナットの増し締め・交換
-                <input type="checkbox" name="" value="">吊金具の交換
-                <input type="checkbox" name="" value="">チェーンの交換
-                <input type="checkbox" name="" value="">座板の交換
-                <input type="checkbox" name="" value="">石・異物の除去、枝の剪定
-                <input type="checkbox" name="" value="">その他<input type="opinion" name="opinion">
-                <label for="author">所見</label>
-                <input type="opinion" name="opinion">
-                <h2>総合結果（総合結果については、点検時に実施した措置により補修等の対応済みの場合は、対応後の状態で記録する。）</h2>
+                <input type="checkbox" name="" value="">グリース・オイル等の注入（改善しない場合は、回転軸の磨耗を確認する。）<br>
+                <input type="checkbox" name="" value="">ボルト・ナットの増し締め・交換<br>
+                <input type="checkbox" name="" value="">吊金具の交換　　　　<label class="repair_count" for=""><input type="number" id="" name=""></label>箇所<br>
+                <input type="checkbox" name="" value="">チェーンの交換　　　<label class="repair_count" for=""><input type="number" id="" name=""></label>箇所<br>
+                <input type="checkbox" name="" value="">座板の交換　　　　　<label class="repair_count" for=""><input type="number" id="" name=""></label>箇所<br>
+                <input type="checkbox" name="" value="">石・異物の除去、枝の剪定<br>
+                <input type="checkbox" name="" value="">その他　<input type="opinion" name="opinion" class="result_short_opinion"><br>
+                <label for="author">●所見</label><br>
+                <textarea type="opinion" name="opinion" class="result_long_opinion"></textarea>
+                <h2>●総合結果<br>（総合結果については、点検時に実施した措置により補修等の対応済みの場合は、対応後の状態で記録する。）</h2>
                 <form>
                     <label>
                         <input type="radio" name="result" value="red"> Ａ：健全（△・×なし）
-                    </label>
+                    </label><br>
                     <label>
                         <input type="radio" name="result" value="blue"> Ｂ：経過観察（△あり、×なし）
-                    </label>
+                    </label><br>
                     <label>
                         <input type="radio" name="result" value="green"> Ｃ：要修繕・要対応（×あり）
-                    </label>
+                    </label><br>
                     <label>
-                        <input type="radio" name="result" value="green"> Ｄ：使用禁止措置<input type="opinion" name="opinion">
+                        <input type="radio" name="result" value="green"> Ｄ：使用禁止措置<input type="opinion" name="opinion" class="result_short_opinion">
                     </label>
                 </form><br>
-                <h2>以下は点検後の記録（担当者記入欄）</h2>
+                <h1>以下は点検後の記録（担当者記入欄）</h1>
                 <h2>●対応方針</h2>
-                <input type="checkbox" name="" value="">整備班で対応予定
-                <input type="checkbox" name="" value="">修繕・修繕工事で対応予定
-                <input type="checkbox" name="" value="">施設改良工事で対応予定
-                <input type="checkbox" name="" value="">精密点検予定
-                <input type="checkbox" name="" value="">撤去予定
-                <input type="checkbox" name="" value="">その他<input type="opinion" name="opinion">
-                <h2>●対応方針</h2>
-                <select id="month_box" name="month">
-                    <option value="1">１</option>
-                    <option value="2">２</option>
-                    <option value="3">３</option>
-                    <option value="4">４</option>
-                    <option value="5">５</option>
-                    <option value="6">６</option>
-                    <option value="7">７</option>
-                    <option value="8">８</option>
-                    <option value="9">９</option>
-                    <option value="10">１０</option>
-                    <option value="11">１１</option>
-                    <option value="12">１２</option>
-                </select>
+                <input type="checkbox" name="" value="">整備班で対応予定<br>
+                <input type="checkbox" name="" value="">修繕・修繕工事で対応予定<br>
+                <input type="checkbox" name="" value="">施設改良工事で対応予定<br>
+                <input type="checkbox" name="" value="">精密点検予定<br>
+                <input type="checkbox" name="" value="">撤去予定<br>
+                <input type="checkbox" name="" value="">その他　<input type="opinion" name="opinion" class="result_short_opinion">
+                <h2>●対応予定時期</h2>
                 <form>
+                    <div class="CheckSheet_set_month">
+                        <select id="month_box" name="month">
+                            <option value="1">１月</option>
+                            <option value="2">２月</option>
+                            <option value="3">３月</option>
+                            <option value="4">４月</option>
+                            <option value="5">５月</option>
+                            <option value="6">６月</option>
+                            <option value="7">７月</option>
+                            <option value="8">８月</option>
+                            <option value="9">９月</option>
+                            <option value="10">１０月</option>
+                            <option value="11">１１月</option>
+                            <option value="12">１２月</option>
+                        </select>
+                    </div>
                     <label>
                         <input type="radio" name="result" value="red"> 上
                     </label>
@@ -139,57 +243,13 @@
                         <input type="radio" name="result" value="blue"> 中
                     </label>
                     <label>
-                        <input type="radio" name="result" value="green"> 下
+                        <input type="radio" name="result" value="green"> 下　　旬頃
                     </label>
-                </form>
+                </form><br>
                 <input type="checkbox" name="" value="">本格的な使用禁止措置
-                <select id="month_box" name="month">
-                    <option value="1">１</option>
-                    <option value="2">２</option>
-                    <option value="3">３</option>
-                    <option value="4">４</option>
-                    <option value="5">５</option>
-                    <option value="6">６</option>
-                    <option value="7">７</option>
-                    <option value="8">８</option>
-                    <option value="9">９</option>
-                    <option value="10">１０</option>
-                    <option value="11">１１</option>
-                    <option value="12">１２</option>
-                </select>
-                <select id="day_box" name="day">
-                    <option value="1">１</option>
-                    <option value="2">２</option>
-                    <option value="3">３</option>
-                    <option value="4">４</option>
-                    <option value="5">５</option>
-                    <option value="6">６</option>
-                    <option value="7">７</option>
-                    <option value="8">８</option>
-                    <option value="9">９</option>
-                    <option value="10">１０</option>
-                    <option value="11">１１</option>
-                    <option value="12">１２</option>
-                    <option value="13">１３</option>
-                    <option value="14">１４</option>
-                    <option value="15">１５</option>
-                    <option value="16">１６</option>
-                    <option value="17">１７</option>
-                    <option value="18">１８</option>
-                    <option value="19">１９</option>
-                    <option value="20">２０</option>
-                    <option value="21">２１</option>
-                    <option value="22">２２</option>
-                    <option value="23">２３</option>
-                    <option value="24">２４</option>
-                    <option value="25">２５</option>
-                    <option value="26">２６</option>
-                    <option value="27">２７</option>
-                    <option value="28">２８</option>
-                    <option value="29">２９</option>
-                    <option value="30">３０</option>
-                    <option value="31">３１</option>
-                </select>
+                <div class="CheckSheet_set_date">
+                    <input type="date" id="date" min="">
+                </div>
                 <form>
                     <label>
                         <input type="radio" name="result" value="red"> 実施済み
@@ -198,8 +258,9 @@
                         <input type="radio" name="result" value="blue"> 実施予定
                     </label>
                 </form>
-                <label for="author">備考</label>
-                <input type="opinion" name="opinion">
+                <label for="author">●備考</label>
+                <textarea type="opinion" name="opinion" class="result_long_opinion"></textarea><br>
+                <div class="CheckSheet_save_button"><button>保存</button></div>
             </div>
         </div>
     </body>
