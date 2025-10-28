@@ -1,9 +1,18 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
+from flask_migrate import Migrate
 from werkzeug.security import check_password_hash
-from models import Users, db
+from models import db
+from config import DATABASE_URL, SECRET_KEY
 
 app = Flask(__name__)
-app.secret_key = 'your-secret-key-here'  # セッション用の秘密鍵（本番環境では環境変数から読み込む）
+
+# 設定を読み込む
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = SECRET_KEY
+
+# Flask-Migrateの初期化（マイグレーション機能）
+migrate = Migrate(app, db)
 
 @app.route('/')
 def home():
@@ -19,7 +28,10 @@ def login():
     
 
 
+db.init_app(app)
 
+with app.app_context():
+    db.create_all() # テーブルを作成
 
 
 if __name__ == '__main__':
