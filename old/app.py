@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from flask_migrate import Migrate
 from werkzeug.security import check_password_hash
-from models import db
-from config import DATABASE_URL, SECRET_KEY
+from old.models import db
+from old.config import DATABASE_URL, SECRET_KEY
 
 app = Flask(__name__)
 
