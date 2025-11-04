@@ -1,0 +1,29 @@
+2025-11-04 14:46:04,848 - INFO - 環境変数の読み込み...
+2025-11-04 14:46:04,850 - INFO - 環境変数ファイルのパス: C:\A01\park-equipment-safety-vision\.env
+2025-11-04 14:46:04,853 - INFO - 接続情報:
+2025-11-04 14:46:04,853 - INFO - ホスト: a01db.cx4gkoyaoph5.ap-northeast-1.rds.amazonaws.com
+2025-11-04 14:46:04,853 - INFO - ユーザー: PE_A01
+2025-11-04 14:46:04,854 - INFO - データベース: a01_db
+2025-11-04 14:46:04,854 - INFO - ポート: 3306
+2025-11-04 14:46:04,855 - INFO - テスト開始...
+2025-11-04 14:46:04,857 - INFO - 接続URI: mysql+pymysql://PE_A01:****@a01db.cx4gkoyaoph5.ap-northeast-1.rds.amazonaws.com:3306/a01_db
+2025-11-04 14:46:05,208 - ERROR - Traceback (most recent call last):
+  File "C:\A01\park-equipment-safety-vision\test.py", line 66, in test_sqlalchemy
+    db.session.execute('SELECT 1')
+  File "C:\Users\tomato\AppData\Roaming\Python\Python310\site-packages\sqlalchemy\orm\scoping.py", line 765, in execute
+    return self._proxied.execute(
+  File "C:\Users\tomato\AppData\Roaming\Python\Python310\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+  File "C:\Users\tomato\AppData\Roaming\Python\Python310\site-packages\sqlalchemy\orm\session.py", line 2147, in _execute_internal
+    statement = coercions.expect(roles.StatementRole, statement)
+  File "C:\Users\tomato\AppData\Roaming\Python\Python310\site-packages\sqlalchemy\sql\coercions.py", line 395, in expect
+    resolved = impl._literal_coercion(
+  File "C:\Users\tomato\AppData\Roaming\Python\Python310\site-packages\sqlalchemy\sql\coercions.py", line 621, in _literal_coercion
+    return self._text_coercion(element, argname, **kw)
+  File "C:\Users\tomato\AppData\Roaming\Python\Python310\site-packages\sqlalchemy\sql\coercions.py", line 614, in _text_coercion
+    return _no_text_coercion(element, argname)
+  File "C:\Users\tomato\AppData\Roaming\Python\Python310\site-packages\sqlalchemy\sql\coercions.py", line 584, in _no_text_coercion
+    raise exc_cls(
+sqlalchemy.exc.ArgumentError: Textual SQL expression 'SELECT 1' should be explicitly declared as text('SELECT 1')
+
+2025-11-04 14:46:05,209 - ERROR - テストは失敗しました

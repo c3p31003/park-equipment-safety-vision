@@ -1,4 +1,4 @@
-from flask_sqlalchemy import SQLAlchemyEnum, SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 from datetime import datetime
 import enum
@@ -48,7 +48,7 @@ class User(db.Model):
     role = db.Column(db.Enum(RoleEnum), nullable=False)
     mail = db.Column(db.String(100), unique=True, nullable=False)
     phone = db.Column(db.String(20))
-    password = db
+    password = db.Column(db.String(255), nullable=False)
     #リレーション
     managed_parks = db.relationship('Park', backref='manager', lazy=True)
     inspection_assignments = db.relationship('InspectionUser', backref='employee', lazy=True)
