@@ -68,14 +68,20 @@ header h1{
     line-height: 80px;
 }
 
-.menu-wrapper {
+.header button {
+    right: 110px;
+    position:fixed;
+    top: 20px;
+}
+
+.nav_wrapper {
   position: relative;
 }
 
-.menu-icon {
+.nav_icon {
   width: 40px;
   height: 30px;
-  position: fixed; /* ← fixedにして常に左上固定 */
+  position: fixed;
   top: 20px;
   right: 20px;
   cursor: pointer;
@@ -83,7 +89,7 @@ header h1{
   display: inline-block;
 }
 
-.menu-icon span {
+.nav_icon span {
   display: block;
   height: 4px;
   margin: 6px 0;
@@ -92,18 +98,17 @@ header h1{
   transition: 0.4s;
 }
 
-/* ハンバーガーがXに変形 */
-#menu-toggle:checked + .menu-icon span:nth-child(1) {
+/* ハンバーガー変形 */
+#nav_toggle:checked + .nav_icon span:nth-child(1) {
   transform: translateY(10px) rotate(45deg);
 }
-#menu-toggle:checked + .menu-icon span:nth-child(2) {
+#nav_toggle:checked + .nav_icon span:nth-child(2) {
   opacity: 0;
 }
-#menu-toggle:checked + .menu-icon span:nth-child(3) {
+#nav_toggle:checked + .nav_icon span:nth-child(3) {
   transform: translateY(-10px) rotate(-45deg);
 }
 
-/* オーバーレイ背景 */
 .overlay {
   position: fixed;
   inset: 0;
@@ -114,16 +119,15 @@ header h1{
   z-index: 1;
 }
 
-#menu-toggle:checked ~ .overlay {
+#nav_toggle:checked ~ .overlay {
   opacity: 1;
   pointer-events: auto;
 }
 
-/* メニュー本体（左から出す） */
-.menu {
+.nav {
   position: fixed;
   top: 0;
-  right: -250px; /* ← 初期位置を左へ */
+  right: -250px;
   width: 250px;
   height: 100%;
   background: #fff;
@@ -132,27 +136,27 @@ header h1{
   z-index: 2;
 }
 
-#menu-toggle:checked ~ .menu {
-  right: 0; /* ← 開いたときは左0へ */
+#nav_toggle:checked ~ .nav {
+  right: 0;
 }
 
-.menu ul {
+.nav ul {
   list-style: none;
   padding: 60px 20px;
 }
 
-.menu li {
+.nav li {
   margin: 20px 0;
 }
 
-.menu a {
+.nav a {
   text-decoration: none;
   color: #333;
   font-size: 1.2rem;
   transition: color 0.2s;
 }
 
-.menu a:hover {
+.nav a:hover {
   color: #50B4AA;
 }
 
