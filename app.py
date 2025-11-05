@@ -22,6 +22,7 @@ db.init_app(app)
 migrate = Migrate(app, db)
 error = False
 
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
@@ -57,15 +58,31 @@ def index():
         return render_template('index.html', employee_id=session.get('user_id'), user_name=user_name)
     else:
         return redirect(url_for('home'))
+    
+@app.route('/inspection')   
+def inspection_check(): 
+    return render_template('CheckSheet.html')
 
-@app.route('/daily_report', methods=['GET'])
-def daily_report():
-    return redirect(url_for('daily_report'))
+@app.route('/daily_report')   #inspection_results.html
+def daily_repor(): 
+    return render_template('daily_report.html')
+
+@app.route('/inspection_results')   
+def inspection_results(): 
+    return render_template('inspection_results.html')
+
+@app.route('/AllDocuments')   
+def AllDocuments(): 
+    return render_template('AllDocuments.html')
+
+@app.route('/PhotoViewing')   
+def PhotoViewing(): 
+    return render_template('PhotoViewing.html')
 
 
-@app.route('/inspection_check', methods=['GET'])
-def inspection_check():
-    return redirect(url_for('inspection_check'))
+
+
+
 
 
 # テーブルを一度だけ作成するためのフラグ
@@ -79,8 +96,7 @@ if not tables_created:
         with open('db_initialized.flag', 'w') as f:
             f.write('created')
     print("データベースが初期化されました")
-else:
-    print("データベースはすでに初期化されています")
+
 
 if __name__ == '__main__':
     app.run(debug=True)
