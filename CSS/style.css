@@ -26,6 +26,7 @@ img {
     max-width: auto;
     margin: 0 auto;
     margin: 0 3%;
+    padding-top: 80px;
 }
 
 .flexbox {
@@ -55,11 +56,104 @@ header {
     height: 80px;
     margin-bottom: 30px;
     padding:  0 3%;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    top: 0;
+    border-bottom: solid #FBFCFC;
 }
 
 header h1{
     font-size: 28px;
     line-height: 80px;
+}
+
+.menu-wrapper {
+  position: relative;
+}
+
+.menu-icon {
+  width: 40px;
+  height: 30px;
+  position: fixed; /* ← fixedにして常に左上固定 */
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  z-index: 3;
+  display: inline-block;
+}
+
+.menu-icon span {
+  display: block;
+  height: 4px;
+  margin: 6px 0;
+  background: #CFE9E6;
+  border-radius: 2px;
+  transition: 0.4s;
+}
+
+/* ハンバーガーがXに変形 */
+#menu-toggle:checked + .menu-icon span:nth-child(1) {
+  transform: translateY(10px) rotate(45deg);
+}
+#menu-toggle:checked + .menu-icon span:nth-child(2) {
+  opacity: 0;
+}
+#menu-toggle:checked + .menu-icon span:nth-child(3) {
+  transform: translateY(-10px) rotate(-45deg);
+}
+
+/* オーバーレイ背景 */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.4s;
+  z-index: 1;
+}
+
+#menu-toggle:checked ~ .overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* メニュー本体（左から出す） */
+.menu {
+  position: fixed;
+  top: 0;
+  right: -250px; /* ← 初期位置を左へ */
+  width: 250px;
+  height: 100%;
+  background: #fff;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+  transition: right 0.4s ease;
+  z-index: 2;
+}
+
+#menu-toggle:checked ~ .menu {
+  right: 0; /* ← 開いたときは左0へ */
+}
+
+.menu ul {
+  list-style: none;
+  padding: 60px 20px;
+}
+
+.menu li {
+  margin: 20px 0;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.2rem;
+  transition: color 0.2s;
+}
+
+.menu a:hover {
+  color: #50B4AA;
 }
 
 
