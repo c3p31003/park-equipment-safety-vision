@@ -325,6 +325,14 @@ header h1{
 }
 
 /* 点検チェックシート部分 */
+.CheckSheet_send_button{
+    background-color: #94C3B6;
+    align-items: left;
+    padding: 6px 16px;
+    border-radius: 10px;
+    width: 100px;
+    margin: 30px 20px;
+}
 
 .check_area {
     font-size: 16px;

@@ -32,7 +32,7 @@
 
                         <a href="{{ url_for('inspection_results') }}" class="hover-link"><h2>結果報告書作成　　<img src="img/arrow_button1.png"></h2></a>
 
-                        <a href="{{ url_for('inspection_check') }}" class="hover-link"><h2>点検チェックシート<img src="{{ url_for('static', filename='img/arrow_button1.png') }}"></h2></a>
+                        <a href="{{ url_for('CheckSheet') }}" class="hover-link"><h2>点検チェックシート<img src="{{ url_for('static', filename='img/arrow_button1.png') }}"></h2></a>
 
                         <a href="{{ url_for('AllDocuments') }}" class="hover-link"><h3>書類一覧　　<img src="{{ url_for('static', filename='img/arrow_button1.png')}}"></h3></a>
 
@@ -45,9 +45,10 @@
                         <h1>書類作成・データ</h1>
                         <div class="flexbox">
                             <div>
-                                <a href="./daily_report.html" class="hover-link"><h2>日報作成　　　　　<img src="{{ url_for('static', filename='img/arrow_button1.png')}}"></h2></a>
+                                <a href="{{ url_for('daily_report') }}" class="hover-link"><h2>日報作成　　　　　<img src="{{ url_for('static', filename='img/arrow_button1.png')}}"></h2></a>
                                 <a href="./inspection_results.html" class="hover-link"><h2>結果報告書作成　　<img src="{{ url_for('static', filename='img/arrow_button1.png')}}"></h2></a>
                                 <a href class="hover-link"><h2>点検チェックシート<img src="{{ url_for('static', filename='img/arrow_button1.png')}}"></h2></a>
+                                <a href class="hover-link"><h2>写真撮影<img src="{{ url_for('static', filename='img/arrow_button1.png')}}"></h2></a>
                             </div>
                             <div>
                                 <div class="top_data_link"><a href class="hover-link"><h2>劣化進行記録・劣化予測<img src="{{ url_for('static', filename='img/arrow_button2.png')}}"></h2></a></div>

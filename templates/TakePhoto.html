@@ -14,16 +14,92 @@
             <div class="openbtn"><span></span><span></span><span></span></div>
         </header>
         <div class="wrapper" id="TakePhoto">
-            <button><img class="BackButton" src="img/back.png"><p>戻る</p></button><br>
+            <button><img class="BackButton" src="{{ url_for('static', filename='img/back.png') }}" alt="アイコン"><p>戻る</p></button><br>
 
             <!-- ここにカメラが入ります -->
+            <div>
+                <video id="cameraStream" style="width: 100%; max-width: 500px;"></video>
+            </div>
 
+            <!-- Canvas: 画像キャプチャ用（非表示） -->
+            <canvas id="captureCanvas" style="display: none;">
+                
+            </canvas>
+            <div>
+
+
+            <script>
+            const constraints = {
+                video: {
+                    facingMode: {
+                        exact: "environment"
+                    }
+                }
+            };
+
+            navigator.mediaDevices.getUserMedia(constraints)
+                .then(function(stream) {
+                    const videoElement = document.getElementById('cameraStream');
+                    videoElement.srcObject = stream;
+                    videoElement.play();
+                })
+                .catch(function(err) {
+                    console.error("カメラへのアクセスでエラーが発生しました: " + err);
+                }); (constraints)
+
+                
+            // HTML の各要素を取得
+                const photoButton = document.querySelector('.PhotoButton');
+                const retakeButton = document.getElementById('retakeButton');
+                const saveButton = document.getElementById('saveButton');
+                const newButtonsContainer = document.getElementById('newButtonsContainer');
+                const photoButtonContainer = document.getElementById('photoButtonContainer');
+
+                // Canvas と video を取得
+                const canvas = document.getElementById('captureCanvas');
+                const video = document.getElementById('cameraStream');
+
+                // 撮影ボタンを押した時
+                photoButton.addEventListener('click', function() {
+                    capturePhoto();
+                });
+
+                // 撮影処理の実体
+                function capturePhoto() {
+                    // Canvas のコンテキスト（描画ツール）を取得
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Canvas のサイズを video と同じにする
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    
+                    // video の「今このフレーム」を canvas に描画
+                    ctx.drawImage(video, 0, 0);
+                    
+                    // 描画完了後、UI を切り替える（撮影ボタン非表示 → 再撮影・保存ボタン表示）
+                    photoButtonContainer.style.display = 'none';
+                    newButtonsContainer.style.display = 'flex';
+                    
+                    console.log('写真をキャプチャしました');
+                }
+
+                // 再撮影ボタン：元に戻す
+                retakeButton.addEventListener('click', function() {
+                    photoButtonContainer.style.display = 'block';
+                    newButtonsContainer.style.display = 'none';
+                    console.log('再撮影モードに戻りました');
+                });
+            </script>
+            </div>
             <div class="PhotoButton" id="photoButtonContainer">
-                <button id="photoButton"><img src="img/PhotoButton.png"></button>
+
+                <img class="BackButton" src="{{ url_for('static', filename='img/PhotoButton.png') }}" alt="アイコン"></button>
             </div>
             <div class="NewButtons" id="newButtonsContainer" style="display: none;">
-                <button id="retakeButton">再撮影<img src="img/CameraIcon.png"></button>               
-                <button id="saveButton">保存<img src="./img/back.png"></button>
+                <button id="retakeButton">再撮影<img class="BackButton" src="{{ url_for('static', filename='img/CameraIcon.png') }}" alt="アイコン"></button>               
+                <button id="saveButton"><img class="BackButton" src="{{ url_for('static', filename='img/PhotoButton.png') }}" alt="アイコン"></button>
+                
+                
             </div>
 
         </div>

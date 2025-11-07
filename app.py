@@ -59,12 +59,12 @@ def index():
     else:
         return redirect(url_for('home'))
     
-@app.route('/inspection')   
-def inspection_check(): 
+@app.route('/CheckSheet')   
+def CheckSheet(): 
     return render_template('CheckSheet.html')
 
-@app.route('/daily_report')   #inspection_results.html
-def daily_repor(): 
+@app.route('/daily_report')
+def daily_report(): 
     return render_template('daily_report.html')
 
 @app.route('/inspection_results')   
@@ -78,6 +78,10 @@ def AllDocuments():
 @app.route('/PhotoViewing')   
 def PhotoViewing(): 
     return render_template('PhotoViewing.html')
+
+@app.route('/TakePhoto')   
+def TakePhoto(): 
+    return render_template('TakePhoto.html')
 
 
 
