@@ -4,61 +4,84 @@ from werkzeug.security import check_password_hash
 from models import db, User, Park, Equipment, Inspection, Report
 from config import DATABASE_URL
 import os
+import sys  # ✅ 追加
 
 
 app = Flask(__name__)
 
-# セッションの設定
-app.config['SECRET_KEY'] = os.urandom(24)  # ランダムな秘密鍵を生成
-app.config['SESSION_TYPE'] = 'filesystem'  # セッションの保存方法をファイルシステムに設定
+app.config['SECRET_KEY'] = 'your-fixed-secret-key-change-this-in-production'
+app.config['SESSION_TYPE'] = 'filesystem'
 
-# 設定を読み込む
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
-
-# Flask-Migrateの初期化（マイグレーション機能）
 migrate = Migrate(app, db)
-error = False
 
 
 @app.route('/', methods=['GET', 'POST'])
-def home():
+def login():
     if request.method == 'POST':
         try:
             employee_id = request.form.get('employee_id')
             user_password = request.form.get('password')
-            
-            # ユーザー情報の検索
-            user = User.query.filter_by(employee_id=employee_id).first()
-            
+
+            # ✅ print の代わりに sys.stderr を使用（確実に表示される）
+            sys.stderr.write(f"\n【デバッグ】フォーム入力 - employee_id: {employee_id}, password: {user_password}\n")
+            sys.stderr.flush()
+
+            user = None
+            try:
+                sys.stderr.write(f"【デバッグ】DB検索開始: employee_id={int(employee_id)}\n")
+                sys.stderr.flush()
+                
+                user = User.query.filter_by(employee_id=int(employee_id)).first()
+                
+                sys.stderr.write(f"【デバッグ】DB検索結果: user={user}\n")
+                if user:
+                    sys.stderr.write(f"【デバッグ】 - DB employee_id: {user.employee_id}\n")
+                    sys.stderr.write(f"【デバッグ】 - DB password: {user.password}\n")
+                sys.stderr.flush()
+                
+            except Exception as e:
+                sys.stderr.write(f"【デバッグ】クエリエラー: {e}\n")
+                sys.stderr.flush()
+
+            # ✅ パスワード比較の詳細ログ
+            sys.stderr.write(f"【デバッグ】認証判定:\n")
+            sys.stderr.write(f"  user is not None: {user is not None}\n")
+            if user:
+                sys.stderr.write(f"  パスワード一致: {user_password} == {user.password} → {user_password == user.password}\n")
+            sys.stderr.flush()
+
             if user and user_password == user.password:
-                # ログイン成功
                 session['user_id'] = user.employee_id
                 session['user_password'] = user.password
                 session['user_name'] = user.name
-                return redirect(url_for('index'))
+                sys.stderr.write(f"【デバッグ】認証成功！ /home にリダイレクト\n")
+                sys.stderr.flush()
+                return redirect(url_for('home'))
             else:
-                # ログイン失敗
+                sys.stderr.write(f"【デバッグ】認証失敗\n")
+                sys.stderr.flush()
                 return render_template('Login.html', error="ユーザー名またはパスワードが正しくありません")
-                
         except Exception as e:
-            # エラー発生時
-            return render_template('Login.html', error="システムエラーが発生しました")
-            
-    # GET時はログインフォームを表示
+            sys.stderr.write(f"【デバッグ】エラー発生: {e}\n")
+            sys.stderr.flush()
+            return render_template('Login.html', error="エラーが発生しました。再度お試しください。")
+    
     return render_template('Login.html')
 
+
 @app.route('/home', methods=['GET'])
-def index():
-    # セッションからユーザー情報を取得
+def home():
     user_name = session.get('user_name')
     if user_name:
         return render_template('index.html', employee_id=session.get('user_id'), user_name=user_name)
     else:
-        return redirect(url_for('home'))
+        return redirect(url_for('login'))
     
+
 @app.route('/CheckSheet')   
 def CheckSheet(): 
     return render_template('CheckSheet.html')
@@ -84,19 +107,12 @@ def TakePhoto():
     return render_template('TakePhoto.html')
 
 
-
-
-
-
-
-# テーブルを一度だけ作成するためのフラグ
 tables_created = os.path.exists('db_initialized.flag')
 
 if not tables_created:
     with app.app_context():
         db.create_all()
         print("テーブルが作成されました")
-        # データベースが作成されたことを示すフラグを作成
         with open('db_initialized.flag', 'w') as f:
             f.write('created')
     print("データベースが初期化されました")
