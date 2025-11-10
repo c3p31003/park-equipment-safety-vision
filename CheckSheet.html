@@ -49,57 +49,57 @@
                             <option value="2">令和６年度</option>
                             <option value="1">令和５年度</option>
                         </select>
-                    </div><br>
-                    <div class="CheckSheet_search_year" id="CheckSheet_search_year">
-                        <label for="years">設置年度</label><br>
-                        <select id="years_box" name="years">
-                            <option value="all" selected>令和</option>
-                            <option value="1">平成</option>
-                        </select>
                     </div>
-                    <div class="CheckSheet_search_year">
-                        <select id="years_box" name="years">
-                            <option value="1">１年度</option>
-                            <option value="2">２年度</option>
-                            <option value="3">３年度</option>
-                            <option value="4">４年度</option>
-                            <option value="5">５年度</option>
-                            <option value="6">６年度</option>
-                            <option value="7">７年度</option>
-                            <option value="8">８年度</option>
-                            <option value="9">９年度</option>
-                            <option value="10">１０年度</option>
-                            <option value="11">１１年度</option>
-                            <option value="12">１２年度</option>
-                            <option value="13">１３年度</option>
-                            <option value="14">１４年度</option>
-                            <option value="15">１５年度</option>
-                            <option value="16">１６年度</option>
-                            <option value="17">１７年度</option>
-                            <option value="18">１８年度</option>
-                            <option value="19">１９年度</option>
-                            <option value="20">２０年度</option>
-                            <option value="21">２１年度</option>
-                            <option value="22">２２年度</option>
-                            <option value="23">２３年度</option>
-                            <option value="24">２４年度</option>
-                            <option value="25">２５年度</option>
-                            <option value="26">２６年度</option>
-                            <option value="27">２７年度</option>
-                            <option value="28">２８年度</option>
-                            <option value="29">２９年度</option>
-                            <option value="30">３０年度</option>
-                            <option value="31">３１年度</option>
-                        </select>
+                    <br>
+                    <div class="CheckSheet_search_wrapper">
+                        <div class="CheckSheet_search_year" id="CheckSheet_search_year">
+                            <label for="years">設置年度</label><br>
+                                <select id="years_box" name="years">
+                                <option value="all" selected>令和</option>
+                                <option value="1">平成</option>
+                            </select>
+                        </div>
+                        <div class="CheckSheet_search_year">
+                            <select id="years_box" name="years">
+                                <option value="1">１年度</option>
+                                <option value="2">２年度</option>
+                                <option value="3">３年度</option>
+                                <option value="4">４年度</option>
+                                <option value="5">５年度</option>
+                                <option value="6">６年度</option>
+                                <option value="7">７年度</option>
+                                <option value="8">８年度</option>
+                                <option value="9">９年度</option>
+                                <option value="10">１０年度</option>
+                                <option value="11">１１年度</option>
+                                <option value="12">１２年度</option>
+                                <option value="13">１３年度</option>
+                                <option value="14">１４年度</option>
+                                <option value="15">１５年度</option>
+                                <option value="16">１６年度</option>
+                                <option value="17">１７年度</option>
+                                <option value="18">１８年度</option>
+                                <option value="19">１９年度</option>
+                                <option value="20">２０年度</option>
+                                <option value="21">２１年度</option>
+                                <option value="22">２２年度</option>
+                                <option value="23">２３年度</option>
+                                <option value="24">２４年度</option>
+                                <option value="25">２５年度</option>
+                                <option value="26">２６年度</option>
+                                <option value="27">２７年度</option>
+                                <option value="28">２８年度</option>
+                                <option value="29">２９年度</option>
+                                <option value="30">３０年度</option>
+                                <option value="31">３１年度</option>
+                            </select>
+                        </div><br>
                     </div>
-                    
+                    <label for="years">点検日</label><br>
+                    <input type="date" id="date" min="">
                 </div>
             </div>
             <div class="section check_area">
-                <p>点検日</p>
-                <div class="CheckSheet_set_date">
-                    <input type="date" id="date" min="">
-                </div>
                 <!-- 以下コメントアウトはバックエンドの処理の仕方によっては消してOK！ -->
 
                 <!-- <div class="CheckSheet_set_date"> -->
@@ -157,18 +157,16 @@
                 <h1>点検時の記録</h1>
                 <table class="CheckSheet_list">
                     <thead>
-                    <tr>
-                        <th>点検部位</th>
-                        <th>項目</th>
-                        <th colspan="3">結果</th>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th>A<br>異常なし</th>
-                        <th>B<br>経過観察</th>
-                        <th>C<br>要対応</th>
-                    </tr>
+                        <tr>
+                            <th rowspan="2">点検部位</th>
+                            <th rowspan="2">項目</th>
+                            <th colspan="3">結果</th>
+                        </tr>
+                        <tr>
+                            <th>A<br>異常なし</th>
+                            <th>B<br>経過観察</th>
+                            <th>C<br>要対応</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
@@ -228,7 +226,7 @@
                         <input type="radio" name="result" value="green"> Ｃ：要修繕・要対応（×あり）
                     </label><br>
                     <label>
-                        <input type="radio" name="result" value="green"> Ｄ：使用禁止措置<input type="opinion" name="opinion" class="result_short_opinion">
+                        <input type="radio" name="result" value="green"> Ｄ：使用禁止措置　<input type="opinion" name="opinion" class="result_short_opinion">
                     </label>
                 </form><br>
                 <h1>以下は点検後の記録（担当者記入欄）</h1>

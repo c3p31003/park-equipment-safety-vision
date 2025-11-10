@@ -127,8 +127,8 @@ header h1{
 .nav {
   position: fixed;
   top: 0;
-  right: -250px;
-  width: 250px;
+  right: -350px;
+  width: 350px;
   height: 100%;
   background: #fff;
   box-shadow: 2px 0 8px rgba(0,0,0,0.2);
@@ -205,6 +205,10 @@ header h1{
     display: none;
 }
 
+.top_section_L {
+    width: 45%;
+}
+
 .section h1 {
     font-size: 32px;
     margin: 20px 0 30px 0;
@@ -244,6 +248,7 @@ header h1{
 }
 
 .LogOut{
+    min-width: 200px;
     width: 24%;
     margin: 0 auto;
 }
@@ -265,28 +270,39 @@ header h1{
     background-color: #FDCACB;
 }
 
+.top_document_section_L {
+    width: 50%;
+}
+
 .top_document_section img {
     margin-bottom: 5px;
     padding-left: 10px;
 }
 
 .top_data_link {
-    margin: 0 20px 20px 60px;
+    min-width: 279px;
+    margin: 0 10px 20px 30px;
     border: 2.5px solid #94C3B6;
     border-radius: 50px;
 }
 
 .top_data_link h2 {
+    font-size: 18px;
     margin: 2px 0 2px 0;
     padding: 8px 20px 8px 30px;
     border-bottom: none;
+    text-align: center;
+}
+
+.top_data_link img {
+    transform: rotate(-90deg);
 }
 
 .top_CreatedDocument_section {
     border: none;
     width: 48%;
     font-size: 17px;
-    margin-left: 10%;
+    margin-left: 4%;
 }
 
 .top_CreatedDocument_section h2{
@@ -481,6 +497,8 @@ header h1{
   padding: 10px;
   text-align: center;
   font-size: 14px;
+  vertical-align: middle;
+
 }
 
 .CheckSheet_list thead tr:first-child {
@@ -497,6 +515,7 @@ header h1{
 
 .CheckSheet_list td {
   position: relative;
+  padding: 5px;
 }
 
 .repair_count input{
@@ -942,44 +961,6 @@ header h1{
         display: block;
     }
 
-    .section h1 {
-        font-size: 24px;
-        margin: 20px 0 30px 0;
-        border-bottom: 1.5px solid #848484;
-    }
-
-    .section h2{
-        font-size: 18px;
-        padding: 12px 0 12px 0;
-        border-bottom: 1.5px solid #D2D2D2;
-        margin-bottom: 12px;
-    }
-
-    .section h3, .top_account_section h2 {
-        border-bottom: 1.5px solid #D2D2D2;
-    }
-
-    .top_account_section {
-        width: 90%;
-        margin-bottom: 50px;
-        padding: 20px;
-        border: 1.5px solid #94C3B6;
-    }
-
-    .top_account_section img {
-        width:20%;
-        margin-right: 20px;
-    }
-
-    .top_account_section h1 {
-        font-size: 20px;
-        border-bottom: none;
-    }
-
-    .top_account_section h2 {
-        margin-top: 24px;
-    }
-
     .LogOut{
         width: 160px;
         margin: 0 auto;
@@ -1002,32 +983,114 @@ header h1{
         background-color: #FDCACB;
     }
 
-    .top_document_section img {
-        padding-left: 22px;
-        margin-bottom: 5px;
+
+    .section h1 {
+        font-size: 24px;
+        margin: 20px 0 30px 0;
+        border-bottom: 1.5px solid #848484;
     }
 
+    .section h2{
+        font-size: 18px;
+        padding: 12px 0 12px 0;
+        border-bottom: 1.5px solid #D2D2D2;
+        margin-bottom: 12px;
+    }
+
+    .section h3, .top_account_section h2 {
+        border-bottom: 1.5px solid #D2D2D2;
+    }
+
+    #top_account_section, #top_account_section h1  {
+        display: none;
+    }
+
+    .hidden {
+        width: 0%;
+        margin: 0;
+        padding: 0;
+        border: none;
+        display: none;
+    }
+
+    .account_toggle img {
+        width:50px;
+        right: 200px;
+        position: fixed;
+        top: 14px;    
+    }
+
+    .top_account_section h1 {
+        font-size: 20px;
+        border-bottom: none;
+    }
+
+    .top_account_section h2 {
+        margin-top: 24px;
+    }
+
+    .account_details {
+        display: none;
+        position: fixed;
+        top: 80px;
+        right: 0;
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 15px;
+        width: 380px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        z-index: 100;
+    }
+
+    .top_document_section {
+        display: flex;
+    }
+
+    .top_document_mobile_wrapper{
+        width: 50%;
+        min-width: 220px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .top_document_link {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .hover-link h2{
+        padding-left: 30px;
+    }
+
+
     .top_document_section h2 {
-        width: 230px;
+        width: 100%;
         margin-bottom: 5px;
         padding-left: 5px;
+        padding-right: 50px;
     }
 
     .top_document_section h3 {
-        width: 130px;
+        width: 180px;
         font-size: 16px;
+        padding-left: 10px;
         margin: 20px 22px 50px auto;
-        text-align: right;
     }
 
     .top_document_section h3 img{
-        width: 18%;
+        width: 11%;
         padding: 0;
     }
 
     .top_data_link {
-        max-width: 400px;
-        margin: 30px 20px 0 0;
+        width: 90%;
+        min-width: 200px;
+        margin: 6px 20px 30px 10px;
         border: 2.5px solid #94C3B6;
         border-radius: 20px;
     }
@@ -1037,13 +1100,34 @@ header h1{
         margin: 2px 0 2px 0;
         padding: 4px 0 4px 10px;
         border-bottom: none;
+        text-align: left;
     }
 
-    .top_data_link img {
-        width: 20%;
-        margin-bottom: 3px;
+    .top_data_link h2 img{
+        width: 4%;
+        min-width: 36px;
+        right: 80px;
     }
 
+
+    .top_data_link img{
+        width: 4.5%;
+        position: absolute;
+        right: 60px;
+        padding-bottom: 10px;
+        transform: rotate(0deg);
+    }
+
+
+    .top_check_section {
+        width: 100%;
+        text-align: left;
+    }
+
+    .top_check_section .flexbox{
+       justify-content: center;
+       margin: 0;
+    }
 
     .top_check_section h2{
         width: 140px;
@@ -1094,10 +1178,89 @@ header h1{
     .report_inpurt_small {
         display: flex;
     }
+
+    /* AllDocuments(書類一覧画面) */
+    .AllDocuments_search_section label, .AllDocuments_search_section input, .AllDocuments_search_section select{
+        display: block;
+        margin-bottom: 1rem;
+    }
+
+    .AllDocuments_search_year::after { /* 「∨」を右端に表示 */
+        right: 126px;
+        top: 70%;
+    }
+
+    /* CheckSheet(点検チェックシート画面) */
+    .CheckSheet_input_area br {
+        display: none;
+    }
+
+    .br::after {
+        content: "\A";
+        white-space: pre;
+    }
+
+    .CheckSheet_search_year::after { /* 「∨」を右端に表示 */
+        top:52%;
+    }
+}
+
+@media screen and (max-width:693px){
+    #top_check_section_flexbox{
+        display: block;
+    }
+
+    .top_document_section_flexbox {
+        display: block;
+    }
+
+    .top_document_mobile_wrapper {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .top_document_link {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .top_document_link h2 img {
+        position:absolute;
+        right: 60px;
+    }
+
+    .top_document_link h3 {
+        margin-right: 0;
+    }
+
+    .top_document_link h3 img {
+        width: 30px;
+    }
+
+    .top_data_link h2 {
+        text-align: left;
+    }
+
+    .top_data_link h2 img {
+        width: 40px;
+        right: 120px;
+    }
 }
 
 /*スマホ*/
 @media screen and (max-width:480px){
+
+    .section h1 {
+        font-size: 20px;
+        margin: 10px 0 20px 0;
+
+    }
+
+    .wrapper {
+        padding-top: 40px;
+    }
+
     /*inspection_results（点検結果確認画面）*/
     #inspection_completed {
         height: 30%;
@@ -1112,4 +1275,145 @@ header h1{
     #results_report_container,#daily_report_container,#inspection_results_container{
         font-size: 55%;
     }
+
+    .header_title {
+    width: 240px;
+    }
+
+    header {
+        height: 40px;
+        margin-bottom: 30px;
+    }
+
+    header h1{
+        font-size: 18px;
+        line-height: 40px;
+    }
+
+    .header button {
+        width: 26px;
+        right: 80px;
+        position:fixed;
+        top: 0px;
+    }
+
+    .nav_wrapper {
+    position: relative;
+    }
+
+    .nav_icon {
+        width: 30px;
+        height: 20px;
+        position: fixed;
+        top: 1px;
+        right: 14px;
+    }
+
+    .account_toggle img {
+        width:28px;
+        right: 140px;
+        position: fixed;
+        top: 5px;    
+    }
+
+    .account_details {
+        display: none;
+        position: fixed;
+        top: 40px;
+        right: 0;
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 15px;
+        width: 220px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        z-index: 100;
+    }
+
+    .account_details h1 {
+        padding: 0;
+        font-size: 16px;
+    }
+
+    .account_details h2 {
+        font-size: 12px;
+        margin-top: 10px;
+    }
+
+    .LogOut_button {
+        margin: 15px 0 5px 0;
+        padding: 5px 16px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .top_check_section h2{
+        font-size: 16px;
+    }
+
+    .top_document_section .flexbox,.top_document_link {
+        display: block;
+    }
+
+    .top_document_mobile_wrapper {
+        width: 90%;
+        margin: 0 auto;
+
+    }
+
+    .top_document_mobile_wrapper h2{
+        font-size: 18px;
+        padding: 0;
+    }
+
+    .top_document_section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .top_document_section h3{
+        margin-right: 0;
+    }
+
+    .top_document_section h3 img{
+        width: 26px;
+        min-width: 20px;
+    }
+
+
+    .top_data_link {
+        margin: 10px 0;
+        width: 100%;
+    }
+
+    .top_data_link h2{
+        padding: 0 20px 0 20px;
+    }
+
+    .top_data_link h2 img{
+        max-width: 35px;
+        width: 11%;
+        right: 22px;
+    }
+
+
+    .top_data_link img {
+        position: absolute;
+        right: 50px;
+    }
+
+    .top_document_section img {
+        width: 8%;
+        min-width: 32px;
+        right: 30px;
+        position: absolute;
+        padding-bottom: 1px;
+        margin: 2px 20px 0 0;
+    }
+
+    #top_check_section_flexbox {
+        display: block;
+    }
+
 }

@@ -20,3 +20,24 @@ window.onload = function(){
     document.getElementById("datepicker2").setAttribute("value",today);
     document.getElementById("datepicker2").setAttribute("min",today);
 }
+
+// ヘッダーアカウント情報（スマホ、タブレットのみ）
+document.addEventListener('DOMContentLoaded', () => {
+  const icon = document.getElementById('accountIcon');
+  const details = document.getElementById('accountDetails');
+
+  icon.addEventListener('click', () => {
+    if (details.style.display === 'block') {
+      details.style.display = 'none';
+    } else {
+      details.style.display = 'block';
+    }
+  });
+
+  // 画面外クリックで閉じる（任意）
+  document.addEventListener('click', (e) => {
+    if (!icon.contains(e.target) && !details.contains(e.target)) {
+      details.style.display = 'none';
+    }
+  });
+});

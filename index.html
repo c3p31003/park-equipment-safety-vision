@@ -1,4 +1,4 @@
-`<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
@@ -11,6 +11,9 @@
         <header class="header">
             <div class="flexbox">
                 <h1><a href="index.html">遊具管理システム</a></h1>
+                <div class="account_toggle" id="mobile">
+                    <img src="img/Icon.svg" alt="アカウント" id="accountIcon">
+                </div>
                 <button><img src="./img/bell.png"></button>
                 <div class="nav_wrapper">
                     <input type="checkbox" id="nav_toggle" hidden>
@@ -35,61 +38,41 @@
             </div>
         </header>
         <div class="wrapper">
-            <div class="flexbox">
-                <div class="section">
-                    <h1>アカウント</h1>
-                    <div class="top_account_section">
-                        <div class="flexbox">
-                            <img src="img/Icon.svg">
-                            <h1>〇〇さん</h1>
-                        </div>
-                        <h2>ＩＤ：</h2>
-                        <h2>管理している公園：</h2>
-                        <div class="LogOut"><a href="#" class="LogOut_button">ログアウト</a></div>
-                    </div>
-                    <div class="top_document_section" id="mobile"><!-- スマホ・タブレットのみ -->
-                        <h1>書類作成・データ</h1>
-                        <a href="./daily_report.html" class="hover-link"><h2>日報作成　　　　　<img src="img/arrow_button1.png"></h2></a>
-                        <a href="./inspection_results.html" class="hover-link"><h2>結果報告書作成　　<img src="img/arrow_button1.png"></h2></a>
-                        <a href class="hover-link"><h2>点検チェックシート<img src="img/arrow_button1.png"></h2></a>
-                        <a href="./AllDocuments.html" class="hover-link"><h3>書類一覧　　<img src="img/arrow_button1.png"></h3></a>
-                        <div class="top_data_link"><a href class="hover-link"><h2>劣化進行記録・劣化予測<img src="img/arrow_button2.png"></h2></a></div>
-                        <div class="top_data_link"><a href class="hover-link"><h2>写真閲覧　　　　　<img src="img/arrow_button2.png"></h2></a></div>
-                    </div>
-                    <div class="top_document_section" id="PC"><!-- PCのみ -->
-                        <h1>書類作成・データ</h1>
-                        <div class="flexbox">
-                            <div>
-                                <a href="./daily_report.html" class="hover-link"><h2>日報作成　　　　　<img src="img/arrow_button1.png"></h2></a>
-                                <a href="./inspection_results.html" class="hover-link"><h2>結果報告書作成　　<img src="img/arrow_button1.png"></h2></a>
-                                <a href class="hover-link"><h2>点検チェックシート<img src="img/arrow_button1.png"></h2></a>
-                            </div>
-                            <div>
-                                <div class="top_data_link"><a href class="hover-link"><h2>劣化進行記録・劣化予測<img src="img/arrow_button2.png"></h2></a></div>
-                                <div class="top_data_link"><a href="./PhotoViewing.html" class="hover-link"><h2>写真閲覧　　　　　　　<img src="img/arrow_button2.png"></h2></a></div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="top_account_section hidden" id="mobile"><!-- スマホ・タブレットのみ -->
+                <div class="account_details" id="accountDetails">
+                    <h1>〇〇さん</h1>
+                    <h2>ＩＤ：</h2>
+                    <h2>管理している公園：</h2>
+                    <div class="LogOut"><a href="#" class="LogOut_button">ログアウト</a></div>
                 </div>
-                <div class="section top_check_section" id="mobile"><!-- スマホ・タブレットのみ -->
-                    <h1>遊具点検</h1>
-                    <div class="flexbox">
-                        <h2><a href="#">ブランコ</a></h2>
-                        <h2><a href="#">すべり台</a></h2>
+            </div>
+
+            <div class="flexbox hidden">
+                <div class="section top_section_L">
+                    <h1 id="top_account_section">アカウント</h1>
+                        <div class="top_account_section" id="PC"><!-- PCのみ -->
+                            <div class="flexbox">
+                                <img src="img/Icon.svg">
+                                <h1>〇〇さん</h1>
+                            </div>
+                            <h2>ＩＤ：</h2>
+                            <h2>管理している公園：</h2>
+                            <div class="LogOut"><a href="#" class="LogOut_button">ログアウト</a></div>
+                        </div>
+                        <div class="top_document_section" id="PC"><!-- PCのみ -->
+                        <h1>書類作成・データ</h1>
+                        <div class="flexbox top_document_section_flexbox">
+                            <div class="top_document_section_L">
+                                <a href="./daily_report.html" class="hover-link"><h2>日報作成　　　　　<img src="img/arrow_button1.png"></h2></a>
+                                <a href="./results_report.html" class="hover-link"><h2>結果報告書作成　　<img src="img/arrow_button1.png"></h2></a>
+                                <a href="CheckSheet.html" class="hover-link"><h2>点検チェックシート<img src="img/arrow_button1.png"></h2></a>
+                            </div>
+                            <div>
+                                <div class="top_data_link"><a href class="hover-link"><h2>劣化進行記録・劣化予測<img src="img/∨.png"></h2></a></div>
+                                <div class="top_data_link"><a href="./PhotoViewing.html" class="hover-link"><h2>写真閲覧　　　　　　　<img src="img/∨.png"></h2></a></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flexbox">
-                        <h2><a href="#">ジャングルジム</a></h2>
-                        <h2><a href="#">鉄棒</a></h2>
-                    </div>
-                    <div class="flexbox">
-                        <h2><a href="#">複合遊具</a></h2>
-                        <h2><a href="#">砂場</a></h2>
-                    </div>
-                    <div class="flexbox">
-                        <h2><a href="#">健康遊具</a></h2>
-                        <h2><a href="#">ターザンロープ</a></h2>
-                    </div>
-                    <h2><a href="#">シーソー</a></h2>
                 </div>
                 <div class="section top_CreatedDocument_section" id="PC"><!-- PCのみ -->
                     <h1>過去に作成された書類</h1>
@@ -165,9 +148,55 @@
                     <h3 class="hover-link"><a href="./AllDocuments.html">書類一覧　　　　　<img src="img/arrow_button1.png"></a></h3>
                 </div>
             </div>
+            <div class="section">
+                <div class="section top_check_section" id="mobile"><!-- スマホ・タブレットのみ -->
+                    <h1>遊具点検</h1>
+                    <div class="flexbox" id="top_check_section_flexbox">
+                        <div class="flexbox">
+                            <h2><a href="#">ブランコ</a></h2>
+                            <h2><a href="#">すべり台</a></h2>
+                        </div>
+                        <div class="flexbox">
+                            <h2><a href="#">ジャングルジム</a></h2>
+                            <h2><a href="#">鉄棒</a></h2>
+                        </div>
+                    </div>
+                    <div class="flexbox" id="top_check_section_flexbox">
+                        <div class="flexbox">
+                            <h2><a href="#">複合遊具</a></h2>
+                            <h2><a href="#">砂場</a></h2>
+                        </div>
+                        <div class="flexbox">
+                            <h2><a href="#">健康遊具</a></h2>
+                            <h2><a href="#">ターザンロープ</a></h2>
+                        </div>
+                    </div>
+                    <div class="flexbox">
+                        <h2><a href="#">シーソー</a></h2>
+                    </div>
+                </div>
+
+                <div class="top_document_section" id="mobile"><!-- スマホ・タブレットのみ -->
+                    <h1>書類作成・データ</h1>
+                    <div class="flexbox top_document_section_flexbox">
+                        <div class="top_document_mobile_wrapper">
+                            <div class="top_document_link"><a href="./daily_report.html" class="hover-link"><h2>日報作成　　　　　　<img src="img/arrow_button1.png"></h2></a></div>
+                            <div class="top_document_link"><a href="./results_report.html" class="hover-link"><h2>結果報告書作成　　　<img src="img/arrow_button1.png"></h2></a></div>
+                            <div class="top_document_link"><a href="./CheckSheet.html" class="hover-link"><h2>点検チェックシート　<img src="img/arrow_button1.png"></h2></a></div>
+                            <div class="top_document_link"><a href="./AllDocuments.html" class="hover-link"><h3>書類一覧　　　　<img src="img/arrow_button1.png"></h3></a></div>
+                        </div>
+                        <div class="top_document_mobile_wrapper">
+                            <div class="top_data_link"><a href class="hover-link"><h2>劣化進行記録・劣化予測<img src="img/arrow_button2.png"></h2></a></div>
+                            <div class="top_data_link"><a href="PhotoViewing.html" class="hover-link"><h2>写真閲覧　　　　　　　<img src="img/arrow_button2.png"></h2></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <footer>
 
         </footer>
+        <script src="JS/JS.js"></script>
+
     </body>
 </html>
