@@ -279,6 +279,13 @@ header h1{
     padding-left: 10px;
 }
 
+.top_document_section h2{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
 .top_data_link {
     min-width: 279px;
     margin: 0 10px 20px 30px;
@@ -437,6 +444,11 @@ header h1{
     border-radius: 5px;
     color: #FBFCFC;
 }
+
+.AllDocuments_list_section button{
+    margin: 10px 10px 10px 0;
+}
+
 
 /* 点検チェックシート部分 */
 
@@ -983,7 +995,6 @@ header h1{
         background-color: #FDCACB;
     }
 
-
     .section h1 {
         font-size: 24px;
         margin: 20px 0 30px 0;
@@ -1190,6 +1201,27 @@ header h1{
         top: 70%;
     }
 
+    #AllDocuments_flexbox {
+        display: block;
+    }
+
+    .AllDocuments_search_section label{
+        font-size: 18px;
+        margin-bottom:10px;
+    }
+
+    .AllDocuments_list_section button{
+        margin: 10px 10px 10px 0;
+    }
+
+    .AllDocuments_list_section th {
+        font-size: 16px;
+    }
+
+    .PE_search::after {
+        top: 10%;
+    }
+
     /* CheckSheet(点検チェックシート画面) */
     .CheckSheet_input_area br {
         display: none;
@@ -1203,6 +1235,7 @@ header h1{
     .CheckSheet_search_year::after { /* 「∨」を右端に表示 */
         top:52%;
     }
+
 }
 
 @media screen and (max-width:693px){
@@ -1381,7 +1414,6 @@ header h1{
         min-width: 20px;
     }
 
-
     .top_data_link {
         margin: 10px 0;
         width: 100%;
@@ -1396,7 +1428,6 @@ header h1{
         width: 11%;
         right: 22px;
     }
-
 
     .top_data_link img {
         position: absolute;
@@ -1416,4 +1447,12 @@ header h1{
         display: block;
     }
 
+    .PE_search::after {
+        top: 9%;
+    }
+
+    .PE_search_category::after {
+        top: 16.5%;
+    }
 }
+
