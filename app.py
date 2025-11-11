@@ -173,28 +173,21 @@ def upload_photo(inspection_id):
         sys.stderr.write(f"❌ エラー発生: {str(e)}\n")
         sys.stderr.flush()
         return jsonify({'error': str(e), 'message': 'Failed to upload photo'}), 500
-
 @app.route('/api/inspection/<int:inspection_id>', methods=['GET'])
 def get_inspection(inspection_id):
-    """指定された inspection_id の点検結果を取得して返すAPI"""
     try:
         inspection = Inspection.query.get(inspection_id)
         if not inspection:
-            sys.stderr.write(f"⚠️ Inspection ID {inspection_id} が見つかりませんでした\n")
-            sys.stderr.flush()
             return jsonify({'error': 'Inspection not found'}), 404
 
-        sys.stderr.write(f"✅ Inspection ID {inspection_id} のデータ取得成功\n")
-        sys.stderr.write(f" - result: {inspection.result}\n")
-        sys.stderr.write(f" - overall_result: {inspection.overall_result}\n")
-        sys.stderr.write(f" - inspection_date: {inspection.inspection_date}\n")
-        sys.stderr.write(f" - photo_filename: {inspection.photo_filename}\n")
-        sys.stderr.write(f" - image_url: {inspection.image_url}\n")
-        sys.stderr.flush()
+        # Enum型は文字列に変換
+        chain_grade = inspection.result or inspection.overall_result
+        if chain_grade is not None:
+            chain_grade = str(chain_grade.name) if hasattr(chain_grade, 'name') else str(chain_grade)
 
         return jsonify({
             'inspection_id': inspection.inspection_id,
-            'chain_grade': inspection.result or inspection.overall_result or None,
+            'chain_grade': chain_grade,
             'inspection_date': inspection.inspection_date.strftime("%Y-%m-%d") if inspection.inspection_date else None,
             'photo_filename': inspection.photo_filename,
             'image_url': inspection.image_url
