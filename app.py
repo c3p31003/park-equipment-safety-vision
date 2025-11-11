@@ -4,7 +4,9 @@ from werkzeug.security import check_password_hash
 from models import db, User, Park, Equipment, Inspection, Report
 from config import DATABASE_URL
 import os
-import sys  # ✅ 追加
+import sys  
+import base64
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -105,6 +107,94 @@ def PhotoViewing():
 @app.route('/TakePhoto')   
 def TakePhoto(): 
     return render_template('TakePhoto.html')
+
+@app.route('/api/inspection/<int:inspection_id>/upload_photo', methods=['POST'])
+def upload_photo(inspection_id):
+    """
+    【機能】
+    - フロントエンドから送信された画像データ(Base64)を受信
+    - デコードしてファイルとして保存
+    - 成功/失敗のレスポンスを返す
+    """
+    try:
+        # ====================================================
+        # 【ステップ1】JSONデータを受信
+        # ====================================================
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'error': 'No data provided'}), 400
+        
+        photo_data = data.get('photo_data')
+        filename = data.get('filename', f'inspection_{inspection_id}_{datetime.now().strftime("%Y%m%d_%H%M%S")}.png')
+        
+        if not photo_data:
+            return jsonify({'error': 'No photo data provided'}), 400
+        
+        # ====================================================
+        # 【ステップ2】Base64データからヘッダーを除去
+        # ====================================================
+        # フロントエンドから送られるデータ形式:
+        # "data:image/png;base64,iVBORw0KGgoAAAANS..."
+        #                      ↑ この部分だけが必要
+        
+        if ',' in photo_data:
+            # "data:image/png;base64," の部分を削除
+            photo_data = photo_data.split(',')[1]
+        
+        # ====================================================
+        # 【ステップ3】Base64 → バイナリデータに変換
+        # ====================================================
+        try:
+            image_binary = base64.b64decode(photo_data)
+        except Exception as e:
+            return jsonify({'error': f'Invalid base64 data: {str(e)}'}), 400
+        
+        # ====================================================
+        # 【ステップ4】保存先ディレクトリの準備
+        # ====================================================
+        # static/uploads/ ディレクトリを作成（存在しない場合）
+        upload_dir = os.path.join(app.root_path, 'static', 'uploads')
+        
+        if not os.path.exists(upload_dir):
+            os.makedirs(upload_dir)
+            sys.stderr.write(f"📁 ディレクトリ作成: {upload_dir}\n")
+            sys.stderr.flush()
+        
+        # ====================================================
+        # 【ステップ5】ファイルとして保存
+        # ====================================================
+        filepath = os.path.join(upload_dir, filename)
+        
+        with open(filepath, 'wb') as f:
+            f.write(image_binary)
+        
+        sys.stderr.write(f"画像保存成功: {filepath}\n")
+        sys.stderr.write(f"ファイルサイズ: {len(image_binary)} bytes\n")
+        sys.stderr.flush()
+        
+        # ====================================================
+        # 【ステップ6】成功レスポンスを返す
+        # ====================================================
+        return jsonify({
+            'success': True,
+            'message': 'Photo uploaded successfully',
+            'inspection_id': inspection_id,
+            'filename': filename,
+            'filepath': f'/static/uploads/{filename}'
+        }), 200
+        
+    except Exception as e:
+        # ====================================================
+        # 【エラーハンドリング】
+        # ====================================================
+        sys.stderr.write(f"❌ エラー発生: {str(e)}\n")
+        sys.stderr.flush()
+        
+        return jsonify({
+            'error': str(e),
+            'message': 'Failed to upload photo'
+        }), 500
 
 
 tables_created = os.path.exists('db_initialized.flag')
