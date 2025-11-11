@@ -77,6 +77,7 @@ class Equipment(db.Model):
     inspections = db.relationship('Inspection', backref='equipment', lazy=True)
 
 # 点検記録テーブル
+# 点検記録テーブル
 class Inspection(db.Model):
     __tablename__ = 'inspection'
     inspection_id = db.Column(db.Integer, primary_key=True)
@@ -86,7 +87,20 @@ class Inspection(db.Model):
     overall_result = db.Column(db.Enum(OverallResultEnum))
     notes = db.Column(db.Text)
     ai_result = db.Column(db.Text)
-    image_url = db.Column(db.String(500))
+    
+    #写真データ関連カラム
+    #バイナリ画像データを直接保存
+    photo_data = db.Column(db.LargeBinary, nullable=True)  # LONGBLOB 相当
+    
+    photo_filename = db.Column(db.String(255), nullable=True)  # 撮影時のファイル名
+    photo_uploaded_at = db.Column(db.DateTime, nullable=True)   # 写真アップロード日時
+    
+    # 【オプション3】URL（外部ストレージ使用時）
+    image_url = db.Column(db.String(500), nullable=True)
+    
+    # リレーション
+    assigned_users = db.relationship('InspectionUser', backref='inspection', lazy=True)
+    report_links = db.relationship('InspectionReport', backref='inspection', lazy=True)
     
     # リレーション
     assigned_users = db.relationship('InspectionUser', backref='inspection', lazy=True)

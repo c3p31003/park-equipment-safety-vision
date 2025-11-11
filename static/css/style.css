@@ -1023,3 +1023,273 @@ header h1{
         font-size: 55%;
     }
 }
+
+
+
+
+/************* TakePhoto *************/
+
+.take-photo-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+}
+
+.header {
+  background-color: #50b4aa;
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-family: 'Zen Maru Gothic', sans-serif;
+}
+
+.content {
+  flex: 1;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  font-size: 1rem;
+  padding: 0.5rem;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  transition: color 0.2s;
+}
+
+.back-button:hover {
+  color: #333;
+}
+
+.back-button img {
+  width: 24px;
+  height: 24px;
+}
+
+/* ===== カメラ未起動時 ===== */
+.camera-start-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.camera-start-btn {
+  background-color: #50b4aa;
+  color: white;
+  border: none;
+  padding: 1.5rem 3rem;
+  font-size: 1.3rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  transition: background-color 0.3s;
+}
+
+.camera-start-btn:hover {
+  background-color: #3d8d85;
+}
+
+.camera-start-btn:active {
+  transform: scale(0.98);
+}
+
+/* ===== カメラ起動時 ===== */
+.camera-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.camera-stream {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 1rem;
+  background-color: #000;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.capture-btn {
+  background-color: #50b4aa;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  transition: all 0.3s;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.capture-btn:hover {
+  background-color: #3d8d85;
+  transform: scale(1.05);
+}
+
+.capture-btn:active {
+  transform: scale(0.95);
+}
+
+.close-camera-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  transition: background-color 0.3s;
+}
+
+.close-camera-btn:hover {
+  background-color: #c0392b;
+}
+
+/* ===== プレビュー表示時 ===== */
+.preview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.preview-image {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 1rem;
+  border: 2px solid #50b4aa;
+  background-color: #fff;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  max-width: 500px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.retake-btn,
+.submit-btn {
+  flex: 1;
+  min-width: 150px;
+  padding: 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.retake-btn {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.retake-btn:hover:not(:disabled) {
+  background-color: #7f8c8d;
+}
+
+.submit-btn {
+  background-color: #50b4aa;
+  color: white;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background-color: #3d8d85;
+}
+
+.retake-btn:disabled,
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.retake-btn:active:not(:disabled),
+.submit-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* ===== メッセージ表示 ===== */
+.message {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 600;
+  animation: slideIn 0.3s ease-out;
+}
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== モバイル対応 ===== */
+@media (max-width: 600px) {
+  .content {
+    padding: 1rem 0.5rem;
+  }
+
+  .camera-stream {
+    max-width: 100%;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .retake-btn,
+  .submit-btn {
+    width: 100%;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+}
