@@ -85,31 +85,6 @@ def home():
 
 
 # ==========================
-# 点検情報取得API
-# ==========================
-@app.route('/api/inspection/<int:inspection_id>', methods=['GET'])
-def get_inspection(inspection_id):
-    """
-    指定された inspection_id の点検結果を取得して返すAPI
-    """
-    try:
-        inspection = Inspection.query.get(inspection_id)
-        if not inspection:
-            return jsonify({'error': 'Inspection not found'}), 404
-
-        return jsonify({
-            'inspection_id': inspection.inspection_id,
-            'chain_grade': inspection.result or inspection.overall_result or None,
-            'inspection_date': inspection.inspection_date.strftime("%Y-%m-%d") if inspection.inspection_date else None,
-            'photo_filename': inspection.photo_filename,
-            'image_url': inspection.image_url
-        }), 200
-
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-
-# ==========================
 # ページルート
 # ==========================
 @app.route('/CheckSheet')
@@ -201,9 +176,7 @@ def upload_photo(inspection_id):
 
 @app.route('/api/inspection/<int:inspection_id>', methods=['GET'])
 def get_inspection(inspection_id):
-    """
-    指定された inspection_id の点検結果を取得して返すAPI
-    """
+    """指定された inspection_id の点検結果を取得して返すAPI"""
     try:
         inspection = Inspection.query.get(inspection_id)
         if not inspection:
