@@ -62,8 +62,8 @@
             <div id="message" class="message"></div>
 
             <!-- カメラ表示エリア -->
-            <div>
-                <video id="cameraStream" style="width: 100%; max-width: 500px;"></video>
+            <div class="camera-section">
+                <video id="cameraStream" class="camera-stream"></video>
             </div>
 
             <!-- Canvas: 画像キャプチャ用（非表示） -->
@@ -75,12 +75,13 @@
             </div>
 
             <!-- 再撮影・保存ボタン -->
-            <div class="NewButtons" id="newButtonsContainer" style="display: none;">
-                <button id="retakeButton">
+            <div class="button-group" id="newButtonsContainer" style="display: none;">
+                <button id="retakeButton" class="retake-btn">
                     再撮影
                     <img class="BackButton" src="{{ url_for('static', filename='img/CameraIcon.png') }}" alt="アイコン">
-                </button>               
-                <button id="saveButton">
+                </button>
+                <button id="saveButton" class="submit-btn">
+                    保存
                     <img class="BackButton" src="{{ url_for('static', filename='img/PhotoButton.png') }}" alt="保存ボタン">
                 </button>
             </div>
