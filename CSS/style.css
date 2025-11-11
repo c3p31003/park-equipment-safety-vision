@@ -301,6 +301,10 @@ header h1{
     text-align: center;
 }
 
+.top_data_link h2 img{
+    margin-top: 13px;
+}
+
 .top_data_link img {
     transform: rotate(-90deg);
 }
@@ -1125,7 +1129,7 @@ header h1{
         width: 4.5%;
         position: absolute;
         right: 60px;
-        padding-bottom: 10px;
+        padding-bottom: 5px;
         transform: rotate(0deg);
     }
 
@@ -1427,6 +1431,7 @@ header h1{
         max-width: 35px;
         width: 11%;
         right: 22px;
+        margin: 0px 20px 0 0;
     }
 
     .top_data_link img {
