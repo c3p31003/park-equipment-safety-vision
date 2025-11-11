@@ -202,20 +202,21 @@
                 <label for="author">●所見</label><br>
                 <textarea type="opinion" name="opinion" class="result_long_opinion"></textarea>
                 <h2>●総合結果<br>（総合結果については、点検時に実施した措置により補修等の対応済みの場合は、対応後の状態で記録する。）</h2>
-                <form>
-                    <label>
-                        <input type="radio" name="result" value="red"> Ａ：健全（△・×なし）
-                    </label><br>
-                    <label>
-                        <input type="radio" name="result" value="blue"> Ｂ：経過観察（△あり、×なし）
-                    </label><br>
-                    <label>
-                        <input type="radio" name="result" value="green"> Ｃ：要修繕・要対応（×あり）
-                    </label><br>
-                    <label>
-                        <input type="radio" name="result" value="green"> Ｄ：使用禁止措置<input type="opinion" name="opinion" class="result_short_opinion">
-                    </label>
-                </form><br>
+            <form id="inspection-result-form">
+                <label>
+                    <input type="radio" name="result" value="A" id="chain-grade-a"> Ａ：健全（△・×なし）
+                </label><br>
+                <label>
+                    <input type="radio" name="result" value="B" id="chain-grade-b"> Ｂ：経過観察（△あり、×なし）
+                </label><br>
+                <label>
+                    <input type="radio" name="result" value="C" id="chain-grade-c"> Ｃ：要修繕・要対応（×あり）
+                </label><br>
+                <label>
+                    <input type="radio" name="result" value="D" id="chain-grade-d"> Ｄ：使用禁止措置
+                    <input type="opinion" name="opinion" class="result_short_opinion">
+                </label>
+            </form><br>
                 <h1>以下は点検後の記録（担当者記入欄）</h1>
                 <h2>●対応方針</h2>
                 <input type="checkbox" name="" value="">整備班で対応予定<br>
@@ -269,5 +270,30 @@
                 <div class="CheckSheet_save_button"><button>保存</button></div>
             </div>
         </div>
+            <script>
+            document.addEventListener('DOMContentLoaded', async function() {
+                const inspectionId = 1;  // 実際は動的に設定
+
+                try {
+                    const response = await fetch(`/api/inspection/${inspectionId}`);
+                    const data = await response.json();
+                    console.log('取得データ:', data);
+
+                    const grade = data.chain_grade;
+
+                    // 同名のinputを直接選択してチェック
+                    const radio = document.querySelector(`input[name="result"][value="${grade}"]`);
+                    if (radio) {
+                        radio.checked = true;
+                    } else {
+                        console.warn('該当するgradeのラジオボタンが見つかりません:', grade);
+                    }
+
+                } catch (error) {
+                    console.error('データ取得エラー:', error);
+                }
+            });
+        </script>
     </body>
 </html>
+
