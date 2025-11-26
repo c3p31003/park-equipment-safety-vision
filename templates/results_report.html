@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+      <meta charset="UTF-8">
+      <title>遊具管理システム | 結果報告書作成ページ</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
+      <link href="CSS/style.css" rel="stylesheet">
+      <link rel="icon" href="{{ url_for('static', filename='icon/flask.png')}}">
+  </head>
+  <body>
+        <header class="header">
+            <div class="flexbox">
+                <h1><a href="index.html">遊具管理システム</a></h1>
+                <button><img src="./img/bell.png"></button>
+                <div class="nav_wrapper">
+                    <input type="checkbox" id="nav_toggle" hidden>
+                    <label class="nav_icon" for="nav_toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </label>
+                    <div class="overlay"></div>
+                    <nav class="nav">
+                        <ul>
+                            <li><a href="index.html">トップページ</a></li>
+                            <li><a href="./daily_report.html">日報作成</a></li>
+                            <li><a href="./results_report.html">結果報告書作成</a></li>
+                            <li><a href="./CheckSheet.html">点検チェックシート</a></li>
+                            <li><a href="./Deterioration.html">劣化進行・劣化予測</a></li>
+                            <li><a href="./PhotoViewing.html">写真閲覧</a></li>
+                            <li><a href="./AllDocuments.html">書類一覧</a></li>                            
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+    <div class="wrapper">
+      <div id="results_report_container">
+        <p id="page_route"><a href=index.html>トップ</a> > <a href="results_report.html">結果報告書作成</a></p>        
+        <div id="daily_completed_container_top">
+          <button id="daily_completed" type="button">保存</button>
+        </div>
+        <p class="daily_report_heading">公園名</p>
+        <input class="text_box wide_box" type="text" name="park">
+        <p class="daily_report_heading">点検年度</p>
+        <div id="date_column_container">
+          <select class="text_box" name="era_name">
+            <option value="令和">令和</option>
+            <option value="平成">平成</option>
+            <option value="昭和">昭和</option>
+          </select>
+          <select class="text_box" name="year">
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+            <option value="2020">2020</option>
+          </select>
+          <p class="date_text">年度</p>
+        </div>
+        <div class="inspection_details">
+          <hr>
+          <h1>第1回目</h1>
+          <p class="daily_report_heading">報告年月日</p>
+          <div id="date_column_container">
+            <select class="text_box" name="era_name">
+              <option value="令和">令和</option>
+              <option value="平成">平成</option>
+              <option value="昭和">昭和</option>
+            </select>
+            <select class="text_box" name="year">
+              <option value="2025">2025</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+            </select>
+            <p class="date_text">年度</p>
+            <select class="text_box" name="month">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </select>
+            <p class="date_text">月</p>
+            <select class="text_box" name="date">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>   
+            </select>
+            <p>日</p>
+          </div>
+          <p class="daily_report_heading">点検の種類</p>
+          <div class="report_input_container">
+            <div class="report_input">
+              <input type="radio" name="inspection_type1" value="遊具点検">遊具点検
+            </div>
+            <div class="report_input">
+              <input type="radio" name="inspection_type1" value="施設点検">施設点検
+            </div>
+            <select class="text_box" name="inspection_type2">
+                <option value="通常">通常</option>
+                <option value="詳細">詳細</option>
+            </select>
+          </div>
+          <p class="daily_report_heading">報告事項</p>
+          <div class="report_input_container report_inpurt_pc">
+            <div class="report_input">
+              <input type="radio" name="report_matters" value="C及びD、✕の該当なし">C及びD、✕の該当なし
+            </div>
+            <div class="report_input">
+              <input type="radio" name="report_matters" value="C、✕（要修繕、要対応）あり">C、✕（要修繕、要対応）あり
+            </div>
+            <div class="report_input">
+              <input type="radio" name="report_matters" value="D（使用禁止措置）あり">D（使用禁止措置）あり
+            </div>
+          </div>
+          <div class="report_input_container report_inpurt_small">
+            <div>
+              <div class="report_input">
+                <input type="radio" name="report_matters" value="C及びD、✕の該当なし">C及びD、✕の該当なし
+              </div>
+              <div class="report_input">
+                <input type="radio" name="report_matters" value="D（使用禁止措置）あり">D（使用禁止措置）あり
+              </div>
+            </div>
+            <div class="report_input">
+              <input type="radio" name="report_matters" value="C、✕（要修繕、要対応）あり">C、✕（要修繕、要対応）あり
+            </div>
+          </div>
+          <p class="daily_report_heading">備考</p>
+          <textarea class="text_box" name="remarks" rows="7" cols="50"></textarea>
+        </div>
+        <div class="inspection_details">
+          <hr>
+          <h1>第2回目</h1>
+          <p class="daily_report_heading">報告年月日</p>
+          <div id="date_column_container">
+            <select class="text_box" name="era_name">
+              <option value="令和">令和</option>
+              <option value="平成">平成</option>
+              <option value="昭和">昭和</option>
+            </select>
+            <select class="text_box" name="year">
+              <option value="2025">2025</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+            </select>
+            <p class="date_text">年度</p>
+            <select class="text_box" name="month">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </select>
+            <p class="date_text">月</p>
+            <select class="text_box" name="date">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>   
+            </select>
+            <p>日</p>
+          </div>
+          <p class="daily_report_heading">点検の種類</p>
+          <div class="report_input_container">
+            <div class="report_input">
+              <input type="radio" name="inspection_type1" value="遊具点検">遊具点検
+            </div>
+            <div class="report_input">
+              <input type="radio" name="inspection_type1" value="施設点検">施設点検
+            </div>
+            <select class="text_box" name="inspection_type2">
+                <option value="通常">通常</option>
+                <option value="詳細">詳細</option>
+            </select>
+          </div>
+          <p class="daily_report_heading">報告事項</p>
+          <div class="report_input_container report_inpurt_pc">
+            <div class="report_input">
+              <input type="radio" name="report_matters" value="C及びD、✕の該当なし">C及びD、✕の該当なし
+            </div>
+            <div class="report_input">
+              <input type="radio" name="report_matters" value="C、✕（要修繕、要対応）あり">C、✕（要修繕、要対応）あり
+            </div>
+            <div class="report_input">
+              <input type="radio" name="report_matters" value="D（使用禁止措置）あり">D（使用禁止措置）あり
+            </div>
+          </div>
+          <div class="report_input_container report_inpurt_small">
+            <div>
+              <div class="report_input">
+                <input type="radio" name="report_matters" value="C及びD、✕の該当なし">C及びD、✕の該当なし
+              </div>
+              <div class="report_input">
+                <input type="radio" name="report_matters" value="D（使用禁止措置）あり">D（使用禁止措置）あり
+              </div>
+            </div>
+            <div class="report_input">
+              <input type="radio" name="report_matters" value="C、✕（要修繕、要対応）あり">C、✕（要修繕、要対応）あり
+            </div>
+          </div>
+          <p class="daily_report_heading">備考</p>
+          <textarea class="text_box" name="remarks" rows="7" cols="50"></textarea>
+        </div>
+        <div class="inspection_details">
+          <hr>
+          <h1>第3回目</h1>
+          <p class="daily_report_heading">報告年月日</p>
+          <div id="date_column_container">
+            <select class="text_box" name="era_name">
+              <option value="令和">令和</option>
+              <option value="平成">平成</option>
+              <option value="昭和">昭和</option>
+            </select>
+            <select class="text_box" name="year">
+              <option value="2025">2025</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+            </select>
+            <p class="date_text">年度</p>
+            <select class="text_box" name="month">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </select>
+            <p class="date_text">月</p>
+            <select class="text_box" name="date">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>   
+            </select>
+            <p>日</p>
+          </div>
+          <p class="daily_report_heading">点検の種類</p>
+          <div class="report_input_container">
+            <div class="report_input">
+              <input type="radio" name="inspection_type1" value="遊具点検">遊具点検
+            </div>
+            <div class="report_input">
+              <input type="radio" name="inspection_type1" value="施設点検">施設点検
+            </div>
+            <select class="text_box" name="inspection_type2">
+                <option value="通常">通常</option>
+                <option value="詳細">詳細</option>
+            </select>
+          </div>
+          <p class="daily_report_heading">報告事項</p>
+          <div class="report_input_container report_inpurt_pc">
+            <div class="report_input">
+              <input type="radio" name="report_matters" value="C及びD、✕の該当なし">C及びD、✕の該当なし
+            </div>
+            <div class="report_input">
+              <input type="radio" name="report_matters" value="C、✕（要修繕、要対応）あり">C、✕（要修繕、要対応）あり
+            </div>
+            <div class="report_input">
+              <input type="radio" name="report_matters" value="D（使用禁止措置）あり">D（使用禁止措置）あり
+            </div>
+          </div>
+          <div class="report_input_container report_inpurt_small">
+            <div>
+              <div class="report_input">
+                <input type="radio" name="report_matters" value="C及びD、✕の該当なし">C及びD、✕の該当なし
+              </div>
+              <div class="report_input">
+                <input type="radio" name="report_matters" value="D（使用禁止措置）あり">D（使用禁止措置）あり
+              </div>
+            </div>
+            <div class="report_input">
+              <input type="radio" name="report_matters" value="C、✕（要修繕、要対応）あり">C、✕（要修繕、要対応）あり
+            </div>
+          </div>
+          <p class="daily_report_heading">備考</p>
+          <textarea class="text_box" name="remarks" rows="7" cols="50"></textarea>
+        </div>
+        <div id="daily_completed_container_bottom">
+              <button id="daily_completed" type="button">保存</button>
+        </div>
+      </div>
+    </div>
+    <footer>
+       
+    </footer>
+</body>
+</html>
