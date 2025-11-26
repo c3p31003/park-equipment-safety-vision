@@ -2,10 +2,11 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>遊具管理システム</title>
+  <title>遊具管理システム | 点検結果確認ページ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
   <link href="CSS/style.css" rel="stylesheet">
+  <link rel="icon" href="{{ url_for('static', filename='icon/flask.png')}}">
 </head>
 <body>
         <header class="header">
@@ -36,7 +37,7 @@
         </header>
   <div class="wrapper">
     <div id="inspection_results_container">
-      <p id="page_route">トップ > ブランコ > 写真撮影 > 点検結果</p>
+      <p id="page_route"><a href=index.html>トップ</a> > <a href="#">ブランコ</a> > <a href="CheckSheet.html">点検チェックシート</a> > <a href="inspection_results.html">点検結果確認</a></p>
       <p class="headline">点検結果</p>
       <div id="anomaly_count">
         <p>異常検出数：</p>

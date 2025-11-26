@@ -2,10 +2,11 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
-        <title>遊具管理システム | 写真閲覧</title>
+        <title>遊具管理システム | 写真閲覧ページ</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
         <link href="./CSS/style.css" rel="stylesheet">
+        <link rel="icon" href="{{ url_for('static', filename='icon/flask.png')}}">
     </head>
     <body>
         <header class="header">
@@ -35,6 +36,7 @@
             </div>
         </header>
         <div class="wrapper">
+            <p id="page_route"><a href=index.html>トップ</a> > <a href="PhotoViewing.html">写真閲覧</a></p>
             <div id="mobile"><!--  スマホ・タブレットのみ表示 -->
                 <div class="PE_search">
                     <label for="PE">遊具　　：</label>

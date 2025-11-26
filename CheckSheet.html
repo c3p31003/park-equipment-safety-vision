@@ -2,10 +2,11 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
-        <title>遊具管理システム | 点検チェックシート</title>
+        <title>遊具管理システム | 点検チェックシートページ</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
         <link rel="stylesheet" href="CSS/style.css">
+        <link rel="icon" href="{{ url_for('static', filename='icon/flask.png')}}">
     </head>
     <body>
         <header class="header">
@@ -35,6 +36,7 @@
             </div>
         </header>
         <div class="wrapper">
+            <p id="page_route"><a href=index.html>トップ</a> > <a href="CheckSheet.html">点検チェックシート</a></p>
             <div class="section">
                 <div class="CheckSheet_input_area AllDocuments_search_section">
                     <label for="parks">公園名</label><br>

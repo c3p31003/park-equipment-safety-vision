@@ -2,10 +2,11 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>遊具管理システム</title>
+    <title>遊具管理システム | 日報作成ページ</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
     <link href="CSS/style.css" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static', filename='icon/flask.png')}}">
 </head>
 <body>
         <header class="header">
@@ -36,7 +37,7 @@
         </header>
     <div class="wrapper">
       <div id="daily_report_container">
-        <p id="page_route">トップ > 結果報告書作成</p>
+        <p id="page_route"><a href=index.html>トップ</a> > <a href="daily_report.html">日報作成</a></p>
         <div id="daily_completed_container_top">
             <button id="daily_completed" type="button">保存</button>
         </div>

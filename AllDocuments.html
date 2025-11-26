@@ -2,10 +2,12 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
-        <title>遊具管理システム | 書類一覧</title>
+        <title>遊具管理システム | 書類一覧ページ</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
         <link href="CSS/style.css" rel="stylesheet">
+        <link rel="icon" href="{{ url_for('static', filename='icon/flask.png')}}">
+
     </head>
     <body>
         <header class="header">
@@ -35,10 +37,10 @@
             </div>
         </header>
         <div class="wrapper">
+                <p id="page_route"><a href=index.html>トップ</a> > <a href="AllDocuments.html">書類一覧</a></p>
             <div class="flexbox" id="AllDocuments_flexbox">
                 <div class="section">
                     <div class="AllDocuments_search_section">
-                        <p id="page_route">トップ > 書類一覧</p>
                         <h1>書類一覧</h1>
                         <h2>検索</h2>
                         <div class="AllDocuments_search_year">
