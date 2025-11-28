@@ -14,7 +14,7 @@
         </header>
         <div class="wrapper">
             <div class="contact_box">
-                <img src="img/Icon.svg" alt="アイコン">
+                <img src="{{ url_for('static', filename='img/Icon.svg') }}" alt="アイコン">
                 <form method="post" id="login-form">
                     <p>ID<input type="text" name="employee_id"></p>
                     <p>PW<input type="password" name="password"></p> 

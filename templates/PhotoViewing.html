@@ -11,8 +11,11 @@
     <body>
         <header class="header">
             <div class="flexbox">
-                <h1><a href="index.html">遊具管理システム</a></h1>
-                <button><img src="./img/bell.png"></button>
+                <h1><a href="{{ url_for(index.html') }}">遊具管理システム</a></h1>
+                <div class="account_toggle" id="mobile">
+                    <img src="{{ url_for('static', filename='img/Icon.svg') }}" alt="アカウント" id="accountIcon">
+                </div>
+                <button><img src="{{ url_for('static', filename='img/bell.png') }}"></button>
                 <div class="nav_wrapper">
                     <input type="checkbox" id="nav_toggle" hidden>
                     <label class="nav_icon" for="nav_toggle">
@@ -23,20 +26,20 @@
                     <div class="overlay"></div>
                     <nav class="nav">
                         <ul>
-                            <li><a href="index.html">トップページ</a></li>
-                            <li><a href="./daily_report.html">日報作成</a></li>
-                            <li><a href="./results_report.html">結果報告書作成</a></li>
-                            <li><a href="./CheckSheet.html">点検チェックシート</a></li>
-                            <li><a href="./Deterioration.html">劣化進行・劣化予測</a></li>
-                            <li><a href="./PhotoViewing.html">写真閲覧</a></li>
-                            <li><a href="./AllDocuments.html">書類一覧</a></li>                            
+                            <li><a href="{{ url_for('index') }}">トップページ</a></li>
+                            <li><a href="{{ url_for('daily_report') }}">日報作成</a></li>
+                            <li><a href="{{ url_for('results_report') }}">結果報告書作成</a></li>
+                            <li><a href="{{ url_for('CheckSheet') }}">点検チェックシート</a></li>
+                            <li><a href="{{ url_for('Deterioration') }}">劣化進行・劣化予測</a></li>
+                            <li><a href="{{ url_for('PhotoViewing') }}">写真閲覧</a></li>
+                            <li><a href="{{ url_for('AllDocuments') }}">書類一覧</a></li>         
                         </ul>
                     </nav>
                 </div>
             </div>
         </header>
         <div class="wrapper">
-            <p id="page_route"><a href=index.html>トップ</a> > <a href="PhotoViewing.html">写真閲覧</a></p>
+            <p id="page_route"><a href="{{ url_for('index') }}">トップ</a> > <a href="{{ url_for('PhotoViewing') }}">写真閲覧</a></p>
             <div id="mobile"><!--  スマホ・タブレットのみ表示 -->
                 <div class="PE_search">
                     <label for="PE">遊具　　：</label>
@@ -52,17 +55,16 @@
                         <option value="2">砂場</option>
                         <option value="1">健康遊具</option>
                     </select>
-                    <button><img src="./img/AddButton.png"></button><br>
+                    <button><img src="{{ url_for('static', filename='img/AddButton.png') }}"></button><br>
                 </div>
                 <div class="PE_search_category">
                     <label for="category">カテゴリ：</label>
                     <select id="category" name="category">
                         <option value="all" selected>すべて</option>
-                        <option value="3">石田</option>
                         <option value="2">亀裂</option>
                         <option value="1">錆び</option>
                     </select>
-                    <button><img src="./img/AddButton.png"></button>
+                    <button><img src="{{ url_for('static', filename='img/AddButton.png') }}"></button>
                 </div>
                 <div class="flexbox">
 

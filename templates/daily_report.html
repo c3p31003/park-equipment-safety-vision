@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>遊具管理システム | 日報作成ページ</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
-    <link href="CSS/style.css" rel="stylesheet">
-    <link rel="icon" href="{{ url_for('static', filename='icon/flask.png')}}">
-</head>
-<body>
+  <head>
+      <meta charset="UTF-8">
+      <title>遊具管理システム | 日報作成ページ</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
+      <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
+  </head>
+  <body>
         <header class="header">
             <div class="flexbox">
-                <h1><a href="index.html">遊具管理システム</a></h1>
-                <button><img src="./img/bell.png"></button>
+                <h1><a href="{{ url_for(index.html') }}">遊具管理システム</a></h1>
+                <div class="account_toggle" id="mobile">
+                    <img src="{{ url_for('static', filename='img/Icon.svg') }}" alt="アカウント" id="accountIcon">
+                </div>
+                <button><img src="{{ url_for('static', filename='img/bell.png') }}"></button>
                 <div class="nav_wrapper">
                     <input type="checkbox" id="nav_toggle" hidden>
                     <label class="nav_icon" for="nav_toggle">
@@ -23,13 +25,13 @@
                     <div class="overlay"></div>
                     <nav class="nav">
                         <ul>
-                            <li><a href="index.html">トップページ</a></li>
-                            <li><a href="./daily_report.html">日報作成</a></li>
-                            <li><a href="./results_report.html">結果報告書作成</a></li>
-                            <li><a href="./CheckSheet.html">点検チェックシート</a></li>
-                            <li><a href="./Deterioration.html">劣化進行・劣化予測</a></li>
-                            <li><a href="./PhotoViewing.html">写真閲覧</a></li>
-                            <li><a href="./AllDocuments.html">書類一覧</a></li>                            
+                            <li><a href="{{ url_for('index') }}">トップページ</a></li>
+                            <li><a href="{{ url_for('daily_report') }}">日報作成</a></li>
+                            <li><a href="{{ url_for('results_report') }}">結果報告書作成</a></li>
+                            <li><a href="{{ url_for('CheckSheet') }}">点検チェックシート</a></li>
+                            <li><a href="{{ url_for('Deterioration') }}">劣化進行・劣化予測</a></li>
+                            <li><a href="{{ url_for('PhotoViewing') }}">写真閲覧</a></li>
+                            <li><a href="{{ url_for('AllDocuments') }}">書類一覧</a></li>         
                         </ul>
                     </nav>
                 </div>
@@ -37,7 +39,7 @@
         </header>
     <div class="wrapper">
       <div id="daily_report_container">
-        <p id="page_route"><a href=index.html>トップ</a> > <a href="daily_report.html">日報作成</a></p>
+        <p id="page_route"><a href="{{ url_for('index') }}">トップ</a> > <a href="{{ url_for('daily_report') }}">日報作成</a></p>
         <div id="daily_completed_container_top">
             <button id="daily_completed" type="button">保存</button>
         </div>
@@ -146,10 +148,10 @@
               <button id="add_photo" type="button">＋</button>
             </div>
             <div id="image_container">
-              <img src="img/photo_image.png">
-              <img src="img/photo_image.png">
-              <img src="img/photo_image.png">
-              <img src="img/photo_image.png">                
+              <img src="{{ url_for('static', filename='img/image.png') }}">
+              <img src="{{ url_for('static', filename='img/image.png') }}">
+              <img src="{{ url_for('static', filename='img/image.png') }}">
+              <img src="{{ url_for('static', filename='img/image.png') }}">                
             </div>
           </div>
         </div>
