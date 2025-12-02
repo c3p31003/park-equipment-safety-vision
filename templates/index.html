@@ -10,7 +10,7 @@
     <body>
         <header class="header">
             <div class="flexbox">
-                <h1><a href="{{ url_for(index.html') }}">遊具管理システム</a></h1>
+                <h1><a href="{{ url_for('home') }}">遊具管理システム</a></h1>
                 <div class="account_toggle" id="mobile">
                     <img src="{{ url_for('static', filename='img/Icon.svg') }}" alt="アカウント" id="accountIcon">
                 </div>
@@ -25,7 +25,7 @@
                     <div class="overlay"></div>
                     <nav class="nav">
                         <ul>
-                            <li><a href="{{ url_for('index') }}">トップページ</a></li>
+                            <li><a href="{{ url_for('home') }}">トップページ</a></li>
                             <li><a href="{{ url_for('daily_report') }}">日報作成</a></li>
                             <li><a href="{{ url_for('results_report') }}">結果報告書作成</a></li>
                             <li><a href="{{ url_for('CheckSheet') }}">点検チェックシート</a></li>
@@ -62,9 +62,9 @@
                         <h1>書類作成・データ</h1>
                         <div class="flexbox top_document_section_flexbox">
                             <div class="top_document_section_L">
-                                <a href="{{ url_for('daily_report') }}" class="hover-link"><h2>日報作成　　　　　<img src="{{ url_for('static', filename='img/arrow_button1') }}"></h2></a>
-                                <a href="{{ url_for('results_report')}}" class="hover-link"><h2>結果報告書作成　　<img src="{{ url_for('static', filename='img/arrow_button1') }}"></h2></a>
-                                <a href="{{ url_for('CheckSheet') }}" class="hover-link"><h2>点検チェックシート<img src="{{ url_for('static', filename='img/arrow_button1') }}"></h2></a>
+                                <a href="{{ url_for('daily_report') }}" class="hover-link"><h2>日報作成　　　　　<img src="{{ url_for('static', filename='img/arrow_button1.png') }}"></h2></a>
+                                <a href="{{ url_for('results_report')}}" class="hover-link"><h2>結果報告書作成　　<img src="{{ url_for('static', filename='img/arrow_button1.png') }}"></h2></a>
+                                <a href="{{ url_for('CheckSheet') }}" class="hover-link"><h2>点検チェックシート<img src="{{ url_for('static', filename='img/arrow_button1.png') }}"></h2></a>
                             </div>
                             <div>
                                 <div class="top_data_link"><a href="{{ url_for('Deterioration') }}" class="hover-link"><h2>劣化進行記録・劣化予測<img src="{{ url_for('static', filename='img/∨.png') }}"></h2></a></div>

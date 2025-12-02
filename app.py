@@ -147,6 +147,14 @@ def PhotoViewing():
 def TakePhoto():
     return render_template('TakePhoto.html')
 
+@app.route('/results_report')
+def results_report():
+    return render_template('results_report.html')
+
+@app.route('/Deterioration')
+def Deterioration():
+    return render_template('Deterioration.html')
+
 
 #apiエンドポイント　スマホから送られてきた写真を受け取り、サーバーに保存し、DBを更新する
 #画像ファイルはサーバーのフォルダに保存して、dbにはファイルの名前とパスを保存する

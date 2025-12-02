@@ -10,7 +10,7 @@
     <body>
         <header class="header">
             <div class="flexbox">
-                <h1><a href="{{ url_for(index.html') }}">遊具管理システム</a></h1>
+                <h1><a href="{{ url_for('home') }}">遊具管理システム</a></h1>
                 <div class="account_toggle" id="mobile">
                     <img src="{{ url_for('static', filename='img/Icon.svg') }}" alt="アカウント" id="accountIcon">
                 </div>
@@ -27,7 +27,7 @@
                     <div class="overlay"></div>
                     <nav class="nav">
                         <ul>
-                            <li><a href="{{ url_for('index') }}">トップページ</a></li>
+                            <li><a href="{{ url_for('home') }}">トップページ</a></li>
                             <li><a href="{{ url_for('daily_report') }}">日報作成</a></li>
                             <li><a href="{{ url_for('results_report') }}">結果報告書作成</a></li>
                             <li><a href="{{ url_for('CheckSheet') }}">点検チェックシート</a></li>
@@ -40,7 +40,7 @@
             </div>
         </header>
         <div class="wrapper">
-            <p id="page_route"><a href="{{ url_for('index') }}">トップ</a> > <a href="{{ url_for('CheckSheet') }}">点検チェックシート</a></p>
+            <p id="page_route"><a href="{{ url_for('home') }}">トップ</a> > <a href="{{ url_for('CheckSheet') }}">点検チェックシート</a></p>
             <div class="section">
                 <div class="CheckSheet_input_area AllDocuments_search_section">
                     <label for="parks">公園名</label><br>
