@@ -5,7 +5,8 @@
         <title>遊具管理システム | ログインページ</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
-        <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
+        <link rel="stylesheet" href="CSS/style.css">
+        <link rel="icon" href="{{ url_for('static', filename='icon/flask.png')}}">
     </head>
     <body>
         <header id="header">
@@ -14,16 +15,36 @@
         <div class="wrapper">
             <div class="contact_box">
                 <img src="{{ url_for('static', filename='img/Icon.svg') }}" alt="アイコン">
-                <form action="{{ url_for('login') }}"  method="post" id="login-form">
-                    <p>ID<input type="text" name="employee_id">{{employee_id}}</p>
-                    <p>PW<input type="password" name="password">{{user_password}}</p> 
+                <form method="post" id="login-form">
+                    <p>ID<input type="text" name="employee_id"></p>
+                    <p>PW<input type="password" name="password"></p> 
                     <button class="button_LogIn">ログイン</button>
                 </form>
-                {% if error %}
                 <script>
-                    alert('ログインに失敗しました。IDまたはパスワードが違います。')
+                    document.getElementById("login-form").addEventListener("submit", function(e) {
+                        e.preventDefault(); // フォームの標準送信を止める
+                    
+                        const formData = new FormData(this);
+                    
+                        fetch("/api/login", {
+                            method: "POST",
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                window.location.href = data.redirect;
+                            } else {
+                                alert(data.message);
+                            }
+                        })
+                        .catch(err => {
+                            alert("通信エラーが発生しました");
+                            console.error(err);
+                        });
+                    });
                 </script>
-                {% endif %}
+            </div>
         </div>
     </body>
 </html>

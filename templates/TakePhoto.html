@@ -5,13 +5,17 @@
         <title>遊具管理システム | 遊具異常撮影ページ</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
-        <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
+        <link rel="stylesheet" href="CSS/style.css">
+        <link rel="icon" href="{{ url_for('static', filename='icon/flask.png')}}">
     </head>
     <body>
         <header class="header">
             <div class="flexbox">
-                <h1><a href="index.html">遊具管理システム</a></h1>
-                <button><img src="./img/bell.png"></button>
+                <h1><a href="{{ url_for(index.html') }}">遊具管理システム</a></h1>
+                <div class="account_toggle" id="mobile">
+                    <img src="{{ url_for('static', filename='img/Icon.svg') }}" alt="アカウント" id="accountIcon">
+                </div>
+                <button><img src="{{ url_for('static', filename='img/bell.png') }}"></button>
                 <div class="nav_wrapper">
                     <input type="checkbox" id="nav_toggle" hidden>
                     <label class="nav_icon" for="nav_toggle">
@@ -22,36 +26,36 @@
                     <div class="overlay"></div>
                     <nav class="nav">
                         <ul>
-                            <li><a href="index.html">トップページ</a></li>
-                            <li><a href="./daily_report.html">日報作成</a></li>
-                            <li><a href="./results_report.html">結果報告書作成</a></li>
-                            <li><a href="./CheckSheet.html">点検チェックシート</a></li>
-                            <li><a href="./Deterioration.html">劣化進行・劣化予測</a></li>
-                            <li><a href="./PhotoViewing.html">写真閲覧</a></li>
-                            <li><a href="./AllDocuments.html">書類一覧</a></li>                            
+                            <li><a href="{{ url_for('index') }}">トップページ</a></li>
+                            <li><a href="{{ url_for('daily_report') }}">日報作成</a></li>
+                            <li><a href="{{ url_for('results_report') }}">結果報告書作成</a></li>
+                            <li><a href="{{ url_for('CheckSheet') }}">点検チェックシート</a></li>
+                            <li><a href="{{ url_for('Deterioration') }}">劣化進行・劣化予測</a></li>
+                            <li><a href="{{ url_for('PhotoViewing') }}">写真閲覧</a></li>
+                            <li><a href="{{ url_for('AllDocuments') }}">書類一覧</a></li>         
                         </ul>
                     </nav>
                 </div>
             </div>
         </header>
         <div class="wrapper" id="TakePhoto">
-            <p id="page_route"><a href=index.html>トップ</a> > <a href="#">ブランコ</a> > <a href="CheckSheet.html">点検チェックシート</a> > <a href="CheckSheet.html">遊具異常撮影</a></p><br>
-            <button><img class="BackButton" src="img/back.png"><p>戻る</p></button><br>
+            <p id="page_route"><a href="{{ url_for('index') }}">トップ</a> > <a href="#">ブランコ</a> > <a href="{{ url_for('CheckSheet') }}">点検チェックシート</a> > <a href="{{ url_for('TakePhoto') }}">遊具異常撮影</a></p><br>
+            <button><img class="BackButton" src="{{ url_for('static', filename='img/back.png') }}"><p>戻る</p></button><br>
 
             <!-- ここにカメラが入ります -->
              
             <div class="PhotoButton" id="photoButtonContainer">
-                <button id="photoButton"><img src="img/PhotoButton.png"></button>
+                <button id="photoButton"><img src="{{ url_for('static', filename='img/PhotoButton') }}"></button>
             </div>
             <div class="NewButtons" id="newButtonsContainer" style="display: none;">
-                <button id="retakeButton">再撮影<img src="img/CameraIcon.png"></button>               
-                <button id="saveButton">保存<img src="./img/back.png"></button>
+                <button id="retakeButton">再撮影<img src="{{ url_for('static', filename='img/CameraIcon') }}"></button>               
+                <button id="saveButton">保存<img src="{{ url_for('static', filename='img/back.png') }}"></button>
             </div>
 
         </div>
         <footer>
 
         </footer>
-    <script src="./JS/JS.js"></script>
+        <script src="{{ url_for('static', filename='JS/JS.js')}}"></script>
     </body>
 </html>
