@@ -1,27 +1,19 @@
-import os
+# utils.py
 import cv2
+import os
 
 def ensure_dir(path):
-    """フォルダが存在しなければ作成"""
-    os.makedirs(path, exist_ok=True)
-
-def list_images(directory):
-    """ディレクトリ内の画像ファイル一覧を返す"""
-    valid_ext = (".jpg", ".jpeg", ".png")
-    return [
-        os.path.join(directory, f)
-        for f in os.listdir(directory)
-        if f.lower().endswith(valid_ext)
-    ]
+    """指定フォルダがなければ作成"""
+    if not os.path.exists(path):
+        os.makedirs(path)
 
 def load_image(path):
-    """画像を読み込み（失敗時はNone）"""
+    """画像読み込み"""
     img = cv2.imread(path)
     if img is None:
-        print(f"読み込み失敗: {path}")
+        raise FileNotFoundError(f"画像読み込み失敗: {path}")
     return img
 
 def save_image(path, img):
-    """画像を保存（途中のフォルダも自動作成）"""
-    ensure_dir(os.path.dirname(path))
+    """画像保存"""
     cv2.imwrite(path, img)
