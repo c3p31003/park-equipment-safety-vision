@@ -1,0 +1,8 @@
+*.npz
+*.keras
+*.h5
+*.ckpt
+*.pth
+__pycache__/
+db_initialized.flag
+prompt.txt
