@@ -114,7 +114,6 @@ def login():
     return render_template('Login.html')
 
 
-
 @app.route('/home', methods=['GET'])
 def home():
     user_name = session.get('user_name')

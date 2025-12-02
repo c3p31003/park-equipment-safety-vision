@@ -90,6 +90,7 @@ class Inspection(db.Model):
     equipment_id = db.Column(db.Integer, db.ForeignKey('equipments.equipment_id'), nullable=False)
     inspection_date = db.Column(db.DateTime, default=datetime.utcnow)
     
+    
     # ========================================================
     # 【部位1】鎖（Chain）【現在：AI推論済み】
     # ========================================================
