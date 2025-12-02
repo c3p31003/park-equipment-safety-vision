@@ -19,31 +19,11 @@
                     <p>PW<input type="password" name="password">{{user_password}}</p> 
                     <button class="button_LogIn">ログイン</button>
                 </form>
+                {% if error %}
                 <script>
-                    document.getElementById("login-form").addEventListener("submit", function(e) {
-                        e.preventDefault(); // フォームの標準送信を止める
-                    
-                        const formData = new FormData(this);
-                    
-                        fetch("/api/login", {
-                            method: "POST",
-                            body: formData
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                window.location.href = data.redirect;
-                            } else {
-                                alert(data.message);
-                            }
-                        })
-                        .catch(err => {
-                            alert("通信エラーが発生しました");
-                            console.error(err);
-                        });
-                    });
+                    alert('ログインに失敗しました。IDまたはパスワードが違います。')
                 </script>
-            </div>
+                {% endif %}
         </div>
     </body>
 </html>
