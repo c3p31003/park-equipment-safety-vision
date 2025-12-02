@@ -1,7 +1,11 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from flask_migrate import Migrate
 from werkzeug.security import check_password_hash
-from models import db, User, Park, Equipment, Inspection, Report
+from models import (
+    db, User, Park, Equipment, Inspection, 
+    InspectionDetail, InspectionPhoto,  # 新しいモデルを追加
+    InspectionPartEnum, ConditionEnum, GradeEnum
+)
 from config import DATABASE_URL
 import os
 import sys
@@ -11,6 +15,7 @@ from keras.models import load_model
 from keras.preprocessing import image
 from PIL import Image
 import io
+import json
 import numpy as np
 
 
@@ -158,108 +163,203 @@ def Deterioration():
 
 #apiエンドポイント　スマホから送られてきた写真を受け取り、サーバーに保存し、DBを更新する
 #画像ファイルはサーバーのフォルダに保存して、dbにはファイルの名前とパスを保存する
+# @app.route('/api/inspection/<int:inspection_id>/upload_photo', methods=['POST'])
+# def upload_photo(inspection_id):
+#     try:
+#         #クライアントから送られてきたJSONデータを取得
+#         data = request.get_json()
+
+#         if not data:
+#             return jsonify({'error': 'JSONデータが入っていません'}), 400
+
+#         #JSONデータから画像データとファイル名を取得
+#         photo_data = data.get('photo_data')
+#         filename = data.get('filename', f'inspection_{inspection_id}_{datetime.now().strftime("%Y%m%d_%H%M%S")}.png')
+
+#         if not photo_data:
+#             return jsonify({'error': '画像データがありません'}), 400
+
+#         #Base64形式で送られてくるので , より後ろ(実際の画像データ)のみ取り出す
+#         if ',' in photo_data:
+#             photo_data = photo_data.split(',')[1]
+
+#         #Base64はテキスト形式で画像データを表現したものなので、b64decode()でそれをバイナリデータ(0 or 1)に変換する
+#         image_binary = base64.b64decode(photo_data)
+
+#         #サーバーのstatic/uploadsフォルダに画像を保存する
+#         upload_dir = os.path.join(app.root_path, 'static', 'uploads')
+#         # フォルダが存在しない場合は作成する
+#         os.makedirs(upload_dir, exist_ok=True)
+#         #ファイルパスを作成
+#         filepath = os.path.join(upload_dir, filename)
+
+#         #バイナリデータをファイルに書き込む
+#         #ファイルをwbモード(バイナリ書き込みモード)で開く
+#         #f.write()でバイナリデータを書き込む
+#         #with文を使うことで、ファイルのクローズ処理を自動で行う
+#         with open(filepath, 'wb') as f:
+#             f.write(image_binary)
+
+#         sys.stderr.write(f"画像保存成功: {filepath}\n")
+#         sys.stderr.write(f"ファイルサイズ: {len(image_binary)} bytes\n")
+#         sys.stderr.flush()
+
+
+#         # DB更新処理
+#         # Inspectionテーブルから、このinspection_idに対応する該当レコードを取得して、画像ファイル名とパスを更新する
+#         inspection = Inspection.query.get(inspection_id)
+#         #ファイルの名前、ウェブブラウザからアクセスするためのURLパス、アップロード日時を更新
+#         if inspection:
+#             inspection.photo_filename = filename
+#             inspection.image_url = f'/static/uploads/{filename}'
+#             inspection.photo_uploaded_at = datetime.now()
+#             #dbに変更をコミット
+#             db.session.commit()
+#             sys.stderr.write(f" DB更新成功: inspection_id={inspection_id}, filename={filename}\n")
+#             sys.stderr.flush()
+#         else:
+#             sys.stderr.write(f"Inspection ID {inspection_id} がDBに存在しません\n")
+#             sys.stderr.flush()
+#             return jsonify({'error': '検査記録が見つかりません'}), 404
+
+#         # 成功レスポンスを返す
+#         return jsonify({
+#             'success': True,
+#             'message': 'Photo uploaded and saved to database',
+#             'inspection_id': inspection_id,
+#             'filename': filename,
+#             'filepath': f'/static/uploads/{filename}'
+#         }), 200
+
+#     # エラーハンドリング
+#     except Exception as e:
+#         sys.stderr.write(f"エラー発生: {str(e)}\n")
+#         sys.stderr.flush()
+#         return jsonify({'error': str(e), 'message': 'Failed to upload photo'}), 500
+
+
 @app.route('/api/inspection/<int:inspection_id>/upload_photo', methods=['POST'])
 def upload_photo(inspection_id):
+    """写真アップロード + AI判定結果保存（改善版）"""
     try:
-        #クライアントから送られてきたJSONデータを取得
-        data = request.get_json()
-
-        if not data:
-            return jsonify({'error': 'JSONデータが入っていません'}), 400
-
-        #JSONデータから画像データとファイル名を取得
-        photo_data = data.get('photo_data')
-        filename = data.get('filename', f'inspection_{inspection_id}_{datetime.now().strftime("%Y%m%d_%H%M%S")}.png')
-
-        if not photo_data:
-            return jsonify({'error': '画像データがありません'}), 400
-
-        #Base64形式で送られてくるので , より後ろ(実際の画像データ)のみ取り出す
-        if ',' in photo_data:
-            photo_data = photo_data.split(',')[1]
-
-        #Base64はテキスト形式で画像データを表現したものなので、b64decode()でそれをバイナリデータ(0 or 1)に変換する
-        image_binary = base64.b64decode(photo_data)
-
-        #サーバーのstatic/uploadsフォルダに画像を保存する
-        upload_dir = os.path.join(app.root_path, 'static', 'uploads')
-        # フォルダが存在しない場合は作成する
-        os.makedirs(upload_dir, exist_ok=True)
-        #ファイルパスを作成
-        filepath = os.path.join(upload_dir, filename)
-
-        #バイナリデータをファイルに書き込む
-        #ファイルをwbモード(バイナリ書き込みモード)で開く
-        #f.write()でバイナリデータを書き込む
-        #with文を使うことで、ファイルのクローズ処理を自動で行う
-        with open(filepath, 'wb') as f:
-            f.write(image_binary)
-
-        sys.stderr.write(f"画像保存成功: {filepath}\n")
-        sys.stderr.write(f"ファイルサイズ: {len(image_binary)} bytes\n")
-        sys.stderr.flush()
-
-
-        # DB更新処理
-        # Inspectionテーブルから、このinspection_idに対応する該当レコードを取得して、画像ファイル名とパスを更新する
-        inspection = Inspection.query.get(inspection_id)
-        #ファイルの名前、ウェブブラウザからアクセスするためのURLパス、アップロード日時を更新
-        if inspection:
-            inspection.photo_filename = filename
-            inspection.image_url = f'/static/uploads/{filename}'
-            inspection.photo_uploaded_at = datetime.now()
-            #dbに変更をコミット
-            db.session.commit()
-            sys.stderr.write(f" DB更新成功: inspection_id={inspection_id}, filename={filename}\n")
-            sys.stderr.flush()
+        data = request.json
+        
+        # 1. 点検レコードを取得
+        inspection = Inspection.query.get_or_404(inspection_id)
+        
+        # 2. AI判定結果を InspectionDetail に保存
+        # まず、既存のレコードがあるか確認（同じ部位の重複を防ぐ）
+        existing_detail = InspectionDetail.query.filter_by(
+            inspection_id=inspection_id,
+            part=InspectionPartEnum.CHAIN
+        ).first()
+        
+        if existing_detail:
+            # 既存レコードを更新
+            detail = existing_detail
+            detail.condition = ConditionEnum.RUST if data.get('chain_condition') == 'rust' else ConditionEnum.NORMAL
+            detail.grade = GradeEnum.C if data.get('chain_condition') == 'rust' else GradeEnum.A
+            detail.confidence = data.get('chain_confidence', 0.0)
+            detail.updated_at = datetime.utcnow()
         else:
-            sys.stderr.write(f"Inspection ID {inspection_id} がDBに存在しません\n")
-            sys.stderr.flush()
-            return jsonify({'error': '検査記録が見つかりません'}), 404
-
-        # 成功レスポンスを返す
+            # 新規レコード作成
+            detail = InspectionDetail(
+                inspection_id=inspection_id,
+                part=InspectionPartEnum.CHAIN,
+                condition=ConditionEnum.RUST if data.get('chain_condition') == 'rust' else ConditionEnum.NORMAL,
+                grade=GradeEnum.C if data.get('chain_condition') == 'rust' else GradeEnum.A,
+                is_ai_predicted=True,
+                confidence=data.get('chain_confidence', 0.0),
+                ai_raw_result=json.dumps({
+                    'chain_condition': data.get('chain_condition'),
+                    'chain_confidence': data.get('chain_confidence'),
+                    'timestamp': datetime.utcnow().isoformat()
+                })
+            )
+            db.session.add(detail)
+        
+        # commitしてdetail_idを取得
+        db.session.flush()
+        
+        # 3. 写真を InspectionPhoto に保存
+        if 'photo_data' in data:
+            # Base64デコード
+            photo_base64 = data['photo_data'].split(',')[1] if ',' in data['photo_data'] else data['photo_data']
+            photo_binary = base64.b64decode(photo_base64)
+            
+            photo = InspectionPhoto(
+                inspection_id=inspection_id,
+                detail_id=detail.detail_id,  # 部位と紐付け
+                filename=data.get('filename', f'inspection_{inspection_id}_{datetime.now().strftime("%Y%m%d_%H%M%S")}.png'),
+                photo_data=photo_binary,
+                file_size=len(photo_binary),
+                mime_type='image/png',
+                uploaded_by=session.get('user_id')
+            )
+            db.session.add(photo)
+        
+        # 4. inspection テーブルも更新
+        inspection.photography_at = datetime.utcnow()
+        inspection.photographer_id = session.get('user_id')
+        
+        # 5. 全体の判定を更新（最悪の等級を採用）
+        all_details = InspectionDetail.query.filter_by(inspection_id=inspection_id).all()
+        grades = [d.grade for d in all_details if d.grade]
+        if grades:
+            worst_grade = max(grades, key=lambda g: ['A', 'B', 'C', 'D'].index(g.value))
+            inspection.overall_grade = worst_grade
+        
+        # 6. コミット
+        db.session.commit()
+        
+        # 7. レスポンス
         return jsonify({
             'success': True,
-            'message': 'Photo uploaded and saved to database',
-            'inspection_id': inspection_id,
-            'filename': filename,
-            'filepath': f'/static/uploads/{filename}'
-        }), 200
-
-    # エラーハンドリング
+            'detail_id': detail.detail_id,
+            'photo_id': photo.photo_id if 'photo_data' in data else None,
+            'chain_condition': data.get('chain_condition'),
+            'chain_confidence': data.get('chain_confidence'),
+            'grade': detail.grade.value,
+            'overall_grade': inspection.overall_grade.value if inspection.overall_grade else None
+        })
+        
     except Exception as e:
-        sys.stderr.write(f"エラー発生: {str(e)}\n")
-        sys.stderr.flush()
-        return jsonify({'error': str(e), 'message': 'Failed to upload photo'}), 500
-    
+        db.session.rollback()
+        print(f"❌ エラー: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500
+
+
 #DBからinspection_idに対応する検査記録を取得して、ブラウザ上に返すAPIエンドポイント
-@app.route('/api/inspection/<int:inspection_id>', methods=['GET'])
-def get_inspection(inspection_id):
+@app.route('/api/inspection/<int:inspection_id>/results', methods=['GET'])
+def get_inspection_results(inspection_id):
+    """点検結果を取得（CheckSheet ページで使用）"""
     try:
-        # 指定されたinspection_idに対応する検査記録をDBから取得し、inspection変数に格納
-        inspection = Inspection.query.get(inspection_id)
-        if not inspection:
-            return jsonify({'error': 'Inspection not found'}), 404
-
-        # Enum型は文字列に変換
-        chain_grade = inspection.result or inspection.overall_result
-        if chain_grade is not None:
-            # Enumの場合はname属性を使い、そうでなければそのまま文字列化
-            chain_grade = str(chain_grade.name) if hasattr(chain_grade, 'name') else str(chain_grade)
-
-        # 取得した検査記録の情報をJSON形式で返す
-        return jsonify({
-            'inspection_id': inspection.inspection_id,
-            'chain_grade': chain_grade,
-            'inspection_date': inspection.inspection_date.strftime("%Y-%m-%d") if inspection.inspection_date else None,
-            'photo_filename': inspection.photo_filename,
-            'image_url': inspection.image_url
-        }), 200
-
-    # エラーハンドリング
+        from models import Inspection, InspectionDetail
+        
+        inspection = Inspection.query.get_or_404(inspection_id)
+        details = InspectionDetail.query.filter_by(inspection_id=inspection_id).all()
+        
+        results = {
+            'inspection_id': inspection_id,
+            'overall_grade': inspection.overall_grade.value if inspection.overall_grade else None,
+            'parts': []
+        }
+        
+        for detail in details:
+            results['parts'].append({
+                'part': detail.part.value,
+                'condition': detail.condition.value if detail.condition else None,
+                'grade': detail.grade.value if detail.grade else None,
+                'confidence': detail.confidence,
+                'is_ai_predicted': detail.is_ai_predicted
+            })
+        
+        return jsonify(results)
+        
     except Exception as e:
-        sys.stderr.write(f" /api/inspection/{inspection_id} API エラー: {str(e)}\n")
-        sys.stderr.flush()
+        print(f"❌ エラー: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
 # DB初期化チェック

@@ -38,33 +38,45 @@
             </div>
         </header>
         <div class="wrapper" id="TakePhoto">
-            <p id="page_route"><a href="{{ url_for('index') }}">トップ</a> > <a href="#">ブランコ</a> > <a href="{{ url_for('CheckSheet') }}">点検チェックシート</a> > <a href="{{ url_for('TakePhoto') }}">遊具異常撮影</a></p><br>
-            <button><img class="BackButton" src="{{ url_for('static', filename='img/back.png') }}"><p>戻る</p></button><br>
+            <p id="page_route"><a href="{{ url_for('home') }}">トップ</a> > <a href="#">ブランコ</a> > <a href="{{ url_for('CheckSheet') }}">点検チェックシート</a> > <a href="{{ url_for('TakePhoto') }}">遊具異常撮影</a></p><br>
+            
+            <!-- 修正: id="backButton" を追加 -->
+            <button id="backButton"><img class="BackButton" src="{{ url_for('static', filename='img/back.png') }}"><p>戻る</p></button><br>
 
-            <!-- ここにカメラが入ります -->
+            <!-- カメラ表示エリア -->
+            <div class="camera-container">
+                <video id="cameraStream" autoplay playsinline></video>
+                <canvas id="captureCanvas" style="display: none;"></canvas>
+            </div>
+
+            <!-- メッセージ表示エリア -->
+            <div id="message" class="message"></div>
+
+            <!-- AI判定結果表示エリア -->
+            <div id="aiResult" class="ai-result">
+                <h3>🤖 AI判定結果</h3>
+                <div id="aiResultContent"></div>
+                <div class="confidence-bar">
+                    <div id="confidenceFill" class="confidence-fill"></div>
+                </div>
+            </div>
 
             <div class="PhotoButton" id="photoButtonContainer">
                 <button id="photoButton"><img src="{{ url_for('static', filename='img/PhotoButton.png') }}"></button>
             </div>
             <div class="NewButtons" id="newButtonsContainer" style="display: none;">
-                <button id="retakeButton">再撮影                    <img src="{{ url_for('static', filename='img/CameraIcon.png') }}" alt="再撮影"></button>               
+                <button id="retakeButton">再撮影 <img src="{{ url_for('static', filename='img/CameraIcon.png') }}" alt="再撮影"></button>               
                 <button id="saveButton">保存<img src="{{ url_for('static', filename='img/back.png') }}"></button>
             </div>
-
         </div>
-        <footer>
 
-        </footer>
-                <script>
-            // ====================================================
-            // 【グローバル変数】
-            // ====================================================
-            let capturedImage = null;     // Base64 画像データ
-            let isLoading = false;        // 送信中かどうか
-            let stream = null;            // カメラストリーム
-            let aiResultData = null;      // AI判定結果
+        <script>
+            // [既存のJavaScriptコードはそのまま - 変更なし]
+            let capturedImage = null;
+            let isLoading = false;
+            let stream = null;
+            let aiResultData = null;
 
-            // URL パラメータから inspection_id と row_index を取得
             const urlParams = new URLSearchParams(window.location.search);
             const inspectionId = urlParams.get('inspection_id') || 1;
             const rowIndex = urlParams.get('row_index') || 1;
@@ -73,9 +85,6 @@
             console.log('   - inspection_id:', inspectionId);
             console.log('   - row_index:', rowIndex);
 
-            // ====================================================
-            // 【DOM 要素の取得】
-            // ====================================================
             const videoElement = document.getElementById('cameraStream');
             const canvasElement = document.getElementById('captureCanvas');
             const photoButtonContainer = document.getElementById('photoButtonContainer');
@@ -88,20 +97,15 @@
             const aiResultContent = document.getElementById('aiResultContent');
             const confidenceFill = document.getElementById('confidenceFill');
 
-            // ====================================================
-            // 【1】ページロード時にカメラを自動起動
-            // ====================================================
             function startCamera() {
                 console.log('📹 カメラ起動開始...');
-                
                 const constraints = {
                     video: {
-                        facingMode: { ideal: "environment" },  // スマホの背面カメラ
+                        facingMode: { ideal: "environment" },
                         width: { ideal: 1280 },
                         height: { ideal: 720 }
                     }
                 };
-
                 navigator.mediaDevices.getUserMedia(constraints)
                     .then(function(mediaStream) {
                         console.log('✅ カメラ起動成功');
@@ -111,106 +115,69 @@
                     })
                     .catch(function(err) {
                         console.error('❌ カメラ起動エラー:', err);
-                        showMessage('カメラの起動に失敗しました。ブラウザの設定を確認してください。', 'error');
+                        showMessage('カメラの起動に失敗しました。', 'error');
                     });
             }
 
-            // ページ読み込み時にカメラを起動
             document.addEventListener('DOMContentLoaded', startCamera);
 
-            // ====================================================
-            // 【2】撮影ボタンクリック時の処理
-            // ====================================================
             photoButtonContainer.addEventListener('click', capturePhoto);
 
             function capturePhoto() {
                 console.log('📷 撮影ボタンクリック');
-
                 try {
-                    // Canvas のコンテキストを取得
                     const ctx = canvasElement.getContext('2d');
-                    
-                    // Canvas のサイズを video と同じにする
                     canvasElement.width = videoElement.videoWidth;
                     canvasElement.height = videoElement.videoHeight;
-                    
-                    // video の現在のフレームを canvas に描画
                     ctx.drawImage(videoElement, 0, 0);
-                    
-                    // Base64 文字列に変換
                     capturedImage = canvasElement.toDataURL('image/png');
-
                     console.log('✅ 写真キャプチャ完了');
-                    console.log('   - 画像サイズ:', (capturedImage.length / 1024).toFixed(2), 'KB');
-                    
-                    // UI を切り替える
                     photoButtonContainer.style.display = 'none';
                     newButtonsContainer.style.display = 'flex';
-                    
                     showMessage('写真を撮影しました。送信してください。', 'info');
-                    
                 } catch (error) {
                     console.error('❌ 撮影エラー:', error);
                     showMessage('撮影に失敗しました。', 'error');
                 }
             }
 
-            // ====================================================
-            // 【3】再撮影ボタンクリック時の処理
-            // ====================================================
             retakeButton.addEventListener('click', retakePhoto);
 
             function retakePhoto() {
                 console.log('🔄 再撮影');
-
-                // データをリセット
                 capturedImage = null;
                 aiResultData = null;
-
-                // UI を元に戻す
                 photoButtonContainer.style.display = 'block';
                 newButtonsContainer.style.display = 'none';
                 aiResultElement.classList.remove('show');
-                
                 hideMessage();
             }
 
-            // ====================================================
-            // 【4】保存（送信）ボタンクリック時の処理
-            // ====================================================
             saveButton.addEventListener('click', submitPhoto);
 
             async function submitPhoto() {
                 console.log('💾 送信ボタンクリック');
-
-                // バリデーション
                 if (!capturedImage) {
-                    showMessage('写真が見つかりません。もう一度撮影してください。', 'error');
+                    showMessage('写真が見つかりません。', 'error');
                     return;
                 }
-
                 if (isLoading) {
                     console.log('⏳ 既に送信中です');
                     return;
                 }
 
-                // UI 更新（送信中）
                 saveButton.disabled = true;
                 retakeButton.disabled = true;
                 isLoading = true;
                 showMessage('送信中... AI解析を実行しています', 'info');
 
                 try {
-                    // API エンドポイント
                     const apiUrl = `/api/inspection/${inspectionId}/upload_photo`;
                     console.log('🔗 API URL:', apiUrl);
 
-                    // POST リクエスト送信
                     const response = await fetch(apiUrl, {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             photo_data: capturedImage,
                             filename: `inspection_${inspectionId}_${new Date().toISOString().slice(0, 10)}.png`,
@@ -228,27 +195,19 @@
                     const result = await response.json();
                     console.log('✅ 送信成功！', result);
 
-                    // ====================================================
-                    // 【★ 修正】AI判定結果の処理
-                    // ====================================================
-                    // 【変更】result.ai_result ではなく result.chain_condition を使う
                     if (result.chain_condition && result.chain_confidence !== undefined) {
-                        // 鎖の推論結果を処理
                         const chainResult = convertChainConditionToGrade(result.chain_condition);
                         
                         aiResultData = {
-                            part: 'chain',              // 部位：鎖
-                            condition: result.chain_condition,  // 'nomal' or 'rust'
-                            result: chainResult,        // 'A', 'B', 'C'
+                            part: 'chain',
+                            condition: result.chain_condition,
+                            result: chainResult,
                             confidence: result.chain_confidence,
                             rowIndex: rowIndex,
                             timestamp: new Date().toISOString()
                         };
 
-                        // AI結果を表示
                         displayAIResult(aiResultData);
-
-                        // localStorage に保存（CheckSheet ページで読み取る）
                         localStorage.setItem('latestAIResult', JSON.stringify(aiResultData));
                         console.log('💾 localStorage に保存:', aiResultData);
 
@@ -259,7 +218,6 @@
                         showMessage('✓ 写真を保存しました', 'success');
                     }
 
-                    // 3秒後に CheckSheet ページに戻る
                     setTimeout(function () {
                         console.log('← CheckSheet ページに戻ります');
                         window.location.href = '/CheckSheet';
@@ -268,50 +226,25 @@
                 } catch (error) {
                     console.error('❌ 送信エラー:', error);
                     showMessage(`✗ 送信失敗: ${error.message}`, 'error');
-                    
-                    // エラー時はボタンを再度有効化
                     saveButton.disabled = false;
                     retakeButton.disabled = false;
-                
                 } finally {
                     isLoading = false;
                 }
             }
 
-            // ====================================================
-            // 【5】鎖の状態を等級に変換
-            // ====================================================
             function convertChainConditionToGrade(condition) {
-                /**
-                 * AI推論結果（chain_condition）を検査等級（A/B/C）に変換
-                 * 
-                 * 'rust'（錆あり）→ 'C'（要対応）
-                 * 'nomal'（正常）→ 'A'（異常なし）
-                 */
                 if (condition === 'rust') {
-                    return 'C';  // 要対応
+                    return 'C';
                 } else {
-                    return 'A';  // 異常なし
+                    return 'A';
                 }
             }
 
-            // ====================================================
-            // 【6】AI判定結果を表示
-            // ====================================================
             function displayAIResult(data) {
                 console.log('🤖 AI結果表示:', data);
-
-                const resultLabels = {
-                    'A': '異常なし',
-                    'B': '経過観察',
-                    'C': '要対応'
-                };
-
-                const conditionLabels = {
-                    'nomal': '🟢 錆なし',
-                    'rust': '🔴 錆あり'
-                };
-
+                const resultLabels = { 'A': '異常なし', 'B': '経過観察', 'C': '要対応' };
+                const conditionLabels = { 'nomal': '🟢 錆なし', 'rust': '🔴 錆あり' };
                 const label = resultLabels[data.result] || data.result;
                 const conditionLabel = conditionLabels[data.condition] || data.condition;
                 const confidencePercent = (data.confidence * 100).toFixed(1);
@@ -322,17 +255,10 @@
                     <p><strong>判定:</strong> ${data.result} - ${label}</p>
                     <p><strong>確信度:</strong> ${confidencePercent}%</p>
                 `;
-
-                // 確信度バーを更新
                 confidenceFill.style.width = `${confidencePercent}%`;
-
-                // 結果エリアを表示
                 aiResultElement.classList.add('show');
             }
 
-            // ====================================================
-            // 【7】ユーティリティ関数
-            // ====================================================
             function showMessage(msg, type) {
                 messageElement.textContent = msg;
                 messageElement.className = `message ${type}`;
@@ -343,18 +269,12 @@
                 messageElement.className = 'message';
             }
 
-            // ====================================================
-            // 【8】戻るボタンの処理
-            // ====================================================
             backButton.addEventListener('click', function () {
                 console.log('← 戻るボタンクリック');
                 stopCamera();
                 window.location.href = '/CheckSheet';
             });
 
-            // ====================================================
-            // 【9】カメラを停止する関数
-            // ====================================================
             function stopCamera() {
                 console.log('⏹️ カメラ停止');
                 if (stream) {
@@ -367,9 +287,6 @@
                 }
             }
 
-            // ====================================================
-            // 【10】ページ離脱時にカメラを停止
-            // ====================================================
             window.addEventListener('beforeunload', function() {
                 stopCamera();
             });
@@ -386,9 +303,6 @@
                 }
             });
 
-            // ====================================================
-            // 【11】エラーハンドリング
-            // ====================================================
             window.addEventListener('error', function(event) {
                 console.error('❌ グローバルエラー:', event.error);
             });

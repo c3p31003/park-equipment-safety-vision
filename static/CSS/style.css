@@ -771,6 +771,8 @@ header h1{
 }
 
 /*保存ボタン*/
+
+
 #daily_completed_container_top {
     text-align: left;
     height: 50px;
@@ -1459,5 +1461,16 @@ header h1{
     .PE_search_category::after {
         top: 16.5%;
     }
+}
+
+
+
+/* 臨時追加　修正求 */
+.CheckSheet_send_button{
+    background-color: #50B4AA;
+    width: 130px;
+    text-align: center;
+    border-radius: 8px;
+    margin: 20px; 
 }
 
