@@ -12,3 +12,6 @@ prompt.txt
 *.npz
 *.keras
 *.flag
+*.log
+*.csv
+*.pem
