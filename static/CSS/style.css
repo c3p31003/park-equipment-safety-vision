@@ -712,10 +712,12 @@ header h1{
     height: 50px;
     border-radius: 10px;
     text-align: center;
+    margin-top: 10px;
 }
 
 #saveButton {
     background-color: #EBD299;
+    margin-left: 30px;
 }
 
 #saveButton img {
@@ -1302,7 +1304,7 @@ header h1{
 
     #cameraStream {
         width: 100%;
-        height: auto;
+        height: 80%;
         margin: 0 auto;
     }
 
