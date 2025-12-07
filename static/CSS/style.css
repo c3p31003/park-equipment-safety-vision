@@ -1294,6 +1294,18 @@ header h1{
         pointer-events: none;
     }
 
+    /* TakePhoto(撮影画面) */
+
+    .camera-container {
+        width: 93%;
+    }
+
+    #cameraStream {
+        width: 100%;
+        height: auto;
+        margin: 0 auto;
+    }
+
 
 }
 
