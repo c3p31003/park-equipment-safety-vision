@@ -25,7 +25,7 @@
                     <div class="overlay"></div>
                     <nav class="nav">
                         <ul>
-                            <li><a href="{{ url_for('index') }}">トップページ</a></li>
+                            <li><a href="{{ url_for('home') }}">トップページ</a></li>
                             <li><a href="{{ url_for('daily_report') }}">日報作成</a></li>
                             <li><a href="{{ url_for('results_report') }}">結果報告書作成</a></li>
                             <li><a href="{{ url_for('CheckSheet') }}">点検チェックシート</a></li>
@@ -39,7 +39,7 @@
         </header>
     <div class="wrapper">
       <div id="daily_report_container">
-        <p id="page_route"><a href="{{ url_for('index') }}">トップ</a> > <a href="{{ url_for('daily_report') }}">日報作成</a></p>
+        <p id="page_route"><a href="{{ url_for('home') }}">トップ</a> > <a href="{{ url_for('daily_report') }}">日報作成</a></p>
         <div id="daily_completed_container_top">
             <button id="daily_completed" type="button">保存</button>
         </div>
@@ -148,10 +148,10 @@
               <button id="add_photo" type="button">＋</button>
             </div>
             <div id="image_container">
-              <img src="{{ url_for('static', filename='img/image.png') }}">
-              <img src="{{ url_for('static', filename='img/image.png') }}">
-              <img src="{{ url_for('static', filename='img/image.png') }}">
-              <img src="{{ url_for('static', filename='img/image.png') }}">                
+              <img src="{{ url_for('static', filename='img/photo_image.png') }}">
+              <img src="{{ url_for('static', filename='img/photo_image.png') }}">
+              <img src="{{ url_for('static', filename='img/photo_image.png') }}">
+              <img src="{{ url_for('static', filename='img/photo_image.png') }}">                
             </div>
           </div>
         </div>

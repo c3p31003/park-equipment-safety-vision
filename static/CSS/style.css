@@ -396,8 +396,8 @@ header h1{
 .AllDocuments_search_year::after { /* 「∨」を右端に表示 */
     content: '';
     position: absolute;
-    right: 30px;
-    top: 60%;
+    right: 36px;
+    margin-top: 29px;
     transform: translateY(-50%);
     width: 16px;
     height: 16px;
@@ -481,13 +481,14 @@ header h1{
     border-radius: 6px;
     appearance: none;
     background-color: #fff;
+    width: 130px;
 }
 
 .CheckSheet_search_year::after { /* 「∨」を右端に表示 */
     content: '';
     position: absolute;
-    left: 110px;
-    top:60%;
+    left: 100px;
+    top:76%;
     transform: translateY(-50%);
     width: 16px;
     height: 16px;
@@ -574,19 +575,46 @@ header h1{
     background-color: #fff;
  }
 
-.CheckSheet_set_month::after {
+#hanger_count, #chain_count, #seat_count {
+    width: 40px;
+    text-align: right;
+}
+
+#response_month {
+    padding: 10px;
+    margin: 10px 20px 10px 0px;
+    font-size: 16px;
+    border: solid 1px #D9D9D9;
+    border-radius: 6px;
+    appearance: none;
+    background-color: #fff;
+    width: 100px;
+}
+
+.response_month::after {
     content: '';
     position: absolute;
-    left: 60px;
-    top:60%;
+    left: 118px;
     transform: translateY(-50%);
     width: 16px;
     height: 16px;
+    margin-top: 38px;
     background-image: url('../img/∨.png');
     background-size: contain;
     background-repeat: no-repeat;
     pointer-events: none;
 }
+
+.prohibition_planned input {
+    padding: 10px;
+    margin: 10px 10px 10px 0px;
+    font-size: 16px;
+    border: solid 1px #D9D9D9;
+    border-radius: 6px;
+    appearance: none;
+    background-color: #fff;
+}
+
 
 /* ラジオボタンを非表示にしてラベルで操作 */
 .CheckSheet_list input[type="radio"] {
@@ -818,7 +846,7 @@ header h1{
 
 #date_column_container select, .report_input_container select {
     width: 16%;
-    padding-left:10px;
+    padding-left:6px;
     margin-right: 5px;
     text-align: left;
     background-image: url('../img/∨.png');
@@ -939,25 +967,11 @@ header h1{
     cursor:default;
 }
 
-.PE_search_category::after {
+.PE_search_category::after,.PE_search::after {
     content: '';
     position: absolute;
     left: 280px;
-    top: 16%;
-    transform: translateY(-50%);
-    width: 16px;
-    height: 16px;
-    background-image: url(../img/∨.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    pointer-events: none;
-}
-
-.PE_search::after {
-    content: '';
-    position: absolute;
-    left: 280px;
-    top: 23.5%;
+    margin-top: 30px;
     transform: translateY(-50%);
     width: 16px;
     height: 16px;
@@ -1228,6 +1242,20 @@ header h1{
         top: 10%;
     }
 
+    .AllDocuments_search_year::after { /* 「∨」を右端に表示 */
+        content: '';
+        position: absolute;
+        top: 42px;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        background-image: url('../img/∨.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        pointer-events: none;
+    }
+
+
     /* CheckSheet(点検チェックシート画面) */
     .CheckSheet_input_area br {
         display: none;
@@ -1239,8 +1267,23 @@ header h1{
     }
 
     .CheckSheet_search_year::after { /* 「∨」を右端に表示 */
-        top:52%;
+        top:66%;
     }
+
+    .response_month::after {
+        content: '';
+        position: absolute;
+        left: 84px;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        margin-top: 38px;
+        background-image: url('../img/∨.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        pointer-events: none;
+    }
+
 
 }
 

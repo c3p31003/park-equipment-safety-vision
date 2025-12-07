@@ -84,7 +84,7 @@
                             </select>
                         </div>
                         <div class="CheckSheet_search_year">
-                            <label for="install_year_num">年</label><br>
+                            <label for="install_year_num">　</label><br>
                             <select id="install_year_num" name="install_year_num">
                                 <option value="1">１年度</option>
                                 <option value="2">２年度</option>
@@ -246,35 +246,36 @@
                      措置及び総合結果
                      ======================================== -->
                 <h1>措置及び総合結果</h1>
-                <h2>●点検時に実施した措置</h2>
-                <input type="checkbox" id="action_grease" name="action_grease" value="grease">
-                <label for="action_grease">グリース・オイル等の注入</label><br>
-                
-                <input type="checkbox" id="action_bolt" name="action_bolt" value="bolt">
-                <label for="action_bolt">ボルト・ナットの増し締め・交換</label><br>
-                
-                <input type="checkbox" id="action_hanger" name="action_hanger" value="hanger">
-                <label for="action_hanger">吊金具の交換</label>
-                <input type="number" id="hanger_count" name="hanger_count" min="0"> 箇所<br>
-                
-                <input type="checkbox" id="action_chain" name="action_chain" value="chain">
-                <label for="action_chain">チェーンの交換</label>
-                <input type="number" id="chain_count" name="chain_count" min="0"> 箇所<br>
-                
-                <input type="checkbox" id="action_seat" name="action_seat" value="seat">
-                <label for="action_seat">座板の交換</label>
-                <input type="number" id="seat_count" name="seat_count" min="0"> 箇所<br>
-                
-                <input type="checkbox" id="action_removal" name="action_removal" value="removal">
-                <label for="action_removal">石・異物の除去、枝の剪定</label><br>
-                
-                <input type="checkbox" id="action_other" name="action_other" value="other">
-                <label for="action_other">その他</label>
-                <input type="text" id="action_other_detail" name="action_other_detail" class="result_short_opinion"><br>
-                
-                <label for="observations">●所見</label><br>
-                <textarea id="observations" name="observations" class="result_long_opinion"></textarea>
-                
+                <div class="CheckSheet_measure_area">
+                    <h2>●点検時に実施した措置</h2>
+                    <input type="checkbox" id="action_grease" name="action_grease" value="grease">
+                    <label for="action_grease">グリース・オイル等の注入</label><br>
+                    
+                    <input type="checkbox" id="action_bolt" name="action_bolt" value="bolt">
+                    <label for="action_bolt">ボルト・ナットの増し締め・交換</label><br>
+                    
+                    <input type="checkbox" id="action_hanger" name="action_hanger" value="hanger">
+                    <label for="action_hanger">吊金具の交換　</label>
+                    <input type="number" id="hanger_count" name="hanger_count" min="0"> 箇所<br>
+                    
+                    <input type="checkbox" id="action_chain" name="action_chain" value="chain">
+                    <label for="action_chain">チェーンの交換</label>
+                    <input type="number" id="chain_count" name="chain_count" min="0"> 箇所<br>
+                    
+                    <input type="checkbox" id="action_seat" name="action_seat" value="seat">
+                    <label for="action_seat">座板の交換　　</label>
+                    <input type="number" id="seat_count" name="seat_count" min="0"> 箇所<br>
+                    
+                    <input type="checkbox" id="action_removal" name="action_removal" value="removal">
+                    <label for="action_removal">石・異物の除去、枝の剪定</label><br>
+                    
+                    <input type="checkbox" id="action_other" name="action_other" value="other">
+                    <label for="action_other">その他</label>
+                    <input type="text" id="action_other_detail" name="action_other_detail" class="result_short_opinion"><br>
+                    
+                    <label for="observations">●所見</label><br>
+                    <textarea id="observations" name="observations" class="result_long_opinion"></textarea>
+                </div>
                 <h2>●総合結果</h2>
                 <input type="radio" id="overall_a" name="overall_result" value="A">
                 <label for="overall_a">Ａ：健全（△・×なし）</label><br>
@@ -311,22 +312,23 @@
                 <input type="text" id="plan_other_detail" name="plan_other_detail" class="result_short_opinion"><br>
 
                 <h2>●対応予定時期</h2>
-                <label for="response_month">月</label>
-                <select id="response_month" name="response_month">
-                    <option value="1">１月</option>
-                    <option value="2">２月</option>
-                    <option value="3">３月</option>
-                    <option value="4">４月</option>
-                    <option value="5">５月</option>
-                    <option value="6">６月</option>
-                    <option value="7">７月</option>
-                    <option value="8">８月</option>
-                    <option value="9">９月</option>
-                    <option value="10">１０月</option>
-                    <option value="11">１１月</option>
-                    <option value="12">１２月</option>
-                </select>
-                
+                <div class="response_month">
+                    <label for="response_month"></label>
+                    <select id="response_month" name="response_month">
+                        <option value="1">１月</option>
+                        <option value="2">２月</option>
+                        <option value="3">３月</option>
+                        <option value="4">４月</option>
+                        <option value="5">５月</option>
+                        <option value="6">６月</option>
+                        <option value="7">７月</option>
+                        <option value="8">８月</option>
+                        <option value="9">９月</option>
+                        <option value="10">１０月</option>
+                        <option value="11">１１月</option>
+                        <option value="12">１２月</option>
+                    </select>
+                </div>
                 <input type="radio" id="period_early" name="period" value="early">
                 <label for="period_early">上旬</label>
                 
@@ -334,14 +336,15 @@
                 <label for="period_mid">中旬</label>
                 
                 <input type="radio" id="period_late" name="period" value="late">
-                <label for="period_late">下旬頃</label><br><br>
+                <label for="period_late">下旬 頃</label><br><br>
                 
                 <input type="checkbox" id="prohibition_measure" name="prohibition_measure" value="prohibition">
                 <label for="prohibition_measure">本格的な使用禁止措置</label><br>
                 
-                <label for="prohibition_date">実施日</label>
-                <input type="date" id="prohibition_date" name="prohibition_date"><br>
-                
+                <div class="prohibition_planned">
+                    <label for="prohibition_date">実施日</label>
+                    <input type="date" id="prohibition_date" name="prohibition_date"><br>
+                </div>
                 <input type="radio" id="prohibition_done" name="prohibition_status" value="done">
                 <label for="prohibition_done">実施済み</label>
                 
