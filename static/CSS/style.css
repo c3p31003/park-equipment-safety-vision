@@ -882,6 +882,16 @@ header h1{
 #left_container th {
     background-color: #76B5AE;
     padding-left: 10px;
+    min-width: 112px;
+    text-align: center;
+    padding: 0;
+}
+
+#left_container td {
+    font-size: 20px;
+    height: auto;
+    vertical-align: middle;
+    padding: 0;
 }
 
 /*備考*/
