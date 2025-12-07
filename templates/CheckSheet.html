@@ -166,7 +166,7 @@
                             </td>
                             <td>
                                 <a href="{{ url_for('TakePhoto') }}?inspection_id=1&row_index=chain">
-                                    <button type="button">📷 撮影</button>
+                                    <button type="button"><img src="{{ url_for('static', filename='img/camera.png') }}" alt="通知"></button>
                                 </a>
                             </td>
                         </tr>
@@ -188,8 +188,8 @@
                                 <label class="checkbox_wrapper" for="joint_c"></label>
                             </td>
                             <td>
-                                <a href="{{ url_for('TakePhoto') }}?inspection_id=1&row_index=joint">
-                                    <button type="button">📷 撮影</button>
+                                                                                                <a href="{{ url_for('TakePhoto') }}?inspection_id=1&row_index=joint">
+                                <button type="button"><img src="{{ url_for('static', filename='img/camera.png') }}" alt="通知"></button>
                                 </a>
                             </td>
                         </tr>
@@ -210,10 +210,10 @@
                                 <input type="radio" id="pole_c" name="pole" value="C">
                                 <label class="checkbox_wrapper" for="pole_c"></label>
                             </td>
-                            <td>
-                                <a href="{{ url_for('TakePhoto') }}?inspection_id=1&row_index=pole">
-                                    <button type="button"> 撮影</button>
+                            <td>                                    <a href="{{ url_for('TakePhoto') }}?inspection_id=1&row_index=pole">
+                                    <button type="button">📷 撮影</button>
                                 </a>
+
                             </td>
                         </tr>
                         
