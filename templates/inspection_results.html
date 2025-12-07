@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+<<<<<<< HEAD
 <head>
   <meta charset="UTF-8">
   <title>遊具管理システム</title>
@@ -49,4 +50,79 @@
       
   </footer>
 </body>
+=======
+  <head>
+    <meta charset="UTF-8">
+    <title>遊具管理システム | 点検結果確認ページ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
+  </head>
+  <body>
+    <header class="header">
+        <div class="flexbox">
+            <h1><a href="{{ url_for('home') }}">遊具管理システム</a></h1>
+            <div class="account_toggle" id="mobile">
+                <img src="{{ url_for('static', filename='img/Icon.svg') }}" alt="アカウント" id="accountIcon">
+            </div>
+            <button><img src="{{ url_for('static', filename='img/bell.png') }}"></button>
+            <div class="nav_wrapper">
+                <input type="checkbox" id="nav_toggle" hidden>
+                <label class="nav_icon" for="nav_toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+                <div class="overlay"></div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="{{ url_for('home') }}">トップページ</a></li>
+                        <li><a href="{{ url_for('daily_report') }}">日報作成</a></li>
+                        <li><a href="{{ url_for('results_report') }}">結果報告書作成</a></li>
+                        <li><a href="{{ url_for('CheckSheet') }}">点検チェックシート</a></li>
+                        <li><a href="{{ url_for('Deterioration') }}">劣化進行・劣化予測</a></li>
+                        <li><a href="{{ url_for('PhotoViewing') }}">写真閲覧</a></li>
+                        <li><a href="{{ url_for('AllDocuments') }}">書類一覧</a></li>         
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div class="wrapper">
+      <div id="inspection_results_container">
+        <p id="page_route"><a href="{{ url_for('home') }}">トップ</a> > <a href="#">ブランコ</a> > <a href="{{ url_for('CheckSheet') }}">点検チェックシート</a> > <a href="{{ url_for('inspection_results') }}">点検結果確認</a></p>
+        <p class="headline">点検結果</p>
+        <div id="anomaly_count">
+          <p>異常検出数：</p>
+        </div>
+        <p class="headline">撮影された写真</p>
+        <div id="inspection_image">
+          <img src="{{ url_for('static', filename='img/image.png') }}">
+          <img src="{{ url_for('static', filename='img/image.png') }}">
+          <img src="{{ url_for('static', filename='img/image.png') }}">
+          <img src="{{ url_for('static', filename='img/image.png') }}">
+          <img src="{{ url_for('static', filename='img/image.png') }}">
+        </div>
+        <div id="inspection_completed_container">
+          <button id="inspection_completed" type="button">点検を完了</button>
+        </div>
+        <p class="headline">ほかの遊具も点検する</p>
+        <div id="playground_equipment">
+          <button type="button">ブランコ</button>
+          <button type="button">すべり台</button>
+          <button type="button">ジャングルジム</button>
+          <button type="button">鉄棒</button>
+          <button type="button">複合遊具</button>
+          <button type="button">砂場</button>
+          <button type="button">健康遊具</button>
+          <button type="button">ターザンロープ</button>
+          <button type="button">シーソー</button>
+        </div>
+      </div>
+    </div>
+    <footer>
+        
+    </footer>
+  </body>
+>>>>>>> origin/main
 </html>

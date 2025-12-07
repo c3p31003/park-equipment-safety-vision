@@ -2,22 +2,47 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
-        <title>遊具管理システム | 書類一覧</title>
+        <title>遊具管理システム | 書類一覧ページ</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
+<<<<<<< HEAD
         <link href="{{ url_for('static', filename='css/style.css') }}">
+=======
+        <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
+>>>>>>> origin/main
     </head>
     <body>
-        <header>
-            <div class="header_title"><a href="index.html"><h1>遊具管理システム</h1></a></div>
-            <div class="alert"></div>
-            <div class="openbtn"><span></span><span></span><span></span></div>
+        <header class="header">
+            <div class="flexbox">
+                <h1><a href="{{ url_for('home') }}">遊具管理システム</a></h1>
+                <button><img src="{{ url_for('static', filename='img/bell.png') }}"></button>
+                <div class="nav_wrapper">
+                    <input type="checkbox" id="nav_toggle" hidden>
+                    <label class="nav_icon" for="nav_toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </label>
+                    <div class="overlay"></div>
+                    <nav class="nav">
+                        <ul>
+                            <li><a href="{{ url_for('home') }}">トップページ</a></li>
+                            <li><a href="{{ url_for('daily_report') }}">日報作成</a></li>
+                            <li><a href="{{ url_for('results_report') }}">結果報告書作成</a></li>
+                            <li><a href="{{ url_for('CheckSheet') }}">点検チェックシート</a></li>
+                            <li><a href="{{ url_for('Deterioration') }}">劣化進行・劣化予測</a></li>
+                            <li><a href="{{ url_for('PhotoViewing') }}">写真閲覧</a></li>
+                            <li><a href="{{ url_for('AllDocuments') }}">書類一覧</a></li>                            
+                        </ul>
+                    </nav>
+                </div>
+            </div>
         </header>
         <div class="wrapper">
-            <div class="flexbox">
+                <p id="page_route"><a href="{{ url_for('home') }}">トップ</a> > <a href="{{ url_for('AllDocuments') }}">書類一覧</a></p>
+            <div class="flexbox" id="AllDocuments_flexbox">
                 <div class="section">
                     <div class="AllDocuments_search_section">
-                        <p id="page_route">トップ > 書類一覧</p>
                         <h1>書類一覧</h1>
                         <h2>検索</h2>
                         <div class="AllDocuments_search_year">
@@ -48,7 +73,7 @@
                     <tr>
                         <td>令和✕年度〇〇公園結果報告書</td>
                         <td>△△△△</td>
-                        <td>✕✕年✕月✕日<button class="AllDocuments_list_EditButton">編集</button><button class="AllDocuments_list_DeleteButton">削除</button></td>
+                        <td>✕✕年✕月✕日<br><button class="AllDocuments_list_EditButton">編集</button><button class="AllDocuments_list_DeleteButton">削除</button></td>
                     </tr>
                 </table>
             </div>
@@ -63,7 +88,7 @@
                     <tr>
                         <td>令和✕年度〇〇公園結果報告書</td>
                         <td>△△△△</td>
-                        <td>✕✕年✕月✕日<button class="AllDocuments_list_EditButton">編集</button><button class="AllDocuments_list_DeleteButton">削除</button></td>
+                        <td>✕✕年✕月✕日<br><button class="AllDocuments_list_EditButton">編集</button><button class="AllDocuments_list_DeleteButton">削除</button></td>
                     </tr>
                 </table>
             </div>
@@ -78,7 +103,7 @@
                     <tr>
                         <td>令和✕年度〇〇公園結果報告書</td>
                         <td>△△△△</td>
-                        <td>✕✕年✕月✕日<button class="AllDocuments_list_EditButton">編集</button><button class="AllDocuments_list_DeleteButton">削除</button></td>
+                        <td>✕✕年✕月✕日<br><button class="AllDocuments_list_EditButton">編集</button><button class="AllDocuments_list_DeleteButton">削除</button></td>
                     </tr>
                 </table>
             </div>

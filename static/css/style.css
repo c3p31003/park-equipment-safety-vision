@@ -26,6 +26,7 @@ img {
     max-width: auto;
     margin: 0 auto;
     margin: 0 3%;
+    padding-top: 80px;
 }
 
 .flexbox {
@@ -43,7 +44,7 @@ img {
 }
 
 .section {
-    margin: 30px 30px 30px 0;
+    margin: 30px 0;
 }
 
 .header_title {
@@ -55,11 +56,108 @@ header {
     height: 80px;
     margin-bottom: 30px;
     padding:  0 3%;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    top: 0;
+    border-bottom: solid #FBFCFC;
 }
 
 header h1{
     font-size: 28px;
     line-height: 80px;
+}
+
+.header button {
+    right: 110px;
+    position:fixed;
+    top: 20px;
+}
+
+.nav_wrapper {
+  position: relative;
+}
+
+.nav_icon {
+  width: 40px;
+  height: 30px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  z-index: 3;
+  display: inline-block;
+}
+
+.nav_icon span {
+  display: block;
+  height: 4px;
+  margin: 6px 0;
+  background: #CFE9E6;
+  border-radius: 2px;
+  transition: 0.4s;
+}
+
+/* ハンバーガー変形 */
+#nav_toggle:checked + .nav_icon span:nth-child(1) {
+  transform: translateY(10px) rotate(45deg);
+}
+#nav_toggle:checked + .nav_icon span:nth-child(2) {
+  opacity: 0;
+}
+#nav_toggle:checked + .nav_icon span:nth-child(3) {
+  transform: translateY(-10px) rotate(-45deg);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.4s;
+  z-index: 1;
+}
+
+#nav_toggle:checked ~ .overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  width: 350px;
+  height: 100%;
+  background: #fff;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+  transition: right 0.4s ease;
+  z-index: 2;
+}
+
+#nav_toggle:checked ~ .nav {
+  right: 0;
+}
+
+.nav ul {
+  list-style: none;
+  padding: 60px 20px;
+}
+
+.nav li {
+  margin: 20px 0;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.2rem;
+  transition: color 0.2s;
+}
+
+.nav a:hover {
+  color: #50B4AA;
 }
 
 
@@ -107,6 +205,10 @@ header h1{
     display: none;
 }
 
+.top_section_L {
+    width: 45%;
+}
+
 .section h1 {
     font-size: 32px;
     margin: 20px 0 30px 0;
@@ -146,6 +248,7 @@ header h1{
 }
 
 .LogOut{
+    min-width: 200px;
     width: 24%;
     margin: 0 auto;
 }
@@ -167,28 +270,50 @@ header h1{
     background-color: #FDCACB;
 }
 
+.top_document_section_L {
+    width: 50%;
+}
+
 .top_document_section img {
     margin-bottom: 5px;
     padding-left: 10px;
 }
 
+.top_document_section h2{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
 .top_data_link {
-    margin: 0 20px 20px 60px;
+    min-width: 279px;
+    margin: 0 10px 20px 30px;
     border: 2.5px solid #94C3B6;
     border-radius: 50px;
 }
 
 .top_data_link h2 {
+    font-size: 18px;
     margin: 2px 0 2px 0;
     padding: 8px 20px 8px 30px;
     border-bottom: none;
+    text-align: center;
+}
+
+.top_data_link h2 img{
+    margin-top: 13px;
+}
+
+.top_data_link img {
+    transform: rotate(-90deg);
 }
 
 .top_CreatedDocument_section {
     border: none;
     width: 48%;
     font-size: 17px;
-    margin-left: 10%;
+    margin-left: 4%;
 }
 
 .top_CreatedDocument_section h2{
@@ -256,7 +381,7 @@ header h1{
 
 .AllDocuments_search_year select,.AllDocuments_search_section input{
     padding: 10px;
-    margin: 10px;
+    margin: 10 10 10 0px;
     font-size: 16px;
     border: solid 1px #D9D9D9;
     border-radius: 6px;
@@ -271,8 +396,8 @@ header h1{
 .AllDocuments_search_year::after { /* 「∨」を右端に表示 */
     content: '';
     position: absolute;
-    right: 30px;
-    top: 60%;
+    right: 36px;
+    margin-top: 29px;
     transform: translateY(-50%);
     width: 16px;
     height: 16px;
@@ -324,7 +449,227 @@ header h1{
     color: #FBFCFC;
 }
 
+.AllDocuments_list_section button{
+    margin: 10px 10px 10px 0;
+}
 
+
+/* 点検チェックシート部分 */
+
+.check_area {
+    font-size: 16px;
+}
+
+.CheckSheet_search_year, .CheckSheet_set_date{
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    width: 150px;
+    display: inline-block;
+}
+
+.CheckSheet_search_year label {
+    cursor: default;
+    width: 100%;
+}
+
+.CheckSheet_search_year select, .CheckSheet_search_year input, .CheckSheet_set_date input{
+    padding: 10px;
+    margin: 10 10 10 0px;
+    font-size: 16px;
+    border: solid 1px #D9D9D9;
+    border-radius: 6px;
+    appearance: none;
+    background-color: #fff;
+    width: 130px;
+}
+
+.CheckSheet_search_year::after { /* 「∨」を右端に表示 */
+    content: '';
+    position: absolute;
+    left: 100px;
+    top:76%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-image: url('../img/∨.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+#CheckSheet_search_year::after {
+    top:74%;
+}
+
+.CheckSheet_list table {
+  border-collapse: collapse;
+  width: 80%;
+  margin: 20px auto;
+  font-family: sans-serif;
+}
+
+.CheckSheet_list th, td {
+  border: 1px solid #D9D9D9;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+  vertical-align: middle;
+
+}
+
+.CheckSheet_list thead tr:first-child {
+  background-color: #94C3B6;
+}
+
+.CheckSheet_list thead tr:nth-child(2) {
+  background-color: #94C3B6;
+}
+
+.CheckSheet_list tbody tr:nth-child(even) {
+  background-color: #F2F2F2;
+}
+
+.CheckSheet_list td {
+  position: relative;
+  padding: 5px;
+}
+
+.repair_count input{
+    width: 50px;
+    padding: 5px;
+    margin: 5px;
+    font-size: 16px;
+    border: solid 1px #D9D9D9;
+    border-radius: 6px;
+    appearance: none;
+    background-color: #fff;
+}
+
+.checkbox_wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  display: block;
+}
+
+.CheckSheet_set_month {
+    width: 100px;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    display: inline-block;
+
+}
+
+.CheckSheet_set_month select {
+    padding: 10px 30px 10px 10px;
+    margin: 10 10 10 0px;
+    font-size: 16px;
+    border: solid 1px #D9D9D9;
+    border-radius: 6px;
+    appearance: none;
+    background-color: #fff;
+ }
+
+#hanger_count, #chain_count, #seat_count {
+    width: 40px;
+    text-align: right;
+}
+
+#response_month {
+    padding: 10px;
+    margin: 10px 20px 10px 0px;
+    font-size: 16px;
+    border: solid 1px #D9D9D9;
+    border-radius: 6px;
+    appearance: none;
+    background-color: #fff;
+    width: 100px;
+}
+
+.response_month::after {
+    content: '';
+    position: absolute;
+    left: 118px;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    margin-top: 38px;
+    background-image: url('../img/∨.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+.prohibition_planned input {
+    padding: 10px;
+    margin: 10px 10px 10px 0px;
+    font-size: 16px;
+    border: solid 1px #D9D9D9;
+    border-radius: 6px;
+    appearance: none;
+    background-color: #fff;
+}
+
+
+/* ラジオボタンを非表示にしてラベルで操作 */
+.CheckSheet_list input[type="radio"] {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: pointer;
+}
+
+/* チェックされたときにラベルに✔を表示 */
+.CheckSheet_list input[type="radio"]:checked + .checkbox_wrapper::after {
+    content: "✔";
+    font-size: 20px;
+    color: #333;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.result_short_opinion {
+    width: 75%;
+    padding: 5px;
+    margin: 10 10 10 0px;
+    font-size: 16px;
+    border: solid 1px #D9D9D9;
+    border-radius: 6px;
+    appearance: none;
+    background-color: #fff;
+}
+
+.result_long_opinion {
+    width: 87%;
+    height: 130px;
+    padding: 5px;
+    margin: 10 10 10 0px;
+    font-size: 16px;
+    border: solid 1px #D9D9D9;
+    border-radius: 6px;
+    appearance: none;
+    background-color: #fff;
+    vertical-align: text-top;
+    word-break: break-all;
+}
+
+.CheckSheet_save_button {
+    background-color: #EBD299;
+    padding: 6px 16px;
+    border-radius: 10px;
+    text-align: center;
+    width: 100px;
+    margin: 40px auto 0 auto;
+}
 
 /*inspection_results、daily_report共通*/
 #inspection_completed,#daily_completed,#daily_completed,#add_photo {
@@ -454,6 +799,8 @@ header h1{
 }
 
 /*保存ボタン*/
+
+
 #daily_completed_container_top {
     text-align: left;
     height: 50px;
@@ -499,7 +846,7 @@ header h1{
 
 #date_column_container select, .report_input_container select {
     width: 16%;
-    padding-left:10px;
+    padding-left:6px;
     margin-right: 5px;
     text-align: left;
     background-image: url('../img/∨.png');
@@ -620,25 +967,11 @@ header h1{
     cursor:default;
 }
 
-.PE_search_category::after {
+.PE_search_category::after,.PE_search::after {
     content: '';
     position: absolute;
     left: 280px;
-    top: 16%;
-    transform: translateY(-50%);
-    width: 16px;
-    height: 16px;
-    background-image: url(../img/∨.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    pointer-events: none;
-}
-
-.PE_search::after {
-    content: '';
-    position: absolute;
-    left: 280px;
-    top: 23.5%;
+    margin-top: 30px;
     transform: translateY(-50%);
     width: 16px;
     height: 16px;
@@ -658,44 +991,6 @@ header h1{
 
     #mobile {
         display: block;
-    }
-
-    .section h1 {
-        font-size: 24px;
-        margin: 20px 0 30px 0;
-        border-bottom: 1.5px solid #848484;
-    }
-
-    .section h2{
-        font-size: 18px;
-        padding: 12px 0 12px 0;
-        border-bottom: 1.5px solid #D2D2D2;
-        margin-bottom: 12px;
-    }
-
-    .section h3, .top_account_section h2 {
-        border-bottom: 1.5px solid #D2D2D2;
-    }
-
-    .top_account_section {
-        width: 90%;
-        margin-bottom: 50px;
-        padding: 20px;
-        border: 1.5px solid #94C3B6;
-    }
-
-    .top_account_section img {
-        width:20%;
-        margin-right: 20px;
-    }
-
-    .top_account_section h1 {
-        font-size: 20px;
-        border-bottom: none;
-    }
-
-    .top_account_section h2 {
-        margin-top: 24px;
     }
 
     .LogOut{
@@ -720,32 +1015,113 @@ header h1{
         background-color: #FDCACB;
     }
 
-    .top_document_section img {
-        padding-left: 22px;
-        margin-bottom: 5px;
+    .section h1 {
+        font-size: 24px;
+        margin: 20px 0 30px 0;
+        border-bottom: 1.5px solid #848484;
     }
 
+    .section h2{
+        font-size: 18px;
+        padding: 12px 0 12px 0;
+        border-bottom: 1.5px solid #D2D2D2;
+        margin-bottom: 12px;
+    }
+
+    .section h3, .top_account_section h2 {
+        border-bottom: 1.5px solid #D2D2D2;
+    }
+
+    #top_account_section, #top_account_section h1  {
+        display: none;
+    }
+
+    .hidden {
+        width: 0%;
+        margin: 0;
+        padding: 0;
+        border: none;
+        display: none;
+    }
+
+    .account_toggle img {
+        width:50px;
+        right: 200px;
+        position: fixed;
+        top: 14px;    
+    }
+
+    .top_account_section h1 {
+        font-size: 20px;
+        border-bottom: none;
+    }
+
+    .top_account_section h2 {
+        margin-top: 24px;
+    }
+
+    .account_details {
+        display: none;
+        position: fixed;
+        top: 80px;
+        right: 0;
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 15px;
+        width: 380px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        z-index: 100;
+    }
+
+    .top_document_section {
+        display: flex;
+    }
+
+    .top_document_mobile_wrapper{
+        width: 50%;
+        min-width: 220px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .top_document_link {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .hover-link h2{
+        padding-left: 30px;
+    }
+
+
     .top_document_section h2 {
-        width: 230px;
+        width: 100%;
         margin-bottom: 5px;
         padding-left: 5px;
+        padding-right: 50px;
     }
 
     .top_document_section h3 {
-        width: 130px;
+        width: 180px;
         font-size: 16px;
+        padding-left: 10px;
         margin: 20px 22px 50px auto;
-        text-align: right;
     }
 
     .top_document_section h3 img{
-        width: 18%;
+        width: 11%;
         padding: 0;
     }
 
     .top_data_link {
-        max-width: 400px;
-        margin: 30px 20px 0 0;
+        width: 90%;
+        min-width: 200px;
+        margin: 6px 20px 30px 10px;
         border: 2.5px solid #94C3B6;
         border-radius: 20px;
     }
@@ -755,13 +1131,34 @@ header h1{
         margin: 2px 0 2px 0;
         padding: 4px 0 4px 10px;
         border-bottom: none;
+        text-align: left;
     }
 
-    .top_data_link img {
-        width: 20%;
-        margin-bottom: 3px;
+    .top_data_link h2 img{
+        width: 4%;
+        min-width: 36px;
+        right: 80px;
     }
 
+
+    .top_data_link img{
+        width: 4.5%;
+        position: absolute;
+        right: 60px;
+        padding-bottom: 5px;
+        transform: rotate(0deg);
+    }
+
+
+    .top_check_section {
+        width: 100%;
+        text-align: left;
+    }
+
+    .top_check_section .flexbox{
+       justify-content: center;
+       margin: 0;
+    }
 
     .top_check_section h2{
         width: 140px;
@@ -812,10 +1209,140 @@ header h1{
     .report_inpurt_small {
         display: flex;
     }
+
+    /* AllDocuments(書類一覧画面) */
+    .AllDocuments_search_section label, .AllDocuments_search_section input, .AllDocuments_search_section select{
+        display: block;
+        margin-bottom: 1rem;
+    }
+
+    .AllDocuments_search_year::after { /* 「∨」を右端に表示 */
+        right: 126px;
+        top: 70%;
+    }
+
+    #AllDocuments_flexbox {
+        display: block;
+    }
+
+    .AllDocuments_search_section label{
+        font-size: 18px;
+        margin-bottom:10px;
+    }
+
+    .AllDocuments_list_section button{
+        margin: 10px 10px 10px 0;
+    }
+
+    .AllDocuments_list_section th {
+        font-size: 16px;
+    }
+
+    .PE_search::after {
+        top: 10%;
+    }
+
+    .AllDocuments_search_year::after { /* 「∨」を右端に表示 */
+        content: '';
+        position: absolute;
+        top: 42px;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        background-image: url('../img/∨.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        pointer-events: none;
+    }
+
+
+    /* CheckSheet(点検チェックシート画面) */
+    .CheckSheet_input_area br {
+        display: none;
+    }
+
+    .br::after {
+        content: "\A";
+        white-space: pre;
+    }
+
+    .CheckSheet_search_year::after { /* 「∨」を右端に表示 */
+        top:66%;
+    }
+
+    .response_month::after {
+        content: '';
+        position: absolute;
+        left: 84px;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        margin-top: 38px;
+        background-image: url('../img/∨.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        pointer-events: none;
+    }
+
+
+}
+
+@media screen and (max-width:693px){
+    #top_check_section_flexbox{
+        display: block;
+    }
+
+    .top_document_section_flexbox {
+        display: block;
+    }
+
+    .top_document_mobile_wrapper {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .top_document_link {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .top_document_link h2 img {
+        position:absolute;
+        right: 60px;
+    }
+
+    .top_document_link h3 {
+        margin-right: 0;
+    }
+
+    .top_document_link h3 img {
+        width: 30px;
+    }
+
+    .top_data_link h2 {
+        text-align: left;
+    }
+
+    .top_data_link h2 img {
+        width: 40px;
+        right: 120px;
+    }
 }
 
 /*スマホ*/
 @media screen and (max-width:480px){
+
+    .section h1 {
+        font-size: 20px;
+        margin: 10px 0 20px 0;
+
+    }
+
+    .wrapper {
+        padding-top: 40px;
+    }
+
     /*inspection_results（点検結果確認画面）*/
     #inspection_completed {
         height: 30%;
@@ -830,4 +1357,163 @@ header h1{
     #results_report_container,#daily_report_container,#inspection_results_container{
         font-size: 55%;
     }
+
+    .header_title {
+    width: 240px;
+    }
+
+    header {
+        height: 40px;
+        margin-bottom: 30px;
+    }
+
+    header h1{
+        font-size: 18px;
+        line-height: 40px;
+    }
+
+    .header button {
+        width: 26px;
+        right: 80px;
+        position:fixed;
+        top: 0px;
+    }
+
+    .nav_wrapper {
+    position: relative;
+    }
+
+    .nav_icon {
+        width: 30px;
+        height: 20px;
+        position: fixed;
+        top: 1px;
+        right: 14px;
+    }
+
+    .account_toggle img {
+        width:28px;
+        right: 140px;
+        position: fixed;
+        top: 5px;    
+    }
+
+    .account_details {
+        display: none;
+        position: fixed;
+        top: 40px;
+        right: 0;
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 15px;
+        width: 220px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        z-index: 100;
+    }
+
+    .account_details h1 {
+        padding: 0;
+        font-size: 16px;
+    }
+
+    .account_details h2 {
+        font-size: 12px;
+        margin-top: 10px;
+    }
+
+    .LogOut_button {
+        margin: 15px 0 5px 0;
+        padding: 5px 16px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .top_check_section h2{
+        font-size: 16px;
+    }
+
+    .top_document_section .flexbox,.top_document_link {
+        display: block;
+    }
+
+    .top_document_mobile_wrapper {
+        width: 90%;
+        margin: 0 auto;
+
+    }
+
+    .top_document_mobile_wrapper h2{
+        font-size: 18px;
+        padding: 0;
+    }
+
+    .top_document_section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .top_document_section h3{
+        margin-right: 0;
+    }
+
+    .top_document_section h3 img{
+        width: 22px;
+        min-width: 20px;
+    }
+
+    .top_data_link {
+        margin: 10px 0;
+        width: 100%;
+    }
+
+    .top_data_link h2{
+        padding: 0 20px 0 20px;
+    }
+
+    .top_data_link h2 img{
+        max-width: 35px;
+        width: 11%;
+        right: 22px;
+        margin: 0px 20px 0 0;
+    }
+
+    .top_data_link img {
+        position: absolute;
+        right: 50px;
+    }
+
+    .top_document_section img {
+        width: 8%;
+        min-width: 32px;
+        right: 30px;
+        position: absolute;
+        padding-bottom: 1px;
+        margin: 2px 20px 0 0;
+    }
+
+    #top_check_section_flexbox {
+        display: block;
+    }
+
+    .PE_search::after {
+        top: 9%;
+    }
+
+    .PE_search_category::after {
+        top: 16.5%;
+    }
 }
+
+
+
+/* 臨時追加　修正求 */
+.CheckSheet_send_button{
+    background-color: #50B4AA;
+    width: 130px;
+    text-align: center;
+    border-radius: 8px;
+    margin: 20px; 
+}
+
