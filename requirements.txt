@@ -4,7 +4,12 @@ Flask-Migrate==4.0.5
 PyMySQL==1.1.0
 python-dotenv==1.0.0
 cryptography==41.0.7
+keras
+tensorflow
+Pillow
+numpy
 
+#pip install -r requirements.txt
 # オプション: パスワードハッシュ化用
 # bcrypt==4.1.2
 # Flask-Bcrypt==1.0.1
