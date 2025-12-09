@@ -15,3 +15,4 @@ prompt.txt
 *.log
 *.csv
 *.pem
+app_old.py
