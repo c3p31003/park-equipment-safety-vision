@@ -1,3 +1,4 @@
+# inference_and_diagnosis.py
 import torch
 import torch.nn as nn
 from torchvision import transforms
