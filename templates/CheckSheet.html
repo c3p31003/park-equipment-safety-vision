@@ -59,52 +59,61 @@
             <label for="search_author">作成者名</label><br>
             <input type="search" id="search_author" name="search_author" placeholder="キーワードを入力"><br>
             
-            <label for="inspection_year">点検年度</label><br>
-            <select id="inspection_year" name="inspection_year">
-                <option value="all" selected>すべて</option>
-                <option value="2025">令和７年度</option>
-                <option value="2024">令和６年度</option>
-                <option value="2023">令和５年度</option>
-            </select><br>
+            <div class="CheckSheet_search_year">
+                <label for="inspection_year">点検年度</label><br>
+                <select id="inspection_year" name="inspection_year">
+                    <option value="all" selected>すべて</option>
+                    <option value="2025">令和７年度</option>
+                    <option value="2024">令和６年度</option>
+                    <option value="2023">令和５年度</option>
+                </select>
+            </div>
+            <div class="CheckSheet_search_wrapper">
+                <div class="CheckSheet_search_year">
 
-            <label for="install_era">設置年度</label><br>
-            <select id="install_era" name="install_era">
-                <option value="reiwa" selected>令和</option>
-                <option value="heisei">平成</option>
-            </select>
-            <select id="install_year_num" name="install_year_num">
-                <option value="1">１年度</option>
-                <option value="2">２年度</option>
-                <option value="3">３年度</option>
-                <option value="4">４年度</option>
-                <option value="5">５年度</option>
-                <option value="6">６年度</option>
-                <option value="7">７年度</option>
-                <option value="8">８年度</option>
-                <option value="9">９年度</option>
-                <option value="10">１０年度</option>
-                <option value="11">１１年度</option>
-                <option value="12">１２年度</option>
-                <option value="13">１３年度</option>
-                <option value="14">１４年度</option>
-                <option value="15">１５年度</option>
-                <option value="16">１６年度</option>
-                <option value="17">１７年度</option>
-                <option value="18">１８年度</option>
-                <option value="19">１９年度</option>
-                <option value="20">２０年度</option>
-                <option value="21">２１年度</option>
-                <option value="22">２２年度</option>
-                <option value="23">２３年度</option>
-                <option value="24">２４年度</option>
-                <option value="25">２５年度</option>
-                <option value="26">２６年度</option>
-                <option value="27">２７年度</option>
-                <option value="28">２８年度</option>
-                <option value="29">２９年度</option>
-                <option value="30">３０年度</option>
-                <option value="31">３１年度</option>
-            </select><br>
+                    <label for="install_era">設置年度</label><br>
+                    <select id="install_era" name="install_era">
+                        <option value="reiwa" selected>令和</option>
+                        <option value="heisei">平成</option>
+                    </select>
+                </div>
+                <div class="CheckSheet_search_year">
+                    <label for="install_year_num">　</label><br>
+                    <select id="install_year_num" name="install_year_num">
+                        <option value="1">１年度</option>
+                        <option value="2">２年度</option>
+                        <option value="3">３年度</option>
+                        <option value="4">４年度</option>
+                        <option value="5">５年度</option>
+                        <option value="6">６年度</option>
+                        <option value="7">７年度</option>
+                        <option value="8">８年度</option>
+                        <option value="9">９年度</option>
+                        <option value="10">１０年度</option>
+                        <option value="11">１１年度</option>
+                        <option value="12">１２年度</option>
+                        <option value="13">１３年度</option>
+                        <option value="14">１４年度</option>
+                        <option value="15">１５年度</option>
+                        <option value="16">１６年度</option>
+                        <option value="17">１７年度</option>
+                        <option value="18">１８年度</option>
+                        <option value="19">１９年度</option>
+                        <option value="20">２０年度</option>
+                        <option value="21">２１年度</option>
+                        <option value="22">２２年度</option>
+                        <option value="23">２３年度</option>
+                        <option value="24">２４年度</option>
+                        <option value="25">２５年度</option>
+                        <option value="26">２６年度</option>
+                        <option value="27">２７年度</option>
+                        <option value="28">２８年度</option>
+                        <option value="29">２９年度</option>
+                        <option value="30">３０年度</option>
+                        <option value="31">３１年度</option>
+                    </select>
+                </div>
+            </div>
 
             <label for="inspection_date">点検日</label><br>
             <input type="date" id="inspection_date" name="inspection_date">
@@ -160,10 +169,13 @@
                 <span class="mark">×</span>
             </label>
         </td>
-        <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
+        <td rowspan="5" class="camera_cell">
+            <a href="/TakePhoto?inspection_id=1&amp;row_index=chain" class="camera_link">
+                <img src="/static/img/camera.png" alt="カメラボタン" class="camera_img">
+            </a>
+        </td>
     </tr>
+
     <tr>
         <td id="pillar_damage_td">破損</td>
         <td class="judge-td">
@@ -184,10 +196,6 @@
                 <span class="mark">×</span>
             </label>
         </td>
-        <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
-    </tr>
     <tr>
         <td>変形</td>
         <td class="judge-td">
@@ -208,10 +216,6 @@
                 <span class="mark">×</span>
             </label>
         </td>
-        <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
-    </tr>
     <tr>
         <td>腐食（腐朽）</td>
         <td class="judge-td">
@@ -232,10 +236,6 @@
                 <span class="mark">×</span>
             </label>
         </td>
-        <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
-    </tr>
     <tr>
         <td>〔接合部・ボルト〕緩み</td>
         <td class="judge-td">
@@ -256,10 +256,6 @@
                 <span class="mark">×</span>
             </label>
         </td>
-        <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
-    </tr>
 
     <!-- ================= 接合部（継ぎ手） ================= -->
     <tr>
@@ -283,10 +279,12 @@
                 <span class="mark">×</span>
             </label>
         </td>
-        <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
-    </tr>
+        <td rowspan="5" class="camera_cell">
+            <a href="/TakePhoto?inspection_id=1&amp;row_index=chain" class="camera_link">
+                <img src="/static/img/camera.png" alt="カメラボタン" class="camera_img">
+            </a>
+        </td>
+
     <tr>
         <td>変形</td>
         <td class="judge-td">
@@ -307,10 +305,6 @@
                 <span class="mark">×</span>
             </label>
         </td>
-        <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
-    </tr>
     <tr>
         <td>腐食</td>
         <td class="judge-td">
@@ -331,10 +325,6 @@
                 <span class="mark">×</span>
             </label>
         </td>
-        <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
-    </tr>
     <tr>
         <td>ボルトの緩み</td>
         <td class="judge-td">
@@ -355,10 +345,6 @@
                 <span class="mark">×</span>
             </label>
         </td>
-        <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
-    </tr>
     <tr>
         <td>欠落</td>
         <td class="judge-td">
@@ -379,10 +365,6 @@
                 <span class="mark">×</span>
             </label>
         </td>
-        <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
-    </tr>
 
     <!-- ================= 吊金具 ================= -->
         <tr>
@@ -397,9 +379,11 @@
             <td class="judge-td">
                 <label><input type="radio" name="hanger_damage" value="C"><span class="mark">×</span></label>
             </td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
+            <td rowspan="8" class="camera_cell">
+                <a href="/TakePhoto?inspection_id=1&amp;row_index=chain" class="camera_link">
+                    <img src="/static/img/camera.png" alt="カメラボタン" class="camera_img">
+                </a>
+            </td>
         </tr>
         <tr>
             <td>変形</td>
@@ -412,9 +396,6 @@
             <td class="judge-td">
                 <label><input type="radio" name="hanger_deform" value="C"><span class="mark">×</span></label>
             </td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>腐食</td>
@@ -427,9 +408,6 @@
             <td class="judge-td">
                 <label><input type="radio" name="hanger_corrosion" value="C"><span class="mark">×</span></label>
             </td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>異音</td>
@@ -442,9 +420,6 @@
             <td class="judge-td">
                 <label><input type="radio" name="hanger_noise" value="C"><span class="mark">×</span></label>
             </td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>金具本体のずれ</td>
@@ -457,9 +432,6 @@
             <td class="judge-td">
                 <label><input type="radio" name="hanger_shift" value="C"><span class="mark">×</span></label>
             </td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>摩耗（×：1/3以上）</td>
@@ -472,9 +444,6 @@
             <td class="judge-td">
                 <label><input type="radio" name="hanger_wear_13" value="C"><span class="mark">×</span></label>
             </td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>摩耗（×：1/2以上 ※使用禁止）</td>
@@ -487,9 +456,6 @@
             <td class="judge-td">
                 <label><input type="radio" name="hanger_wear_12" value="C"><span class="mark">×</span></label>
             </td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>ボルトの緩み／欠落</td>
@@ -502,9 +468,6 @@
             <td class="judge-td">
                 <label><input type="radio" name="hanger_bolt" value="C"><span class="mark">×</span></label>
             </td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
 
         <!-- ================= 揺動部（チェーン・ロープ） ================= -->
@@ -520,9 +483,11 @@
             <td class="judge-td">
                 <label><input type="radio" name="chain_twist" value="C"><span class="mark">×</span></label>
             </td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
+            <td rowspan="7" class="camera_cell">
+                <a href="/TakePhoto?inspection_id=1&amp;row_index=chain" class="camera_link">
+                    <img src="/static/img/camera.png" alt="カメラボタン" class="camera_img">
+                </a>
+            </td>
         </tr>
         <tr>
             <td>変形</td>
@@ -535,9 +500,6 @@
             <td class="judge-td">
                 <label><input type="radio" name="chain_deform" value="C"><span class="mark">×</span></label>
             </td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td id="chain_damage_td">破損</td>
@@ -550,9 +512,6 @@
             <td class="judge-td">
                 <label><input type="radio" name="chain_damage" value="C"><span class="mark">×</span></label>
             </td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>ほつれ</td>
@@ -565,9 +524,6 @@
             <td class="judge-td">
                 <label><input type="radio" name="chain_fray" value="C"><span class="mark">×</span></label>
             </td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>断線</td>
@@ -580,9 +536,6 @@
             <td class="judge-td">
                 <label><input type="radio" name="chain_break" value="C"><span class="mark">×</span></label>
             </td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>摩耗（×：1/3以上）</td>
@@ -595,9 +548,6 @@
             <td class="judge-td">
                 <label><input type="radio" name="chain_wear_13" value="C"><span class="mark">×</span></label>
             </td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>摩耗（×：1/2以上 ※使用禁止）</td>
@@ -610,9 +560,6 @@
             <td class="judge-td">
                 <label><input type="radio" name="chain_wear_12" value="C"><span class="mark">×</span></label>
             </td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
 
 
@@ -623,90 +570,66 @@
             <td class="judge-td"><label><input type="radio" name="seat_crack" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_crack" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_crack" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
+            <td rowspan="10" class="camera_cell">
+                <a href="/TakePhoto?inspection_id=1&amp;row_index=chain" class="camera_link">
+                    <img src="/static/img/camera.png" alt="カメラボタン" class="camera_img">
+                </a>
+            </td>
+
         </tr>
         <tr>
             <td id="seat_break_td">割れ</td>
             <td class="judge-td"><label><input type="radio" name="seat_break" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_break" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_break" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>湾曲等変形</td>
             <td class="judge-td"><label><input type="radio" name="seat_deform" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_deform" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_deform" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td id="seat_damage_td">破損</td>
             <td class="judge-td"><label><input type="radio" name="seat_damage" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_damage" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_damage" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>腐朽</td>
             <td class="judge-td"><label><input type="radio" name="seat_rot" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_rot" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_rot" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>金具の摩耗（×：1/3以上）</td>
             <td class="judge-td"><label><input type="radio" name="seat_metal_13" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_metal_13" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_metal_13" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>金具の摩耗（×：1/2以上 ※使用禁止）</td>
             <td class="judge-td"><label><input type="radio" name="seat_metal_12" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_metal_12" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_metal_12" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>ボルトの緩み</td>
             <td class="judge-td"><label><input type="radio" name="seat_bolt" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_bolt" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_bolt" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>袋ナットの緩み</td>
             <td class="judge-td"><label><input type="radio" name="seat_nut" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_nut" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_nut" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>欠落</td>
             <td class="judge-td"><label><input type="radio" name="seat_missing" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_missing" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_missing" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
 
         <!-- ================= 安全柵 ================= -->
@@ -716,54 +639,41 @@
             <td class="judge-td"><label><input type="radio" name="fence_wobble" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="fence_wobble" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="fence_wobble" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
+            <td rowspan="6" class="camera_cell">
+                <a href="/TakePhoto?inspection_id=1&amp;row_index=chain" class="camera_link">
+                    <img src="/static/img/camera.png" alt="カメラボタン" class="camera_img">
+                </a>
+            </td>      
         </tr>
         <tr>
             <td id="fence_damage_td">破損</td>
             <td class="judge-td"><label><input type="radio" name="fence_damage" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="fence_damage" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="fence_damage" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>変形</td>
             <td class="judge-td"><label><input type="radio" name="fence_deform" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="fence_deform" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="fence_deform" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>腐食</td>
             <td class="judge-td"><label><input type="radio" name="fence_corrosion" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="fence_corrosion" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="fence_corrosion" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>〔接合部・ボルト〕緩み</td>
             <td class="judge-td"><label><input type="radio" name="fence_loose" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="fence_loose" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="fence_loose" value="C"><span class="mark">△</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>欠落</td>
             <td class="judge-td"><label><input type="radio" name="fence_missing" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="fence_missing" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="fence_missing" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
 
         <!-- ================= その他 ================= -->
@@ -773,18 +683,17 @@
             <td class="judge-td"><label><input type="radio" name="other_sharp" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="other_sharp" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="other_sharp" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
+            <td rowspan="2" class="camera_cell">
+                <a href="/TakePhoto?inspection_id=1&amp;row_index=chain" class="camera_link">
+                    <img src="/static/img/camera.png" alt="カメラボタン" class="camera_img">
+                </a>
+            </td>
         </tr>
         <tr>
             <td>落書き</td>
             <td class="judge-td"><label><input type="radio" name="other_sign" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="other_sign" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="other_sign" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
 
         <!-- ================= 基礎 ================= -->
@@ -794,18 +703,17 @@
             <td class="judge-td"><label><input type="radio" name="base_sink" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="base_sink" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="base_sink" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
+            <td rowspan="3" class="camera_cell">
+                <a href="/TakePhoto?inspection_id=1&amp;row_index=chain" class="camera_link">
+                    <img src="/static/img/camera.png" alt="カメラボタン" class="camera_img">
+                </a>
+            </td>
         </tr>
         <tr>
             <td id="base_crack_td">亀裂</td>
             <td class="judge-td"><label><input type="radio" name="base_crack" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="base_crack" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="base_crack" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td id="base_expose_td">破損</td>
@@ -820,9 +728,6 @@
             <td class="judge-td"><label><input type="radio" name="base_expose" value="C"><span class="mark">×</span>
             </label>
             </td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
 
         <!-- ================= 地表部・安全柵内 ================= -->
@@ -832,9 +737,11 @@
             <td class="judge-td"><label><input type="radio" name="ground_uneven" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="ground_uneven" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="ground_uneven" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
+            <td rowspan="6" class="camera_cell">
+                <a href="/TakePhoto?inspection_id=1&amp;row_index=chain" class="camera_link">
+                    <img src="/static/img/camera.png" alt="カメラボタン" class="camera_img">
+                </a>
+            </td>     
         </tr>
         <tr>
             <td>石や根の露出</td>
@@ -849,45 +756,30 @@
                 </label>
             </td>
             <td class="judge-td"><label><input type="radio" name="ground_root" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>異物</td>
             <td class="judge-td"><label><input type="radio" name="ground_object" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="ground_object" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="ground_object" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>マットのめくれ</td>
             <td class="judge-td"><label><input type="radio" name="ground_mat_peel" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="ground_mat_peel" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="ground_mat_peel" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td id="ground_mat_damage_td">マットの破損</td>
             <td class="judge-td"><label><input type="radio" name="ground_mat_damage" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="ground_mat_damage" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="ground_mat_damage" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
         <tr>
             <td>樹木の枝</td>
             <td class="judge-td"><label><input type="radio" name="ground_tree" value="A" checked><span class="mark">〇</span></label></td>
             <td class="judge-td"><label><input type="radio" name="ground_tree" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="ground_tree" value="C"><span class="mark">×</span></label></td>
-            <td><a href="/TakePhoto?inspection_id=1&amp;row_index=chain">
-                                    <button type="button"><img src="/static/img/camera.png" alt="通知"></button>
-                                </a></td>
         </tr>
 
 
@@ -955,28 +847,32 @@
                 <input type="text" id="plan_other_detail" name="plan_other_detail" class="result_short_opinion"><br>
 
                 <h2>●対応予定時期</h2>
-                <select id="response_month" name="response_month">
-                    <option value="1">１月</option>
-                    <option value="2">２月</option>
-                    <option value="3">３月</option>
-                    <option value="4">４月</option>
-                    <option value="5">５月</option>
-                    <option value="6">６月</option>
-                    <option value="7">７月</option>
-                    <option value="8">８月</option>
-                    <option value="9">９月</option>
-                    <option value="10">１０月</option>
-                    <option value="11">１１月</option>
-                    <option value="12">１２月</option>
-                </select>
+                <div class="response_month">
+                    <select id="response_month" name="response_month">
+                        <option value="1">１月</option>
+                        <option value="2">２月</option>
+                        <option value="3">３月</option>
+                        <option value="4">４月</option>
+                        <option value="5">５月</option>
+                        <option value="6">６月</option>
+                        <option value="7">７月</option>
+                        <option value="8">８月</option>
+                        <option value="9">９月</option>
+                        <option value="10">１０月</option>
+                        <option value="11">１１月</option>
+                        <option value="12">１２月</option>
+                    </select>
+                </div>
                 <input type="radio" id="period_early" name="period" value="early"><label for="period_early">上旬</label>
                 <input type="radio" id="period_mid" name="period" value="mid"><label for="period_mid">中旬</label>
                 <input type="radio" id="period_late" name="period" value="late"><label for="period_late">下旬</label><br><br>
 
                 <input type="checkbox" id="prohibition_measure" name="prohibition_measure" value="prohibition">
                 <label for="prohibition_measure">本格的な使用禁止措置</label><br>
-                <label for="prohibition_date">実施日</label>
-                <input type="date" id="prohibition_date" name="prohibition_date"><br>
+                <div class="prohibition_planned">
+                    <label for="prohibition_date">実施日</label>
+                    <input type="date" id="prohibition_date" name="prohibition_date"><br>
+                </div>
                 <input type="radio" id="prohibition_done" name="prohibition_status" value="done"><label for="prohibition_done">実施済み</label>
                 <input type="radio" id="prohibition_planned" name="prohibition_status" value="planned"><label for="prohibition_planned">実施予定</label><br><br>
 

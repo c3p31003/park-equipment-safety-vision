@@ -594,7 +594,7 @@ header h1{
 .response_month::after {
     content: '';
     position: absolute;
-    left: 118px;
+    left: 120px;
     transform: translateY(-50%);
     width: 16px;
     height: 16px;
@@ -669,6 +669,32 @@ header h1{
     text-align: center;
     width: 100px;
     margin: 40px auto 0 auto;
+}
+
+/* セル全体をリンクにする */
+.camera_cell {
+    position: relative;   /* セルを基準にする */
+}
+
+.camera_link {
+    position: absolute;   /* セルの中で絶対配置 */
+    top: 0px;
+    left: 0;
+    width: 100%;          /* tdの幅いっぱい */
+    height: 100%;         /* tdの高さいっぱい */
+    display: flex;        /* 中央寄せ用 */
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    background-color: #FBFCFC;
+}
+
+/* 画像の高さを固定 */
+.camera_img {
+    position: absolute;
+    top: 50%;             /* セルの縦中央に配置 */
+    transform: translateY(-50%); /* 画像の高さ分ずらして真ん中に */         /* 高さ固定 */
+    width: auto;
 }
 
 /*inspection_results、daily_report共通*/
@@ -870,7 +896,7 @@ header h1{
 
 /*テーブル*/
 #left_container table {
-    width: 80%;
+    max-width: 95%;
 }
 
 #left_container table,#left_container th,#left_container td {
@@ -878,13 +904,12 @@ header h1{
 }
 
 #left_container td,td {
-    width: 50%;
+    width: 10%;
 }
 
 #left_container th {
     background-color: #76B5AE;
     padding-left: 10px;
-    min-width: 112px;
     text-align: center;
     padding: 0;
 }
@@ -894,6 +919,14 @@ header h1{
     height: auto;
     vertical-align: middle;
     padding: 0;
+}
+
+.daily_report_table_input{
+    font-size: 15px;
+}
+
+.daily_report_table_input button{
+    font-size: 15px;
 }
 
 /*備考*/
@@ -1313,6 +1346,15 @@ header h1{
 }
 
 @media screen and (max-width:693px){
+
+    .daily_report_table_input{
+        font-size: 9px;
+    }
+
+    .daily_report_table_input button{
+        font-size: 9px;
+    }
+
     #top_check_section_flexbox{
         display: block;
     }
