@@ -17,3 +17,4 @@ prompt.txt
 *.pem
 app_old.py
 venv
+.env

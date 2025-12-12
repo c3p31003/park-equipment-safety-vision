@@ -1,11 +1,18 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, session
+from flask import Flask, render_template,send_file, request, jsonify, redirect, url_for, session
 from flask_migrate import Migrate
 from werkzeug.security import check_password_hash
 from models import (
     db, User, Park, Equipment, Inspection, 
-    InspectionDetail, InspectionPhoto,
-    InspectionPartEnum, ConditionEnum, GradeEnum
+    InspectionDetail, InspectionPhoto, DailyReportPhoto,
+    InspectionPartEnum, TypeOfAbnormalityEnum, GradeEnum
 )
+from openpyxl import load_workbook
+from openpyxl.drawing.image import Image
+from openpyxl.drawing.spreadsheet_drawing import AnchorMarker, OneCellAnchor
+from openpyxl.drawing.xdr import XDRPositiveSize2D
+from openpyxl.utils import column_index_from_string
+from openpyxl.styles import Alignment
+# from flask_cors import CORS
 from config import DATABASE_URL
 import os
 import sys
@@ -18,8 +25,22 @@ import io
 import json
 import numpy as np
 
+from degradation_main import run_inference
+
+
+
+
+EMU = 9525
+ICON_PX = 16
+
+BASE_DIR = os.path.dirname(__file__)
+TEMPLATE_PATH = os.path.join(BASE_DIR, "template.xlsx")
+ICON_DIR = os.path.join(BASE_DIR, "icons")
+
 
 app = Flask(__name__)
+# GitHub Pages からのアクセスを許可
+# CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 app.config['SECRET_KEY'] = 'your-fixed-secret-key-change-this-in-production'
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -28,6 +49,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 migrate = Migrate(app, db)
+
+
+
+
+
 
 # ============================================================
 # モデル読み込み（改善版：4つのパーツ対応）
@@ -57,6 +83,166 @@ MODELS_CONFIG = {
 }
 
 inference_models = {}
+
+
+#ログイン機能
+
+
+@app.route('/', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        try:
+            employee_id = request.form.get('employee_id')
+            user_password = request.form.get('password')
+
+            sys.stderr.write(f"\nフォーム入力 - employee_id: {employee_id}, password: {user_password}\n")
+            sys.stderr.flush()
+
+            user = None
+            try:
+                sys.stderr.write(f"DB検索開始: employee_id={int(employee_id)}\n")
+                sys.stderr.flush()
+                user = User.query.filter_by(employee_id=int(employee_id)).first()
+                sys.stderr.write(f"DB検索結果: user={user}\n")
+                if user:
+                    sys.stderr.write(f"  DB employee_id: {user.employee_id}\n")
+                    sys.stderr.write(f"  DB password: {user.password}\n")
+                sys.stderr.flush()
+            except Exception as e:
+                sys.stderr.write(f"クエリエラー: {e}\n")
+                sys.stderr.flush()
+
+            sys.stderr.write(f"認証判定:\n")
+            sys.stderr.write(f"  user is not None: {user is not None}\n")
+            if user:
+                sys.stderr.write(f"  パスワード一致: {user_password} == {user.password} → {user_password == user.password}\n")
+            sys.stderr.flush()
+
+            if user and user_password == user.password:
+                session['user_id'] = user.employee_id
+                session['user_password'] = user.password
+                session['user_name'] = user.name
+                sys.stderr.write(f"認証成功！ /home にリダイレクト\n")
+                sys.stderr.flush()
+                return redirect(url_for('home'))
+            else:
+                sys.stderr.write(f"認証失敗\n")
+                sys.stderr.flush()
+                return render_template('Login.html', error="ユーザー名またはパスワードが正しくありません")
+        except Exception as e:
+            sys.stderr.write(f"エラー発生: {e}\n")
+            sys.stderr.flush()
+            return render_template('Login.html', error="エラーが発生しました。再度お試しください。")
+
+    return render_template('Login.html')
+
+
+@app.route('/home', methods=['GET'])
+def home():
+    user_name = session.get('user_name')
+    if user_name:
+        return render_template('index.html', employee_id=session.get('user_id'), user_name=user_name)
+    else:
+        return redirect(url_for('login'))
+
+
+
+
+
+# ---------------------------帳票機能---------------------------
+# ---------------------------
+# TEXT 用の関数
+# ---------------------------
+def insert_text(ws, cell, value):
+    ws[cell] = value
+    ws[cell].alignment = Alignment(wrap_text=True, vertical="top")
+
+
+# ---------------------------
+# ICON 挿入関数（正しい版）
+# ---------------------------
+def insert_icon(ws, cell, icon_file, dx=0, dy=0):
+    img_path = os.path.join(ICON_DIR, icon_file)
+    if not os.path.exists(img_path):
+        return
+
+    img = Image(img_path)
+    img.width = ICON_PX
+    img.height = ICON_PX
+
+    # セル位置
+    col_letter = ''.join(filter(str.isalpha, cell))
+    row_number = int(''.join(filter(str.isdigit, cell)))
+    col_idx = column_index_from_string(col_letter) - 1
+
+    marker = AnchorMarker(
+        col=col_idx,
+        colOff=dx * EMU,
+        row=row_number - 1,
+        rowOff=dy * EMU
+    )
+
+    img.anchor = OneCellAnchor(
+        _from=marker,
+        ext=XDRPositiveSize2D(EMU * img.width, EMU * img.height)
+    )
+
+    ws.add_image(img)
+
+
+# ---------------------------
+#   Excel 生成 API
+# ---------------------------
+@app.route("/api/generate_excel", methods=["POST"])
+def generate_excel():
+    data = request.get_json(silent=True)
+    if data is None:
+        return jsonify({"error": "JSONが正しく送信されていません"}), 400
+
+    if not os.path.exists(TEMPLATE_PATH):
+        return jsonify({"error": "テンプレートファイルが見つかりません"}), 500
+
+    wb = load_workbook(TEMPLATE_PATH)
+    ws = wb.active
+
+    for item in data.get("items", []):
+        cell = item.get("cell")
+        if not cell:
+            continue
+
+        item_type = item.get("type")
+        dx = item.get("dx", 0)
+        dy = item.get("dy", 0)
+
+        if item_type == "icon" and item.get("icon"):
+            insert_icon(ws, cell, item["icon"], dx=dx, dy=dy)
+
+        elif item_type in ("text", "number"):
+            insert_text(ws, cell, str(item.get("value", "")))
+
+        elif item["type"] == "text":
+            cell = ws[item["cell"]]
+            cell.value = item["text"]
+
+        elif item_type == "checkbox":
+            if item.get("value"):
+                insert_icon(ws, cell, item.get("icon", "check.png"), dx=dx, dy=dy)
+
+    stream = io.BytesIO()
+    output_path = "backend/output.xlsx"
+    wb.save(stream)
+    stream.seek(0)
+
+    return send_file(
+        stream,
+        as_attachment=True,
+        download_name="点検チェックシート.xlsx",
+        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+
+
+
+
 
 def load_all_models():
     """4つのモデルを読み込む"""
@@ -137,19 +323,19 @@ def predict_equipment_part(image_binary, part_name):
 
 def class_to_condition(predicted_class):
     """
-    予測クラスを Condition に変換
+    予測クラスを TypeOfAbnormalityEnum に変換
     
     例：
-        'normal' → ConditionEnum.NORMAL
-        'rust_B' → ConditionEnum.RUST
-        'crack_B' → ConditionEnum.CRACK
+        'normal' → TypeOfAbnormalityEnum.NORMAL
+        'rust_B' → TypeOfAbnormalityEnum.RUST
+        'crack_B' → TypeOfAbnormalityEnum.CRACK
     """
     if 'rust' in predicted_class.lower():
-        return ConditionEnum.RUST
+        return TypeOfAbnormalityEnum.RUST
     elif 'crack' in predicted_class.lower():
-        return ConditionEnum.CRACK
+        return TypeOfAbnormalityEnum.CRACK
     else:
-        return ConditionEnum.NORMAL
+        return TypeOfAbnormalityEnum.NORMAL
 
 def class_to_grade(predicted_class):
     """
@@ -179,66 +365,6 @@ def part_name_to_enum(part_name):
     }
     return part_map.get(part_name, InspectionPartEnum.CHAIN)
 
-# ============================================================
-# ページルート（既存コード）
-# ============================================================
-
-@app.route('/', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        try:
-            employee_id = request.form.get('employee_id')
-            user_password = request.form.get('password')
-
-            sys.stderr.write(f"\nフォーム入力 - employee_id: {employee_id}, password: {user_password}\n")
-            sys.stderr.flush()
-
-            user = None
-            try:
-                sys.stderr.write(f"DB検索開始: employee_id={int(employee_id)}\n")
-                sys.stderr.flush()
-                user = User.query.filter_by(employee_id=int(employee_id)).first()
-                sys.stderr.write(f"DB検索結果: user={user}\n")
-                if user:
-                    sys.stderr.write(f"  DB employee_id: {user.employee_id}\n")
-                    sys.stderr.write(f"  DB password: {user.password}\n")
-                sys.stderr.flush()
-            except Exception as e:
-                sys.stderr.write(f"クエリエラー: {e}\n")
-                sys.stderr.flush()
-
-            sys.stderr.write(f"認証判定:\n")
-            sys.stderr.write(f"  user is not None: {user is not None}\n")
-            if user:
-                sys.stderr.write(f"  パスワード一致: {user_password} == {user.password} → {user_password == user.password}\n")
-            sys.stderr.flush()
-
-            if user and user_password == user.password:
-                session['user_id'] = user.employee_id
-                session['user_password'] = user.password
-                session['user_name'] = user.name
-                sys.stderr.write(f"認証成功！ /home にリダイレクト\n")
-                sys.stderr.flush()
-                return redirect(url_for('home'))
-            else:
-                sys.stderr.write(f"認証失敗\n")
-                sys.stderr.flush()
-                return render_template('Login.html', error="ユーザー名またはパスワードが正しくありません")
-        except Exception as e:
-            sys.stderr.write(f"エラー発生: {e}\n")
-            sys.stderr.flush()
-            return render_template('Login.html', error="エラーが発生しました。再度お試しください。")
-
-    return render_template('Login.html')
-
-
-@app.route('/home', methods=['GET'])
-def home():
-    user_name = session.get('user_name')
-    if user_name:
-        return render_template('index.html', employee_id=session.get('user_id'), user_name=user_name)
-    else:
-        return redirect(url_for('login'))
 
 
 @app.route('/CheckSheet')
@@ -368,15 +494,12 @@ def upload_photo(inspection_id):
                     
                     db.session.flush()
                     
-                    # 4. InspectionPhoto レコード作成
+                    # 4. Photo レコード作成
                     photo = InspectionPhoto(
                         inspection_id=inspection_id,
                         detail_id=detail.detail_id,
-                        filename=part_data.get('filename', 
-                            f'inspection_{inspection_id}_{part_name}_{datetime.now().strftime("%Y%m%d_%H%M%S")}.png'),
                         photo_data=image_binary,
                         file_size=len(image_binary),
-                        mime_type='image/png',
                         uploaded_by=session.get('user_id')
                     )
                     db.session.add(photo)
@@ -489,6 +612,41 @@ def health():
 
 
 # ============================================================
+# ～劣化診断機能～
+# HTML/JS からの写真アップロード → 劣化度を返す API
+# ============================================================
+@app.route("/api/degradation", methods=["POST"])
+def api_degradation():
+    """
+    HTML からアップロードされた写真を受け取り、
+    run_inference で劣化度を計算して返す
+    """
+    file = request.files.get("photo")
+    if not file:
+        return jsonify({"error": "No file uploaded"}), 400
+
+    # 一時保存用フォルダ
+    tmp_dir = "data/raw"
+    os.makedirs(tmp_dir, exist_ok=True)
+    tmp_path = os.path.join(tmp_dir, file.filename)
+    file.save(tmp_path)
+
+    try:
+        # run_inference を呼ぶ
+        degradation_ratio, _, _ = run_inference(tmp_path)
+
+        # % に変換して返す
+        return jsonify({"degradation_ratio": round(degradation_ratio, 2)})
+
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+
+
+
+# ============================================================
 # DB初期化（既存コード）
 # ============================================================
 
@@ -498,6 +656,23 @@ if not tables_created:
     with app.app_context():
         db.create_all()
         print("テーブルが作成されました")
+        
+        # テストユーザーを作成
+        try:
+            test_user = User.query.filter_by(employee_id=1).first()
+            if not test_user:
+                test_user = User(
+                    employee_id=1,
+                    name="テストユーザー",
+                    password="1234",
+                    role="STAFF"
+                )
+                db.session.add(test_user)
+                db.session.commit()
+                print("✓ テストユーザー作成: employee_id=1, password=1234")
+        except Exception as e:
+            print(f"⚠ テストユーザー作成失敗: {e}")
+        
         with open('db_initialized.flag', 'w') as f:
             f.write('created')
     print("データベースが初期化されました")

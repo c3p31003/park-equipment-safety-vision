@@ -1134,22 +1134,30 @@
                     <label for="overall_d">Ｄ：使用禁止措置</label>
                     <input type="text" id="overall_d_detail" name="overall_d_detail" class="result_short_opinion"><br>
 
-                    <h2>●対応方針</h2>
-                    <input type="checkbox" id="plan_maintenance" name="plan_maintenance" value="maintenance">
-                    <label for="plan_maintenance">整備班で対応予定</label><br>
-                    <input type="checkbox" id="plan_repair" name="plan_repair" value="repair">
-                    <label for="plan_repair">修繕・修繕工事で対応予定</label><br>
-                    <input type="checkbox" id="plan_improvement" name="plan_improvement" value="improvement">
-                    <label for="plan_improvement">施設改良工事で対応予定</label><br>
-                    <input type="checkbox" id="plan_precision" name="plan_precision" value="precision">
-                    <label for="plan_precision">精密点検予定</label><br>
-                    <input type="checkbox" id="plan_removal" name="plan_removal" value="removal">
-                    <label for="plan_removal">撤去予定</label><br>
-                    <input type="checkbox" id="plan_other" name="plan_other" value="other">
-                    <label for="plan_other">その他</label>
-                    <input type="text" id="plan_other_detail" name="plan_other_detail" class="result_short_opinion"><br>
+                <h1>以下は点検後の記録（担当者記入欄）</h1>
+                <h2>●対応方針</h2>
+                <input type="checkbox" id="plan_maintenance" name="plan_maintenance" value="maintenance">
+                <label for="plan_maintenance">整備班で対応予定</label><br>
+                
+                <input type="checkbox" id="plan_repair" name="plan_repair" value="repair">
+                <label for="plan_repair">修繕・修繕工事で対応予定</label><br>
+                
+                <input type="checkbox" id="plan_improvement" name="plan_improvement" value="improvement">
+                <label for="plan_improvement">施設改良工事で対応予定</label><br>
+                
+                <input type="checkbox" id="plan_precision" name="plan_precision" value="precision">
+                <label for="plan_precision">精密点検予定</label><br>
+                
+                <input type="checkbox" id="plan_removal" name="plan_removal" value="removal">
+                <label for="plan_removal">撤去予定</label><br>
+                
+                <input type="checkbox" id="plan_other" name="plan_other" value="other">
+                <label for="plan_other">その他</label>
+                <input type="text" id="plan_other_detail" name="plan_other_detail" class="result_short_opinion"><br>
 
-                    <h2>●対応予定時期</h2>
+                <h2>●対応予定時期</h2>
+                <div class="response_month">
+                    <label for="response_month"></label>
                     <select id="response_month" name="response_month">
                         <option value="1">１月</option>
                         <option value="2">２月</option>
@@ -1164,31 +1172,36 @@
                         <option value="11">１１月</option>
                         <option value="12">１２月</option>
                     </select>
-                    <input type="radio" id="period_early" name="period" value="early"><label
-                        for="period_early">上旬</label>
-                    <input type="radio" id="period_mid" name="period" value="mid"><label for="period_mid">中旬</label>
-                    <input type="radio" id="period_late" name="period" value="late"><label
-                        for="period_late">下旬</label><br><br>
-
-                    <input type="checkbox" id="prohibition_measure" name="prohibition_measure" value="prohibition">
-                    <label for="prohibition_measure">本格的な使用禁止措置</label><br>
+                </div>
+                <input type="radio" id="period_early" name="period" value="early">
+                <label for="period_early">上旬</label>
+                
+                <input type="radio" id="period_mid" name="period" value="mid">
+                <label for="period_mid">中旬</label>
+                
+                <input type="radio" id="period_late" name="period" value="late">
+                <label for="period_late">下旬 頃</label><br><br>
+                
+                <input type="checkbox" id="prohibition_measure" name="prohibition_measure" value="prohibition">
+                <label for="prohibition_measure">本格的な使用禁止措置</label><br>
+                
+                <div class="prohibition_planned">
                     <label for="prohibition_date">実施日</label>
                     <input type="date" id="prohibition_date" name="prohibition_date"><br>
-                    <input type="radio" id="prohibition_done" name="prohibition_status" value="done"><label
-                        for="prohibition_done">実施済み</label>
-                    <input type="radio" id="prohibition_planned" name="prohibition_status" value="planned"><label
-                        for="prohibition_planned">実施予定</label><br><br>
-
-                    <label for="remarks">●備考</label><br>
-                    <textarea id="remarks" name="remarks" class="result_long_opinion"></textarea><br>
-
-                    <div class="CheckSheet_save_button">
-                        <button id="downloadBtn" type="button">保存</button>
-                    </div>
                 </div>
+                <input type="radio" id="prohibition_done" name="prohibition_status" value="done">
+                <label for="prohibition_done">実施済み</label>
+                
+                <input type="radio" id="prohibition_planned" name="prohibition_status" value="planned">
+                <label for="prohibition_planned">実施予定</label><br><br>
+                
+                <label for="remarks">●備考</label><br>
+                <textarea id="remarks" name="remarks" class="result_long_opinion"></textarea><br>
+                
+                <div class="CheckSheet_save_button"><button type="button">保存</button></div>
+            </div>
         </div>
-        </table>
-        </form>
+
         <script>
             // AI判定結果の読み込みと反映
             document.addEventListener('DOMContentLoaded', async function () {
