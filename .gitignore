@@ -16,3 +16,4 @@ prompt.txt
 *.csv
 *.pem
 app_old.py
+venv

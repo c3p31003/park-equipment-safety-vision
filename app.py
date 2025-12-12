@@ -35,22 +35,22 @@ migrate = Migrate(app, db)
 
 MODELS_CONFIG = {
     'chain': {
-        'path': './chain_best.keras',
+        'path': 'models/models/chain.keras',
         'size': 224,
         'classes': ['normal', 'rust_B', 'rust_C']
     },
     'joint': {
-        'path': './joint_best.keras',
+        'path': 'models/models/joint.keras',
         'size': 224,
         'classes': ['normal', 'rust_B', 'rust_C']
     },
     'pole': {
-        'path': './pole_best.keras',
+        'path': 'models/models/pole.keras',
         'size': 224,
         'classes': ['normal', 'rust_B', 'rust_C']
     },
     'seat': {
-        'path': './seat_best.keras',
+        'path': 'models/models/seat.keras',
         'size': 224,
         'classes': ['normal', 'rust_B', 'rust_C', 'crack_B', 'crack_C']
     }
