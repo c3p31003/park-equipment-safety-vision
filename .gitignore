@@ -16,6 +16,7 @@ prompt.txt
 *.csv
 *.pem
 app_old.py
+venv
 .env
 CheckSheet_2.html
 CheckSheet.html

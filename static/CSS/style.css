@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 /* 共通部分 */
 html {
     font-size: 100%;
@@ -6,7 +7,7 @@ html {
 }
 
 body {
-    font-family: "Yu Gothic Medium","游ゴシック Medium",YuGothic,"游ゴシック体","ヒラギノ角ゴ Pro W3",sans-serif;
+    font-family: "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "ヒラギノ角ゴ Pro W3", sans-serif;
     line-height: 1.7;
     color: #262626;
     background-color: #FBFCFC;
@@ -55,7 +56,7 @@ header {
     background-color: #76B5AE;
     height: 80px;
     margin-bottom: 30px;
-    padding:  0 3%;
+    padding: 0 3%;
     position: fixed;
     width: 100%;
     z-index: 100;
@@ -63,101 +64,103 @@ header {
     border-bottom: solid #FBFCFC;
 }
 
-header h1{
+header h1 {
     font-size: 28px;
     line-height: 80px;
 }
 
 .header button {
     right: 110px;
-    position:fixed;
+    position: fixed;
     top: 20px;
 }
 
 .nav_wrapper {
-  position: relative;
+    position: relative;
 }
 
 .nav_icon {
-  width: 40px;
-  height: 30px;
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  cursor: pointer;
-  z-index: 3;
-  display: inline-block;
+    width: 40px;
+    height: 30px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 3;
+    display: inline-block;
 }
 
 .nav_icon span {
-  display: block;
-  height: 4px;
-  margin: 6px 0;
-  background: #CFE9E6;
-  border-radius: 2px;
-  transition: 0.4s;
+    display: block;
+    height: 4px;
+    margin: 6px 0;
+    background: #CFE9E6;
+    border-radius: 2px;
+    transition: 0.4s;
 }
 
 /* ハンバーガー変形 */
-#nav_toggle:checked + .nav_icon span:nth-child(1) {
-  transform: translateY(10px) rotate(45deg);
+#nav_toggle:checked+.nav_icon span:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
 }
-#nav_toggle:checked + .nav_icon span:nth-child(2) {
-  opacity: 0;
+
+#nav_toggle:checked+.nav_icon span:nth-child(2) {
+    opacity: 0;
 }
-#nav_toggle:checked + .nav_icon span:nth-child(3) {
-  transform: translateY(-10px) rotate(-45deg);
+
+#nav_toggle:checked+.nav_icon span:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
 }
 
 .overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  opacity: 0;
-  pointer-events: none;
-  transition: 0.4s;
-  z-index: 1;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.4s;
+    z-index: 1;
 }
 
-#nav_toggle:checked ~ .overlay {
-  opacity: 1;
-  pointer-events: auto;
+#nav_toggle:checked~.overlay {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .nav {
-  position: fixed;
-  top: 0;
-  right: -350px;
-  width: 350px;
-  height: 100%;
-  background: #fff;
-  box-shadow: 2px 0 8px rgba(0,0,0,0.2);
-  transition: right 0.4s ease;
-  z-index: 2;
+    position: fixed;
+    top: 0;
+    right: -350px;
+    width: 350px;
+    height: 100%;
+    background: #fff;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    transition: right 0.4s ease;
+    z-index: 2;
 }
 
-#nav_toggle:checked ~ .nav {
-  right: 0;
+#nav_toggle:checked~.nav {
+    right: 0;
 }
 
 .nav ul {
-  list-style: none;
-  padding: 60px 20px;
+    list-style: none;
+    padding: 60px 20px;
 }
 
 .nav li {
-  margin: 20px 0;
+    margin: 20px 0;
 }
 
 .nav a {
-  text-decoration: none;
-  color: #333;
-  font-size: 1.2rem;
-  transition: color 0.2s;
+    text-decoration: none;
+    color: #333;
+    font-size: 1.2rem;
+    transition: color 0.2s;
 }
 
 .nav a:hover {
-  color: #50B4AA;
+    color: #50B4AA;
 }
 
 
@@ -178,7 +181,8 @@ header h1{
 
 .contact_box input {
     width: 96%;
-    padding: 0 10px 4px 10px;;
+    padding: 0 10px 4px 10px;
+    ;
 }
 
 .contact_box img {
@@ -215,14 +219,16 @@ header h1{
     border-bottom: 1.5px solid #848484;
 }
 
-.section h2, .top_account_section h1 {
+.section h2,
+.top_account_section h1 {
     font-size: 20px;
     padding: 12px 0 12px 0;
     border-bottom: 1.5px solid #D2D2D2;
     margin-bottom: 12px;
 }
 
-.section h3, .top_account_section h2 {
+.section h3,
+.top_account_section h2 {
     border-bottom: 1.5px solid #D2D2D2;
 }
 
@@ -234,7 +240,7 @@ header h1{
 }
 
 .top_account_section img {
-    width:13%;
+    width: 13%;
     margin-right: 20px;
 }
 
@@ -247,7 +253,7 @@ header h1{
     margin-top: 24px;
 }
 
-.LogOut{
+.LogOut {
     min-width: 200px;
     width: 24%;
     margin: 0 auto;
@@ -279,7 +285,7 @@ header h1{
     padding-left: 10px;
 }
 
-.top_document_section h2{
+.top_document_section h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -301,7 +307,7 @@ header h1{
     text-align: center;
 }
 
-.top_data_link h2 img{
+.top_data_link h2 img {
     margin-top: 13px;
 }
 
@@ -316,48 +322,49 @@ header h1{
     margin-left: 4%;
 }
 
-.top_CreatedDocument_section h2{
+.top_CreatedDocument_section h2 {
     border: none;
-    margin: 20px 0 0 0; 
+    margin: 20px 0 0 0;
     padding: 0;
 }
 
-.top_CreatedDocument_section h3{
+.top_CreatedDocument_section h3 {
     font-size: 16px;
     width: 180px;
     margin: 10px 0 0 auto;
 }
 
-.top_CreatedDocument_section img{
+.top_CreatedDocument_section img {
     width: 13%;
     margin-bottom: 3px;
 }
 
-.top_CreatedDocument_section table{
+.top_CreatedDocument_section table {
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
 }
 
-.top_CreatedDocument_section tr{
+.top_CreatedDocument_section tr {
     border: solid 1px #dbdada;
     cursor: pointer;
 }
 
-.top_CreatedDocument_section table th,table td{
+.top_CreatedDocument_section table th,
+table td {
     text-align: center;
     width: 20%;
-    padding:  0 0 15px 0;
+    padding: 0 0 15px 0;
 }
 
 /* 書類一覧ページ部分 */
 .AllDocuments_search_section {
-    width:100%;
+    width: 100%;
     margin-bottom: 20px;
 }
 
-.AllDocuments_search_section h1{
-    width:100%;
+.AllDocuments_search_section h1 {
+    width: 100%;
 }
 
 .AllDocuments_search_year {
@@ -366,7 +373,7 @@ header h1{
     gap: 10px;
     position: relative;
     width: 250px;
-    display:inline-block;
+    display: inline-block;
 }
 
 #year {
@@ -379,7 +386,8 @@ header h1{
     width: 100%;
 }
 
-.AllDocuments_search_year select,.AllDocuments_search_section input{
+.AllDocuments_search_year select,
+.AllDocuments_search_section input {
     padding: 10px;
     margin: 10 10 10 0px;
     font-size: 16px;
@@ -393,7 +401,8 @@ header h1{
     width: 140px;
 }
 
-.AllDocuments_search_year::after { /* 「∨」を右端に表示 */
+.AllDocuments_search_year::after {
+    /* 「∨」を右端に表示 */
     content: '';
     position: absolute;
     right: 36px;
@@ -421,7 +430,7 @@ header h1{
     border: none;
 }
 
-.AllDocuments_list_section th{
+.AllDocuments_list_section th {
     padding: 8px;
     padding: 10px;
     border-bottom: solid 4px #D9D9D9;
@@ -443,13 +452,14 @@ header h1{
     margin-left: 30px;
 }
 
-.AllDocuments_list_EditButton, .AllDocuments_list_DeleteButton {
-    padding: 5px 22px;  
+.AllDocuments_list_EditButton,
+.AllDocuments_list_DeleteButton {
+    padding: 5px 22px;
     border-radius: 5px;
     color: #FBFCFC;
 }
 
-.AllDocuments_list_section button{
+.AllDocuments_list_section button {
     margin: 10px 10px 10px 0;
 }
 
@@ -460,7 +470,8 @@ header h1{
     font-size: 16px;
 }
 
-.CheckSheet_search_year, .CheckSheet_set_date{
+.CheckSheet_search_year,
+.CheckSheet_set_date {
     align-items: center;
     gap: 10px;
     position: relative;
@@ -473,7 +484,9 @@ header h1{
     width: 100%;
 }
 
-.CheckSheet_search_year select, .CheckSheet_search_year input, .CheckSheet_set_date input{
+.CheckSheet_search_year select,
+.CheckSheet_search_year input,
+.CheckSheet_set_date input {
     padding: 10px;
     margin: 10 10 10 0px;
     font-size: 16px;
@@ -484,11 +497,12 @@ header h1{
     width: 130px;
 }
 
-.CheckSheet_search_year::after { /* 「∨」を右端に表示 */
+.CheckSheet_search_year::after {
+    /* 「∨」を右端に表示 */
     content: '';
     position: absolute;
     left: 100px;
-    top:76%;
+    top: 76%;
     transform: translateY(-50%);
     width: 16px;
     height: 16px;
@@ -499,43 +513,44 @@ header h1{
 }
 
 #CheckSheet_search_year::after {
-    top:74%;
+    top: 74%;
 }
 
 .CheckSheet_list table {
-  border-collapse: collapse;
-  width: 80%;
-  margin: 20px auto;
-  font-family: sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+    margin: 20px auto;
+    font-family: sans-serif;
 }
 
-.CheckSheet_list th, td {
-  border: 1px solid #D9D9D9;
-  padding: 10px;
-  text-align: center;
-  font-size: 14px;
-  vertical-align: middle;
+.CheckSheet_list th,
+td {
+    border: 1px solid #D9D9D9;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    vertical-align: middle;
 
 }
 
 .CheckSheet_list thead tr:first-child {
-  background-color: #94C3B6;
+    background-color: #94C3B6;
 }
 
 .CheckSheet_list thead tr:nth-child(2) {
-  background-color: #94C3B6;
+    background-color: #94C3B6;
 }
 
 .CheckSheet_list tbody tr:nth-child(even) {
-  background-color: #F2F2F2;
+    background-color: #F2F2F2;
 }
 
 .CheckSheet_list td {
-  position: relative;
-  padding: 5px;
+    position: relative;
+    padding: 5px;
 }
 
-.repair_count input{
+.repair_count input {
     width: 50px;
     padding: 5px;
     margin: 5px;
@@ -547,13 +562,13 @@ header h1{
 }
 
 .checkbox_wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-  display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    display: block;
 }
 
 .CheckSheet_set_month {
@@ -573,9 +588,11 @@ header h1{
     border-radius: 6px;
     appearance: none;
     background-color: #fff;
- }
+}
 
-#hanger_count, #chain_count, #seat_count {
+#hanger_count,
+#chain_count,
+#seat_count {
     width: 40px;
     text-align: right;
 }
@@ -620,21 +637,23 @@ header h1{
 .CheckSheet_list input[type="radio"] {
     opacity: 0;
     position: absolute;
-    width: 100%;
-    height: 100%;
-    margin: 0;
     cursor: pointer;
 }
 
-/* チェックされたときにラベルに✔を表示 */
-.CheckSheet_list input[type="radio"]:checked + .checkbox_wrapper::after {
-    content: "✔";
-    font-size: 20px;
-    color: #333;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+/* デフォルトで選択されていないマークは非表示 */
+.CheckSheet_list input[type="radio"]+.mark {
+    display: none;
+}
+
+/* チェックされたときのみスパンを表示 */
+.CheckSheet_list input[type="radio"]:checked+.mark {
+    display: inline;
+    color: #000;
+    font-weight: bold;
+}
+
+left: 50%;
+transform: translate(-50%, -50%);
 }
 
 .result_short_opinion {
@@ -672,7 +691,10 @@ header h1{
 }
 
 /*inspection_results、daily_report共通*/
-#inspection_completed,#daily_completed,#daily_completed,#add_photo {
+#inspection_completed,
+#daily_completed,
+#daily_completed,
+#add_photo {
     border-radius: 5%;
     text-align: center;
 }
@@ -693,7 +715,7 @@ header h1{
     width: 100%;
 }
 
-#TakePhoto p{
+#TakePhoto p {
     display: inline-block;
 }
 
@@ -701,13 +723,14 @@ header h1{
     padding: 0 8px 8px 0;
 }
 
-.PhotoButton{
+.PhotoButton {
     width: 60px;
     text-align: center;
     margin: 0 auto;
 }
 
-#saveButton, #retakeButton {
+#saveButton,
+#retakeButton {
     width: 120px;
     height: 50px;
     border-radius: 10px;
@@ -737,13 +760,13 @@ header h1{
 /*inspection_results（点検結果確認画面）*/
 /*ページ経路の表示*/
 #page_route {
-  font-size: 90%;
-  color:#A8A8A8;
+    font-size: 90%;
+    color: #A8A8A8;
 }
 
 /*異常検出数部分*/
 #anomaly_count {
-    min-height:100px;
+    min-height: 100px;
 }
 
 /*点検完了ボタン*/
@@ -757,7 +780,7 @@ header h1{
 #inspection_completed {
     width: 25%;
     height: 50%;
-    background-color: #EBD299; 
+    background-color: #EBD299;
 }
 
 /*撮影された写真*/
@@ -805,7 +828,7 @@ header h1{
 #daily_completed {
     width: 15%;
     height: 100%;
-    background-color: #EBD299; 
+    background-color: #EBD299;
 }
 
 #daily_completed_container_bottom {
@@ -837,15 +860,16 @@ header h1{
     display: flex;
 }
 
-#date_column_container select, .report_input_container select {
+#date_column_container select,
+.report_input_container select {
     width: 16%;
-    padding-left:6px;
+    padding-left: 6px;
     margin-right: 5px;
     text-align: left;
     background-image: url('../img/∨.png');
     background-repeat: no-repeat;
     background-position: top 60% right 5px;
-    background-size:16px auto;
+    background-size: 16px auto;
 }
 
 .date_text {
@@ -864,11 +888,14 @@ header h1{
     width: 80%;
 }
 
-#left_container table,#left_container th,#left_container td {
+#left_container table,
+#left_container th,
+#left_container td {
     border: 2px solid #D9D9D9;
 }
 
-#left_container td,td {
+#left_container td,
+td {
     width: 50%;
 }
 
@@ -894,14 +921,14 @@ header h1{
 }
 
 /*写真表示部分*/
-#image_heading{
+#image_heading {
     display: flex;
 }
 
 #add_photo {
     background-color: #76B5AE;
-    width:6%;
-    margin-left:10px;
+    width: 6%;
+    margin-left: 10px;
     color: white;
     font-weight: bold;
 }
@@ -920,12 +947,12 @@ header h1{
 
 /*results_report（結果報告書作成画面）*/
 .inspection_details hr {
-  margin:20px 0px;
-  border: 1px solid #D9D9D9;
+    margin: 20px 0px;
+    border: 1px solid #D9D9D9;
 }
 
-.inspection_details h1{
-  font-size: 130%;
+.inspection_details h1 {
+    font-size: 130%;
 }
 
 .inspection_details textarea {
@@ -933,14 +960,15 @@ header h1{
 }
 
 .report_input_container {
-  display: flex;
+    display: flex;
 }
 
 .report_input {
-  margin-right:40px;
+    margin-right: 40px;
 }
+
 .report_inpurt_small {
-  display: none;
+    display: none;
 }
 
 .PE_p {
@@ -955,7 +983,8 @@ header h1{
     margin-top: 40px;
 }
 
-.PE_search_category select,.PE_search select {
+.PE_search_category select,
+.PE_search select {
     padding: 10px;
     margin: 10px;
     font-size: 16px;
@@ -966,11 +995,13 @@ header h1{
     width: 180px;
 }
 
-.PE_search_category label, .PE_search label {
-    cursor:default;
+.PE_search_category label,
+.PE_search label {
+    cursor: default;
 }
 
-.PE_search_category::after,.PE_search::after {
+.PE_search_category::after,
+.PE_search::after {
     content: '';
     position: absolute;
     left: 280px;
@@ -987,16 +1018,18 @@ header h1{
 
 /* タブレット: 1024px〜 */
 @media screen and (max-width: 1024px) {
+
     /* トップページ */
     #PC {
-        display: none; /* PCの時は非表示 */
+        display: none;
+        /* PCの時は非表示 */
     }
 
     #mobile {
         display: block;
     }
 
-    .LogOut{
+    .LogOut {
         width: 160px;
         margin: 0 auto;
     }
@@ -1024,18 +1057,20 @@ header h1{
         border-bottom: 1.5px solid #848484;
     }
 
-    .section h2{
+    .section h2 {
         font-size: 18px;
         padding: 12px 0 12px 0;
         border-bottom: 1.5px solid #D2D2D2;
         margin-bottom: 12px;
     }
 
-    .section h3, .top_account_section h2 {
+    .section h3,
+    .top_account_section h2 {
         border-bottom: 1.5px solid #D2D2D2;
     }
 
-    #top_account_section, #top_account_section h1  {
+    #top_account_section,
+    #top_account_section h1 {
         display: none;
     }
 
@@ -1048,10 +1083,10 @@ header h1{
     }
 
     .account_toggle img {
-        width:50px;
+        width: 50px;
         right: 200px;
         position: fixed;
-        top: 14px;    
+        top: 14px;
     }
 
     .top_account_section h1 {
@@ -1072,7 +1107,7 @@ header h1{
         border: 1px solid #ccc;
         padding: 15px;
         width: 380px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         z-index: 100;
     }
 
@@ -1080,7 +1115,7 @@ header h1{
         display: flex;
     }
 
-    .top_document_mobile_wrapper{
+    .top_document_mobile_wrapper {
         width: 50%;
         min-width: 220px;
         flex-direction: column;
@@ -1097,7 +1132,7 @@ header h1{
         padding: 10px 0;
     }
 
-    .hover-link h2{
+    .hover-link h2 {
         padding-left: 30px;
     }
 
@@ -1116,7 +1151,7 @@ header h1{
         margin: 20px 22px 50px auto;
     }
 
-    .top_document_section h3 img{
+    .top_document_section h3 img {
         width: 11%;
         padding: 0;
     }
@@ -1137,14 +1172,14 @@ header h1{
         text-align: left;
     }
 
-    .top_data_link h2 img{
+    .top_data_link h2 img {
         width: 4%;
         min-width: 36px;
         right: 80px;
     }
 
 
-    .top_data_link img{
+    .top_data_link img {
         width: 4.5%;
         position: absolute;
         right: 60px;
@@ -1158,12 +1193,12 @@ header h1{
         text-align: left;
     }
 
-    .top_check_section .flexbox{
-       justify-content: center;
-       margin: 0;
+    .top_check_section .flexbox {
+        justify-content: center;
+        margin: 0;
     }
 
-    .top_check_section h2{
+    .top_check_section h2 {
         width: 140px;
         background-color: #94C3B6;
         border-radius: 10px;
@@ -1195,7 +1230,7 @@ header h1{
         margin: 4%;
         margin-left: 1%;
     }
-    
+
     /*results_report（結果報告書作成画面）*/
     .report_inpurt_pc {
         display: none;
@@ -1206,12 +1241,15 @@ header h1{
     }
 
     /* AllDocuments(書類一覧画面) */
-    .AllDocuments_search_section label, .AllDocuments_search_section input, .AllDocuments_search_section select{
+    .AllDocuments_search_section label,
+    .AllDocuments_search_section input,
+    .AllDocuments_search_section select {
         display: block;
         margin-bottom: 1rem;
     }
 
-    .AllDocuments_search_year::after { /* 「∨」を右端に表示 */
+    .AllDocuments_search_year::after {
+        /* 「∨」を右端に表示 */
         right: 126px;
         top: 70%;
     }
@@ -1220,12 +1258,12 @@ header h1{
         display: block;
     }
 
-    .AllDocuments_search_section label{
+    .AllDocuments_search_section label {
         font-size: 18px;
-        margin-bottom:10px;
+        margin-bottom: 10px;
     }
 
-    .AllDocuments_list_section button{
+    .AllDocuments_list_section button {
         margin: 10px 10px 10px 0;
     }
 
@@ -1237,7 +1275,8 @@ header h1{
         top: 10%;
     }
 
-    .AllDocuments_search_year::after { /* 「∨」を右端に表示 */
+    .AllDocuments_search_year::after {
+        /* 「∨」を右端に表示 */
         content: '';
         position: absolute;
         top: 42px;
@@ -1261,8 +1300,9 @@ header h1{
         white-space: pre;
     }
 
-    .CheckSheet_search_year::after { /* 「∨」を右端に表示 */
-        top:66%;
+    .CheckSheet_search_year::after {
+        /* 「∨」を右端に表示 */
+        top: 66%;
     }
 
     .response_month::after {
@@ -1295,8 +1335,8 @@ header h1{
 
 }
 
-@media screen and (max-width:693px){
-    #top_check_section_flexbox{
+@media screen and (max-width:693px) {
+    #top_check_section_flexbox {
         display: block;
     }
 
@@ -1316,7 +1356,7 @@ header h1{
     }
 
     .top_document_link h2 img {
-        position:absolute;
+        position: absolute;
         right: 60px;
     }
 
@@ -1339,7 +1379,7 @@ header h1{
 }
 
 /*スマホ*/
-@media screen and (max-width:480px){
+@media screen and (max-width:480px) {
 
     .section h1 {
         font-size: 20px;
@@ -1357,17 +1397,20 @@ header h1{
     }
 
     /*結果報告書作成画面,日報作成画面共通*/
-    #date_column_container select, .report_input_container select {
-        background-size:10px auto;
+    #date_column_container select,
+    .report_input_container select {
+        background-size: 10px auto;
     }
 
     /*結果報告書作成画面,日報作成画面,点検結果確認画面共通*/
-    #results_report_container,#daily_report_container,#inspection_results_container{
+    #results_report_container,
+    #daily_report_container,
+    #inspection_results_container {
         font-size: 55%;
     }
 
     .header_title {
-    width: 240px;
+        width: 240px;
     }
 
     header {
@@ -1375,7 +1418,7 @@ header h1{
         margin-bottom: 30px;
     }
 
-    header h1{
+    header h1 {
         font-size: 18px;
         line-height: 40px;
     }
@@ -1383,12 +1426,12 @@ header h1{
     .header button {
         width: 26px;
         right: 80px;
-        position:fixed;
+        position: fixed;
         top: 0px;
     }
 
     .nav_wrapper {
-    position: relative;
+        position: relative;
     }
 
     .nav_icon {
@@ -1400,10 +1443,10 @@ header h1{
     }
 
     .account_toggle img {
-        width:28px;
+        width: 28px;
         right: 140px;
         position: fixed;
-        top: 5px;    
+        top: 5px;
     }
 
     .account_details {
@@ -1415,7 +1458,7 @@ header h1{
         border: 1px solid #ccc;
         padding: 15px;
         width: 220px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         z-index: 100;
     }
 
@@ -1437,11 +1480,12 @@ header h1{
         font-weight: 600;
     }
 
-    .top_check_section h2{
+    .top_check_section h2 {
         font-size: 16px;
     }
 
-    .top_document_section .flexbox,.top_document_link {
+    .top_document_section .flexbox,
+    .top_document_link {
         display: block;
     }
 
@@ -1451,7 +1495,7 @@ header h1{
 
     }
 
-    .top_document_mobile_wrapper h2{
+    .top_document_mobile_wrapper h2 {
         font-size: 18px;
         padding: 0;
     }
@@ -1462,11 +1506,11 @@ header h1{
         align-items: center;
     }
 
-    .top_document_section h3{
+    .top_document_section h3 {
         margin-right: 0;
     }
 
-    .top_document_section h3 img{
+    .top_document_section h3 img {
         width: 22px;
         min-width: 20px;
     }
@@ -1476,11 +1520,11 @@ header h1{
         width: 100%;
     }
 
-    .top_data_link h2{
+    .top_data_link h2 {
         padding: 0 20px 0 20px;
     }
 
-    .top_data_link h2 img{
+    .top_data_link h2 img {
         max-width: 35px;
         width: 11%;
         right: 22px;
@@ -1517,12 +1561,12 @@ header h1{
 
 
 /* 臨時追加　修正求 */
-.CheckSheet_send_button{
+.CheckSheet_send_button {
     background-color: #50B4AA;
     width: 130px;
     text-align: center;
     border-radius: 8px;
-    margin: 20px; 
+    margin: 20px;
 }
 
 /* ===== 長尾CSS-ここから ===== */
