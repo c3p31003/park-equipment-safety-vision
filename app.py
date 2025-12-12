@@ -86,8 +86,6 @@ inference_models = {}
 
 
 #ログイン機能
-
-
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
