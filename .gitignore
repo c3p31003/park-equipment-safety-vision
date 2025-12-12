@@ -18,3 +18,4 @@ prompt.txt
 app_old.py
 venv
 .env
+best_part_segmenter.pth
