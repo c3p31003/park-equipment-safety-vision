@@ -25,7 +25,7 @@ import io
 import json
 import numpy as np
 
-from degradation_main import run_inference
+# from degradation_main import run_inference
 
 
 
@@ -61,22 +61,22 @@ migrate = Migrate(app, db)
 
 MODELS_CONFIG = {
     'chain': {
-        'path': 'models/models/chain.keras',
+        'path': './chain_best.keras',
         'size': 224,
         'classes': ['normal', 'rust_B', 'rust_C']
     },
     'joint': {
-        'path': 'models/models/joint.keras',
+        'path': './joint_best.keras',
         'size': 224,
         'classes': ['normal', 'rust_B', 'rust_C']
     },
     'pole': {
-        'path': 'models/models/pole.keras',
+        'path': './pole_best.keras',
         'size': 224,
         'classes': ['normal', 'rust_B', 'rust_C']
     },
     'seat': {
-        'path': 'models/models/seat.keras',
+        'path': './seat_best.keras',
         'size': 224,
         'classes': ['normal', 'rust_B', 'rust_C', 'crack_B', 'crack_C']
     }
@@ -86,6 +86,8 @@ inference_models = {}
 
 
 #ログイン機能
+
+
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -609,36 +611,34 @@ def health():
     }), 200
 
 
-# ============================================================
-# ～劣化診断機能～
+
+# ～劣化診断機能～ [無効化]
 # HTML/JS からの写真アップロード → 劣化度を返す API
-# ============================================================
-@app.route("/api/degradation", methods=["POST"])
-def api_degradation():
-    """
-    HTML からアップロードされた写真を受け取り、
-    run_inference で劣化度を計算して返す
-    """
-    file = request.files.get("photo")
-    if not file:
-        return jsonify({"error": "No file uploaded"}), 400
-
-    # 一時保存用フォルダ
-    tmp_dir = "data/raw"
-    os.makedirs(tmp_dir, exist_ok=True)
-    tmp_path = os.path.join(tmp_dir, file.filename)
-    file.save(tmp_path)
-
-    try:
-        # run_inference を呼ぶ
-        degradation_ratio, _, _ = run_inference(tmp_path)
-
-        # % に変換して返す
-        return jsonify({"degradation_ratio": round(degradation_ratio, 2)})
-
-
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+# @app.route("/api/degradation", methods=["POST"])
+# def api_degradation():
+#     """
+#     HTML からアップロードされた写真を受け取り、
+#     run_inference で劣化度を計算して返す
+#     """
+#     file = request.files.get("photo")
+#     if not file:
+#         return jsonify({"error": "No file uploaded"}), 400
+#
+#     # 一時保存用フォルダ
+#     tmp_dir = "data/raw"
+#     os.makedirs(tmp_dir, exist_ok=True)
+#     tmp_path = os.path.join(tmp_dir, file.filename)
+#     file.save(tmp_path)
+#
+#     try:
+#         # run_inference を呼ぶ
+#         degradation_ratio, _, _ = run_inference(tmp_path)
+#
+#         # % に変換して返す
+#         return jsonify({"degradation_ratio": round(degradation_ratio * 100, 2)})
+#
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 500
 
 
 
