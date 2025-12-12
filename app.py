@@ -6,17 +6,14 @@ from models import (
     InspectionDetail, InspectionPhoto,  # 新しいモデルを追加
     InspectionPartEnum, ConditionEnum, GradeEnum
 )
-from config import DATABASE_URL
+# from config import DATABASE_URL
 import os
 import sys
 import base64
 from datetime import datetime
-<<<<<<< HEAD
 
 from degradation_main import run_inference
 
-=======
->>>>>>> c6c3f8c1978b54b5543e3fd312d83fd7cb1ae8e4
 from keras.models import load_model
 from keras.preprocessing import image
 from PIL import Image
@@ -380,7 +377,6 @@ if not tables_created:
     print("データベースが初期化されました")
 
 
-<<<<<<< HEAD
 
 
 
@@ -419,7 +415,5 @@ def api_degradation():
 
 
 
-=======
->>>>>>> c6c3f8c1978b54b5543e3fd312d83fd7cb1ae8e4
 if __name__ == '__main__':
     app.run(debug=True)
