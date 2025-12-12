@@ -17,3 +17,7 @@ prompt.txt
 *.pem
 app_old.py
 .env
+CheckSheet_2.html
+CheckSheet.html
+.env
+.gitignore
