@@ -15,4 +15,11 @@ prompt.txt
 *.npz
 *.keras
 *.flag
+<<<<<<< HEAD
 >>>>>>> origin/main
+=======
+*.log
+*.csv
+*.pem
+app_old.py
+>>>>>>> origin

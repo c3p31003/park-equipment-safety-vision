@@ -166,7 +166,7 @@
                             </td>
                             <td>
                                 <a href="{{ url_for('TakePhoto') }}?inspection_id=1&row_index=chain">
-                                    <button type="button">📷 撮影</button>
+                                    <button type="button"><img src="{{ url_for('static', filename='img/camera.png') }}" alt="通知"></button>
                                 </a>
                             </td>
                         </tr>
@@ -188,8 +188,8 @@
                                 <label class="checkbox_wrapper" for="joint_c"></label>
                             </td>
                             <td>
-                                <a href="{{ url_for('TakePhoto') }}?inspection_id=1&row_index=joint">
-                                    <button type="button">📷 撮影</button>
+                                                                                                <a href="{{ url_for('TakePhoto') }}?inspection_id=1&row_index=joint">
+                                <button type="button"><img src="{{ url_for('static', filename='img/camera.png') }}" alt="通知"></button>
                                 </a>
                             </td>
                         </tr>
@@ -212,8 +212,9 @@
                             </td>
                             <td>
                                 <a href="{{ url_for('TakePhoto') }}?inspection_id=1&row_index=pole">
-                                    <button type="button"> 撮影</button>
-                                </a>
+                                <button type="button"><img src="{{ url_for('static', filename='img/camera.png') }}" alt="通知"></button>
+                                </a>                              
+
                             </td>
                         </tr>
                         
@@ -234,9 +235,10 @@
                                 <label class="checkbox_wrapper" for="seat_c"></label>
                             </td>
                             <td>
-                                <a href="{{ url_for('TakePhoto') }}?inspection_id=1&row_index=seat">
-                                    <button type="button">📷 撮影</button>
-                                </a>
+
+                                                                                                <a href="{{ url_for('TakePhoto') }}?inspection_id=1&row_index=seat">
+                                <button type="button"><img src="{{ url_for('static', filename='img/camera.png') }}" alt="通知"></button>
+                                </a>     
                             </td>
                         </tr>
                     </tbody>
