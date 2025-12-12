@@ -63,8 +63,6 @@ class User(db.Model):
     created_daily_reports = db.relationship('DailyReport', backref='reporter', lazy=True)
     inspections = db.relationship('Inspection', foreign_keys='Inspection.inspector_id', backref='inspector', lazy=True)
     created_reports = db.relationship('Report', backref='creator', lazy=True)
-    uploaded_inspection_photos = db.relationship('InspectionPhoto', backref='uploader', lazy=True)
-    uploaded_daily_report_photos = db.relationship('DailyReportPhoto', backref='uploader', lazy=True)
 
 
 # Park テーブル

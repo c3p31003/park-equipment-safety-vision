@@ -50,6 +50,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 migrate = Migrate(app, db)
 
+
+
+
+
+
 # ============================================================
 # モデル読み込み（改善版：4つのパーツ対応）
 # ============================================================
@@ -78,6 +83,71 @@ MODELS_CONFIG = {
 }
 
 inference_models = {}
+
+
+#ログイン機能
+
+
+@app.route('/', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        try:
+            employee_id = request.form.get('employee_id')
+            user_password = request.form.get('password')
+
+            sys.stderr.write(f"\nフォーム入力 - employee_id: {employee_id}, password: {user_password}\n")
+            sys.stderr.flush()
+
+            user = None
+            try:
+                sys.stderr.write(f"DB検索開始: employee_id={int(employee_id)}\n")
+                sys.stderr.flush()
+                user = User.query.filter_by(employee_id=int(employee_id)).first()
+                sys.stderr.write(f"DB検索結果: user={user}\n")
+                if user:
+                    sys.stderr.write(f"  DB employee_id: {user.employee_id}\n")
+                    sys.stderr.write(f"  DB password: {user.password}\n")
+                sys.stderr.flush()
+            except Exception as e:
+                sys.stderr.write(f"クエリエラー: {e}\n")
+                sys.stderr.flush()
+
+            sys.stderr.write(f"認証判定:\n")
+            sys.stderr.write(f"  user is not None: {user is not None}\n")
+            if user:
+                sys.stderr.write(f"  パスワード一致: {user_password} == {user.password} → {user_password == user.password}\n")
+            sys.stderr.flush()
+
+            if user and user_password == user.password:
+                session['user_id'] = user.employee_id
+                session['user_password'] = user.password
+                session['user_name'] = user.name
+                sys.stderr.write(f"認証成功！ /home にリダイレクト\n")
+                sys.stderr.flush()
+                return redirect(url_for('home'))
+            else:
+                sys.stderr.write(f"認証失敗\n")
+                sys.stderr.flush()
+                return render_template('Login.html', error="ユーザー名またはパスワードが正しくありません")
+        except Exception as e:
+            sys.stderr.write(f"エラー発生: {e}\n")
+            sys.stderr.flush()
+            return render_template('Login.html', error="エラーが発生しました。再度お試しください。")
+
+    return render_template('Login.html')
+
+
+@app.route('/home', methods=['GET'])
+def home():
+    user_name = session.get('user_name')
+    if user_name:
+        return render_template('index.html', employee_id=session.get('user_id'), user_name=user_name)
+    else:
+        return redirect(url_for('login'))
+
+
+
+
 
 # ---------------------------帳票機能---------------------------
 # ---------------------------
@@ -295,66 +365,6 @@ def part_name_to_enum(part_name):
     }
     return part_map.get(part_name, InspectionPartEnum.CHAIN)
 
-# ============================================================
-# ページルート（既存コード）
-# ============================================================
-
-@app.route('/', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        try:
-            employee_id = request.form.get('employee_id')
-            user_password = request.form.get('password')
-
-            sys.stderr.write(f"\nフォーム入力 - employee_id: {employee_id}, password: {user_password}\n")
-            sys.stderr.flush()
-
-            user = None
-            try:
-                sys.stderr.write(f"DB検索開始: employee_id={int(employee_id)}\n")
-                sys.stderr.flush()
-                user = User.query.filter_by(employee_id=int(employee_id)).first()
-                sys.stderr.write(f"DB検索結果: user={user}\n")
-                if user:
-                    sys.stderr.write(f"  DB employee_id: {user.employee_id}\n")
-                    sys.stderr.write(f"  DB password: {user.password}\n")
-                sys.stderr.flush()
-            except Exception as e:
-                sys.stderr.write(f"クエリエラー: {e}\n")
-                sys.stderr.flush()
-
-            sys.stderr.write(f"認証判定:\n")
-            sys.stderr.write(f"  user is not None: {user is not None}\n")
-            if user:
-                sys.stderr.write(f"  パスワード一致: {user_password} == {user.password} → {user_password == user.password}\n")
-            sys.stderr.flush()
-
-            if user and user_password == user.password:
-                session['user_id'] = user.employee_id
-                session['user_password'] = user.password
-                session['user_name'] = user.name
-                sys.stderr.write(f"認証成功！ /home にリダイレクト\n")
-                sys.stderr.flush()
-                return redirect(url_for('home'))
-            else:
-                sys.stderr.write(f"認証失敗\n")
-                sys.stderr.flush()
-                return render_template('Login.html', error="ユーザー名またはパスワードが正しくありません")
-        except Exception as e:
-            sys.stderr.write(f"エラー発生: {e}\n")
-            sys.stderr.flush()
-            return render_template('Login.html', error="エラーが発生しました。再度お試しください。")
-
-    return render_template('Login.html')
-
-
-@app.route('/home', methods=['GET'])
-def home():
-    user_name = session.get('user_name')
-    if user_name:
-        return render_template('index.html', employee_id=session.get('user_id'), user_name=user_name)
-    else:
-        return redirect(url_for('login'))
 
 
 @app.route('/CheckSheet')
@@ -609,7 +619,7 @@ def api_degradation():
     HTML からアップロードされた写真を受け取り、
     run_inference で劣化度を計算して返す
     """
-    file = request.files.get("DailyReportPhoto")
+    file = request.files.get("photo")
     if not file:
         return jsonify({"error": "No file uploaded"}), 400
 
@@ -643,6 +653,23 @@ if not tables_created:
     with app.app_context():
         db.create_all()
         print("テーブルが作成されました")
+        
+        # テストユーザーを作成
+        try:
+            test_user = User.query.filter_by(employee_id=1).first()
+            if not test_user:
+                test_user = User(
+                    employee_id=1,
+                    name="テストユーザー",
+                    password="1234",
+                    role="STAFF"
+                )
+                db.session.add(test_user)
+                db.session.commit()
+                print("✓ テストユーザー作成: employee_id=1, password=1234")
+        except Exception as e:
+            print(f"⚠ テストユーザー作成失敗: {e}")
+        
         with open('db_initialized.flag', 'w') as f:
             f.write('created')
     print("データベースが初期化されました")
