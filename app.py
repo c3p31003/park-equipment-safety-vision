@@ -7,7 +7,7 @@ from models import (
     InspectionPartEnum, TypeOfAbnormalityEnum, GradeEnum
 )
 from openpyxl import load_workbook
-from openpyxl.drawing.image import Image
+from openpyxl.drawing.image import Image as XLImage
 from openpyxl.drawing.spreadsheet_drawing import AnchorMarker, OneCellAnchor
 from openpyxl.drawing.xdr import XDRPositiveSize2D
 from openpyxl.utils import column_index_from_string
@@ -20,7 +20,7 @@ import base64
 from datetime import datetime
 from keras.models import load_model
 from keras.preprocessing import image
-from PIL import Image
+from PIL import Image as PILImage
 import io
 import json
 import numpy as np
@@ -164,7 +164,7 @@ def insert_icon(ws, cell, icon_file, dx=0, dy=0):
     if not os.path.exists(img_path):
         return
 
-    img = Image(img_path)
+    img = XLImage(img_path)
     img.width = ICON_PX
     img.height = ICON_PX
 
@@ -280,7 +280,7 @@ def predict_equipment_part(image_binary, part_name):
     
     try:
         # 画像をPIL Imageに変換
-        img = Image.open(io.BytesIO(image_binary))
+        img = XLImage.open(io.BytesIO(image_binary))
         
         # RGB に変換
         if img.mode != 'RGB':
