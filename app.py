@@ -7,7 +7,7 @@ from models import (
     InspectionPartEnum, TypeOfAbnormalityEnum, GradeEnum
 )
 from openpyxl import load_workbook
-from openpyxl.drawing.image import Image as XLImage
+from openpyxl.drawing.image import Image
 from openpyxl.drawing.spreadsheet_drawing import AnchorMarker, OneCellAnchor
 from openpyxl.drawing.xdr import XDRPositiveSize2D
 from openpyxl.utils import column_index_from_string
@@ -20,12 +20,12 @@ import base64
 from datetime import datetime
 from keras.models import load_model
 from keras.preprocessing import image
-from PIL import Image as PILImage
+from PIL import Image
 import io
 import json
 import numpy as np
 
-# from degradation_main import run_inference
+from degradation_main import run_inference
 
 
 
@@ -34,8 +34,8 @@ EMU = 9525
 ICON_PX = 16
 
 BASE_DIR = os.path.dirname(__file__)
-TEMPLATE_PATH = os.path.join(BASE_DIR, "backend/template.xlsx")
-ICON_DIR = os.path.join(BASE_DIR, "backend/icons")
+TEMPLATE_PATH = os.path.join(BASE_DIR, "template.xlsx")
+ICON_DIR = os.path.join(BASE_DIR, "icons")
 
 
 app = Flask(__name__)
@@ -166,7 +166,7 @@ def insert_icon(ws, cell, icon_file, dx=0, dy=0):
     if not os.path.exists(img_path):
         return
 
-    img = XLImage(img_path)
+    img = Image(img_path)
     img.width = ICON_PX
     img.height = ICON_PX
 
@@ -282,7 +282,7 @@ def predict_equipment_part(image_binary, part_name):
     
     try:
         # 画像をPIL Imageに変換
-        img = XLImage.open(io.BytesIO(image_binary))
+        img = Image.open(io.BytesIO(image_binary))
         
         # RGB に変換
         if img.mode != 'RGB':
@@ -611,34 +611,33 @@ def health():
     }), 200
 
 
-
-# ～劣化診断機能～ [無効化]
+# ～劣化診断機能～
 # HTML/JS からの写真アップロード → 劣化度を返す API
-# @app.route("/api/degradation", methods=["POST"])
-# def api_degradation():
-#     """
-#     HTML からアップロードされた写真を受け取り、
-#     run_inference で劣化度を計算して返す
-#     """
-#     file = request.files.get("photo")
-#     if not file:
-#         return jsonify({"error": "No file uploaded"}), 400
-#
-#     # 一時保存用フォルダ
-#     tmp_dir = "data/raw"
-#     os.makedirs(tmp_dir, exist_ok=True)
-#     tmp_path = os.path.join(tmp_dir, file.filename)
-#     file.save(tmp_path)
-#
-#     try:
-#         # run_inference を呼ぶ
-#         degradation_ratio, _, _ = run_inference(tmp_path)
-#
-#         # % に変換して返す
-#         return jsonify({"degradation_ratio": round(degradation_ratio * 100, 2)})
-#
-#     except Exception as e:
-#         return jsonify({"error": str(e)}), 500
+@app.route("/api/degradation", methods=["POST"])
+def api_degradation():
+    """
+    HTML からアップロードされた写真を受け取り、
+    run_inference で劣化度を計算して返す
+    """
+    file = request.files.get("photo")
+    if not file:
+        return jsonify({"error": "No file uploaded"}), 400
+
+    # 一時保存用フォルダ
+    tmp_dir = "data/raw"
+    os.makedirs(tmp_dir, exist_ok=True)
+    tmp_path = os.path.join(tmp_dir, file.filename)
+    file.save(tmp_path)
+
+    try:
+        # run_inference を呼ぶ
+        degradation_ratio, _, _ = run_inference(tmp_path)
+
+        # % に変換して返す
+        return jsonify({"degradation_ratio": round(degradation_ratio * 100, 2)})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 
