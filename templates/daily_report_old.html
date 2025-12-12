@@ -40,6 +40,9 @@
     <div class="wrapper">
       <div id="daily_report_container">
         <p id="page_route"><a href="{{ url_for('home') }}">トップ</a> > <a href="{{ url_for('daily_report') }}">日報作成</a></p>
+        <div id="daily_completed_container_top">
+            <button id="daily_completed" type="button">保存</button>
+        </div>
         <div id="flex_container">
           <div id="left_container">
             <p class="daily_report_heading">公園名</p>
@@ -118,78 +121,28 @@
                 <input type="checkbox" name="result" value="全て問題なし">全て問題なし              
               </div>
             </div>
-             <table>
-  <tr>
-    <th>遊具名</th>
-    <th>異常の種類</th>
-    <th>写真アップロード</th>
-    <th>劣化度</th>
-    
-  </tr>
-  <tr>
-  <td contenteditable="true"></td>
-  <td contenteditable="true"></td>
-  <td>
-    <input type="file" accept="image/*" name="photo1" class="photo-input" data-index="1">
-    <button type="button"
-        class="remove-photo"
-        data-index="1"
-        style="
-            padding:4px 8px;
-            border:1px solid #aaa;
-            border-radius:3px;
-            background:#ebebeb;
-            font-size:14px;
-            line-height:1.2;
-            margin:2px 0;
-        ">削除
-    </button>
-  </td>
-  <td>
-    <p class="degradation-score" id="deg-score-1"></p>
-  </td>
-</tr>
-  <tr>
-    
-    <td contenteditable="true"></td>
-    <td contenteditable="true"></td>
-    <td>
-    <input type="file" accept="image/*" name="photo1" class="photo-input" data-index="2">
-    <button type="button" class="remove-photo" data-index="2"style="
-            padding:4px 8px;
-            border:1px solid #aaa;
-            border-radius:3px;
-            background:#ebebeb;
-            font-size:14px;
-            line-height:1.2;
-            margin:2px 0;
-        ">削除</button>
-  </td>
-    <td>
-    <p class="degradation-score" id="deg-score-2"></p>
-  </td>
-  </tr>
-  <tr>
-    
-    <td contenteditable="true"></td>
-    <td contenteditable="true"></td>
-    <td>
-    <input type="file" accept="image/*" name="photo1" class="photo-input" data-index="3">
-    <button type="button" class="remove-photo" data-index="3"style="
-            padding:4px 8px;
-            border:1px solid #aaa;
-            border-radius:3px;
-            background:#ebebeb;
-            font-size:14px;
-            line-height:1.2;
-            margin:2px 0;
-        ">削除</button>
-  </td>
-    <td>
-    <p class="degradation-score" id="deg-score-3"></p>
-  </td>
-  </tr>
-</table>
+            <table>
+              <tr>
+                <th>遊具名</th>
+                <th>異常の種類</th>
+                <th>劣化度</th>
+              </tr>
+              <tr>
+                <td contenteditable=true></td>
+                <td contenteditable=true></td>
+                <td contenteditable=true></td>
+              </tr>
+              <tr>
+                <td contenteditable=true></td>
+                <td contenteditable=true></td>
+                <td contenteditable=true></td>
+              </tr>
+              <tr>
+                <td contenteditable=true></td>
+                <td contenteditable=true></td>
+                <td contenteditable=true></td>
+              </tr>
+            </table>
             <p class="daily_report_heading">備考</p>
             <textarea class="text_box" name="remarks" rows="7" cols="50"></textarea>
           </div>
@@ -214,53 +167,5 @@
     <footer>
        
     </footer>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-
-    // 写真アップロード時（劣化度取得）
-    document.querySelectorAll(".photo-input").forEach(input => {
-        input.addEventListener("change", async (event) => {
-            const index = event.target.dataset.index;
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const formData = new FormData();
-            formData.append("photo", file);
-
-            try {
-                const response = await fetch("/api/degradation", {
-                    method: "POST",
-                    body: formData
-                });
-                const result = await response.json();
-
-                document.getElementById(`deg-score-${index}`).textContent =
-                    result.degradation_ratio !== undefined ? `${result.degradation_ratio}%` : "解析エラー";
-
-            } catch (err) {
-                console.error(err);
-                document.getElementById(`deg-score-${index}`).textContent = "解析失敗";
-            }
-        });
-    });
-
-    // 削除ボタン処理
-    document.querySelectorAll(".remove-photo").forEach(btn => {
-        btn.addEventListener("click", (event) => {
-            const index = event.target.dataset.index;
-
-            // input の値をクリア
-            const input = document.querySelector(`input[data-index="${index}"]`);
-            input.value = "";
-
-            // 劣化度もクリア
-            document.getElementById(`deg-score-${index}`).textContent = "";
-        });
-    });
-});
-
-</script>
-
 </body>
 </html>
