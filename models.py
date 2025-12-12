@@ -100,7 +100,7 @@ class Park(db.Model):
         return True
 
 # Equipment テーブル（遊具情報）
-class Equipments(db.Model):
+class Equipment(db.Model):
     __tablename__ = 'equipments'
     equipment_id = db.Column(db.Integer, primary_key=True)
     park_id = db.Column(db.Integer, db.ForeignKey('parks.park_id'), nullable=False)

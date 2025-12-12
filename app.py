@@ -1,11 +1,18 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, session
+from flask import Flask, render_template,send_file, request, jsonify, redirect, url_for, session
 from flask_migrate import Migrate
 from werkzeug.security import check_password_hash
 from models import (
     db, User, Park, Equipment, Inspection, 
-    InspectionDetail, InspectionPhoto,
-    InspectionPartEnum, ConditionEnum, GradeEnum
+    InspectionDetail, InspectionPhoto, DailyReportPhoto,
+    InspectionPartEnum, TypeOfAbnormalityEnum, GradeEnum
 )
+from openpyxl import load_workbook
+from openpyxl.drawing.image import Image
+from openpyxl.drawing.spreadsheet_drawing import AnchorMarker, OneCellAnchor
+from openpyxl.drawing.xdr import XDRPositiveSize2D
+from openpyxl.utils import column_index_from_string
+from openpyxl.styles import Alignment
+# from flask_cors import CORS
 from config import DATABASE_URL
 import os
 import sys
@@ -19,7 +26,21 @@ import json
 import numpy as np
 
 from degradation_main import run_inference
+
+
+
+
+EMU = 9525
+ICON_PX = 16
+
+BASE_DIR = os.path.dirname(__file__)
+TEMPLATE_PATH = os.path.join(BASE_DIR, "template.xlsx")
+ICON_DIR = os.path.join(BASE_DIR, "icons")
+
+
 app = Flask(__name__)
+# GitHub Pages からのアクセスを許可
+# CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 app.config['SECRET_KEY'] = 'your-fixed-secret-key-change-this-in-production'
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -57,6 +78,101 @@ MODELS_CONFIG = {
 }
 
 inference_models = {}
+
+# ---------------------------帳票機能---------------------------
+# ---------------------------
+# TEXT 用の関数
+# ---------------------------
+def insert_text(ws, cell, value):
+    ws[cell] = value
+    ws[cell].alignment = Alignment(wrap_text=True, vertical="top")
+
+
+# ---------------------------
+# ICON 挿入関数（正しい版）
+# ---------------------------
+def insert_icon(ws, cell, icon_file, dx=0, dy=0):
+    img_path = os.path.join(ICON_DIR, icon_file)
+    if not os.path.exists(img_path):
+        return
+
+    img = Image(img_path)
+    img.width = ICON_PX
+    img.height = ICON_PX
+
+    # セル位置
+    col_letter = ''.join(filter(str.isalpha, cell))
+    row_number = int(''.join(filter(str.isdigit, cell)))
+    col_idx = column_index_from_string(col_letter) - 1
+
+    marker = AnchorMarker(
+        col=col_idx,
+        colOff=dx * EMU,
+        row=row_number - 1,
+        rowOff=dy * EMU
+    )
+
+    img.anchor = OneCellAnchor(
+        _from=marker,
+        ext=XDRPositiveSize2D(EMU * img.width, EMU * img.height)
+    )
+
+    ws.add_image(img)
+
+
+# ---------------------------
+#   Excel 生成 API
+# ---------------------------
+@app.route("/api/generate_excel", methods=["POST"])
+def generate_excel():
+    data = request.get_json(silent=True)
+    if data is None:
+        return jsonify({"error": "JSONが正しく送信されていません"}), 400
+
+    if not os.path.exists(TEMPLATE_PATH):
+        return jsonify({"error": "テンプレートファイルが見つかりません"}), 500
+
+    wb = load_workbook(TEMPLATE_PATH)
+    ws = wb.active
+
+    for item in data.get("items", []):
+        cell = item.get("cell")
+        if not cell:
+            continue
+
+        item_type = item.get("type")
+        dx = item.get("dx", 0)
+        dy = item.get("dy", 0)
+
+        if item_type == "icon" and item.get("icon"):
+            insert_icon(ws, cell, item["icon"], dx=dx, dy=dy)
+
+        elif item_type in ("text", "number"):
+            insert_text(ws, cell, str(item.get("value", "")))
+
+        elif item["type"] == "text":
+            cell = ws[item["cell"]]
+            cell.value = item["text"]
+
+        elif item_type == "checkbox":
+            if item.get("value"):
+                insert_icon(ws, cell, item.get("icon", "check.png"), dx=dx, dy=dy)
+
+    stream = io.BytesIO()
+    output_path = "backend/output.xlsx"
+    wb.save(stream)
+    stream.seek(0)
+
+    return send_file(
+        stream,
+        as_attachment=True,
+        download_name="点検チェックシート.xlsx",
+        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+
+
+
+
 
 def load_all_models():
     """4つのモデルを読み込む"""
@@ -137,19 +253,19 @@ def predict_equipment_part(image_binary, part_name):
 
 def class_to_condition(predicted_class):
     """
-    予測クラスを Condition に変換
+    予測クラスを TypeOfAbnormalityEnum に変換
     
     例：
-        'normal' → ConditionEnum.NORMAL
-        'rust_B' → ConditionEnum.RUST
-        'crack_B' → ConditionEnum.CRACK
+        'normal' → TypeOfAbnormalityEnum.NORMAL
+        'rust_B' → TypeOfAbnormalityEnum.RUST
+        'crack_B' → TypeOfAbnormalityEnum.CRACK
     """
     if 'rust' in predicted_class.lower():
-        return ConditionEnum.RUST
+        return TypeOfAbnormalityEnum.RUST
     elif 'crack' in predicted_class.lower():
-        return ConditionEnum.CRACK
+        return TypeOfAbnormalityEnum.CRACK
     else:
-        return ConditionEnum.NORMAL
+        return TypeOfAbnormalityEnum.NORMAL
 
 def class_to_grade(predicted_class):
     """
@@ -368,15 +484,12 @@ def upload_photo(inspection_id):
                     
                     db.session.flush()
                     
-                    # 4. InspectionPhoto レコード作成
+                    # 4. Photo レコード作成
                     photo = InspectionPhoto(
                         inspection_id=inspection_id,
                         detail_id=detail.detail_id,
-                        filename=part_data.get('filename', 
-                            f'inspection_{inspection_id}_{part_name}_{datetime.now().strftime("%Y%m%d_%H%M%S")}.png'),
                         photo_data=image_binary,
                         file_size=len(image_binary),
-                        mime_type='image/png',
                         uploaded_by=session.get('user_id')
                     )
                     db.session.add(photo)
@@ -496,7 +609,7 @@ def api_degradation():
     HTML からアップロードされた写真を受け取り、
     run_inference で劣化度を計算して返す
     """
-    file = request.files.get("photo")
+    file = request.files.get("DailyReportPhoto")
     if not file:
         return jsonify({"error": "No file uploaded"}), 400
 

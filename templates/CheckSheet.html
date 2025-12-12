@@ -5,7 +5,7 @@
     <title>遊具管理システム | 点検チェックシートページ</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
-    <link rel="stylesheet" href="./CSS/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
     <style>
         .ai-predicted { background-color: #e3f2fd !important; font-weight: bold; }
         .grade-A { color: #4caf50; }
@@ -19,9 +19,9 @@
     <div class="flexbox">
         <h1><a href="{{ url_for('home') }}">遊具管理システム</a></h1>
         <div class="account_toggle" id="mobile">
-            <img src="./img/Icon.svg">
+            <img src="{{ url_for('static', filename='img/Icon.svg') }}" alt="アカウント" id="accountIcon">
         </div>
-        <button><img src="./img/bell.png"></button>
+        <button><img src="{{ url_for('static', filename='img/bell.png') }}" alt="通知"></button>
         <div class="nav_wrapper">
             <input type="checkbox" id="nav_toggle" hidden>
             <label class="nav_icon" for="nav_toggle">
@@ -886,8 +886,65 @@
         </div>
         </table>
     </form>
+<<<<<<< HEAD
     
     <script src="../static/JS/JS.js"></script>
+=======
+        <script>
+            // AI判定結果の読み込みと反映（前回と同じ）
+            document.addEventListener('DOMContentLoaded', async function() {
+                console.log('📄 CheckSheet ページ読み込み');
+                
+                const latestResult = localStorage.getItem('latestAIResult');
+                if (latestResult) {
+                    const aiData = JSON.parse(latestResult);
+                    console.log('💾 localStorage から結果取得:', aiData);
+                    updatePartResult(aiData.part, aiData.result, aiData.confidence, true);
+                    localStorage.removeItem('latestAIResult');
+                }
+                
+                await loadInspectionResults(1);
+            });
+>>>>>>> b091102a82bc857c32ad788c580aa79f2397a57e
 
+            async function loadInspectionResults(inspectionId) {
+                try {
+                    const response = await fetch(`/api/inspection/${inspectionId}/results`);
+                    if (!response.ok) return;
+                    
+                    const data = await response.json();
+                    console.log('🔍 データベースから結果取得:', data);
+                    
+                    data.parts.forEach(part => {
+                        updatePartResult(part.part, part.grade, part.confidence, part.is_ai_predicted);
+                    });
+                } catch (error) {
+                    console.error('結果取得エラー:', error);
+                }
+            }
+
+            function updatePartResult(partName, grade, confidence, isAI) {
+                console.log(`🔄 結果反映: ${partName} = ${grade} (AI: ${isAI})`);
+                
+                const radio = document.getElementById(`${partName}_${grade.toLowerCase()}`);
+                if (radio) {
+                    radio.checked = true;
+                    
+                    if (isAI) {
+                        const row = document.getElementById(`row-${partName}`);
+                        if (row) row.classList.add('ai-predicted');
+                        
+                        if (confidence) {
+                            const confidenceSpan = document.getElementById(`${partName}-confidence`);
+                            if (confidenceSpan) {
+                                confidenceSpan.textContent = `(AI判定: ${(confidence * 100).toFixed(1)}%)`;
+                                confidenceSpan.classList.add(`grade-${grade}`);
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+        <script src="{{ url_for('static', filename='JS/JS.js')}}"></script>
     </body>
 </html>
