@@ -54,10 +54,10 @@
                 <div class="top_account_section" id="PC"><!-- PCのみ -->
                     <div class="flexbox">
                         <img src="{{ url_for('static', filename='img/Icon.svg') }}">
-                        <h1>〇〇さん</h1>
+                        <h1>{{ user_name }}さん</h1>
                     </div>
-                    <h2>ＩＤ：</h2>
-                    <h2>管理している公園：</h2>
+                    <h2>ＩＤ：{{ employee_id }}</h2>
+                    <h2>管理している公園：松下公園</h2>
                     <div class="LogOut"><a href="#" class="LogOut_button">ログアウト</a></div>
                 </div>
                 <div class="top_document_section" id="PC"><!-- PCのみ -->
@@ -96,17 +96,17 @@
                     </tr>
                     <tr>
                         <td>令和✕年✕月✕日〇〇公園日報</td>
-                        <td>△△△△</td>
+                        <td>{{ user_name }}</td>
                         <td>✕✕年✕月✕日</td>
                     </tr>
                     <tr>
                         <td>令和✕年✕月✕日〇〇公園日報</td>
-                        <td>△△△△</td>
+                        <td>{{ user_name }}</td>
                         <td>✕✕年✕月✕日</td>
                     </tr>
                     <tr>
                         <td>令和✕年✕月✕日〇〇公園日報</td>
-                        <td>△△△△</td>
+                        <td>{{ user_name }}</td>
                         <td>✕✕年✕月✕日</td>
                     </tr>
                 </table>
@@ -119,17 +119,17 @@
                     </tr>
                     <tr>
                         <td>令和✕年度〇〇公園結果報告書</td>
-                        <td>△△△△</td>
+                        <td>{{ user_name }}</td>
                         <td>✕✕年✕月✕日</td>
                     </tr>
                     <tr>
                         <td>令和✕年度〇〇公園結果報告書</td>
-                        <td>△△△△</td>
+                        <td>{{ user_name }}</td>
                         <td>✕✕年✕月✕日</td>
                     </tr>
                     <tr>
                         <td>令和✕年度〇〇公園結果報告書</td>
-                        <td>△△△△</td>
+                        <td>{{ user_name }}</td>
                         <td>✕✕年✕月✕日</td>
                     </tr>
                 </table>
@@ -142,17 +142,17 @@
                     </tr>
                     <tr>
                         <td>令和✕年度通常点検チェックシート</td>
-                        <td>△△△△</td>
+                        <td>{{ user_name }}</td>
                         <td>✕✕年✕月✕日</td>
                     </tr>
                     <tr>
                         <td>令和✕年度通常点検チェックシート</td>
-                        <td>△△△△</td>
+                        <td>{{ user_name }}</td>
                         <td>✕✕年✕月✕日</td>
                     </tr>
                     <tr>
                         <td>令和✕年度通常点検チェックシート</td>
-                        <td>△△△△</td>
+                        <td>{{ user_name }}</td>
                         <td>✕✕年✕月✕日</td>
                     </tr>
                 </table>
