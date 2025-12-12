@@ -3,9 +3,10 @@ from flask_migrate import Migrate
 from werkzeug.security import check_password_hash
 from models import (
     db, User, Park, Equipment, Inspection, 
-    InspectionDetail, InspectionPhoto,
-    InspectionPartEnum, ConditionEnum, GradeEnum
+    InspectionDetail, InspectionPhoto, DailyReportPhoto,
+    InspectionPartEnum, TypeOfAbnormalityEnum, GradeEnum
 )
+
 from config import DATABASE_URL
 import os
 import sys
@@ -137,19 +138,19 @@ def predict_equipment_part(image_binary, part_name):
 
 def class_to_condition(predicted_class):
     """
-    予測クラスを Condition に変換
+    予測クラスを TypeOfAbnormalityEnum に変換
     
     例：
-        'normal' → ConditionEnum.NORMAL
-        'rust_B' → ConditionEnum.RUST
-        'crack_B' → ConditionEnum.CRACK
+        'normal' → TypeOfAbnormalityEnum.NORMAL
+        'rust_B' → TypeOfAbnormalityEnum.RUST
+        'crack_B' → TypeOfAbnormalityEnum.CRACK
     """
     if 'rust' in predicted_class.lower():
-        return ConditionEnum.RUST
+        return TypeOfAbnormalityEnum.RUST
     elif 'crack' in predicted_class.lower():
-        return ConditionEnum.CRACK
+        return TypeOfAbnormalityEnum.CRACK
     else:
-        return ConditionEnum.NORMAL
+        return TypeOfAbnormalityEnum.NORMAL
 
 def class_to_grade(predicted_class):
     """
@@ -368,15 +369,12 @@ def upload_photo(inspection_id):
                     
                     db.session.flush()
                     
-                    # 4. InspectionPhoto レコード作成
+                    # 4. Photo レコード作成
                     photo = InspectionPhoto(
                         inspection_id=inspection_id,
                         detail_id=detail.detail_id,
-                        filename=part_data.get('filename', 
-                            f'inspection_{inspection_id}_{part_name}_{datetime.now().strftime("%Y%m%d_%H%M%S")}.png'),
                         photo_data=image_binary,
                         file_size=len(image_binary),
-                        mime_type='image/png',
                         uploaded_by=session.get('user_id')
                     )
                     db.session.add(photo)
@@ -496,7 +494,7 @@ def api_degradation():
     HTML からアップロードされた写真を受け取り、
     run_inference で劣化度を計算して返す
     """
-    file = request.files.get("photo")
+    file = request.files.get("DailyReportPhoto")
     if not file:
         return jsonify({"error": "No file uploaded"}), 400
 
