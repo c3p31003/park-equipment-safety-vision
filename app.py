@@ -18,7 +18,7 @@ import io
 import json
 import numpy as np
 
-
+from degradation_main import run_inference
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'your-fixed-secret-key-change-this-in-production'
@@ -486,6 +486,38 @@ def health():
         'models': models_status,
         'timestamp': datetime.utcnow().isoformat()
     }), 200
+
+
+# ～劣化診断機能～
+# HTML/JS からの写真アップロード → 劣化度を返す API
+@app.route("/api/degradation", methods=["POST"])
+def api_degradation():
+    """
+    HTML からアップロードされた写真を受け取り、
+    run_inference で劣化度を計算して返す
+    """
+    file = request.files.get("photo")
+    if not file:
+        return jsonify({"error": "No file uploaded"}), 400
+
+    # 一時保存用フォルダ
+    tmp_dir = "data/raw"
+    os.makedirs(tmp_dir, exist_ok=True)
+    tmp_path = os.path.join(tmp_dir, file.filename)
+    file.save(tmp_path)
+
+    try:
+        # run_inference を呼ぶ
+        degradation_ratio, _, _ = run_inference(tmp_path)
+
+        # % に変換して返す
+        return jsonify({"degradation_ratio": round(degradation_ratio * 100, 2)})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+
 
 
 # ============================================================
