@@ -8,7 +8,7 @@ keras
 tensorflow
 Pillow
 numpy
-
+openpyxl
 #pip install -r requirements.txt
 # オプション: パスワードハッシュ化用
 # bcrypt==4.1.2
