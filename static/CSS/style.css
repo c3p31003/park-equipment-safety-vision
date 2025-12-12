@@ -1542,3 +1542,87 @@ header h1{
     margin: 20px; 
 }
 
+/* ===== 長尾CSS-ここから ===== */
+.radio-cell {
+  padding: 0;
+}
+
+.radio-cell label {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  position: relative;
+}
+
+/* 本物のラジオボタンは非表示 */
+.radio-cell input[type="radio"] {
+  display: none;
+}
+
+/* A / B / C 表示 */
+.radio-mark {
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: 36px;
+  text-align: center;
+  font-size: 16px;
+}
+
+/* 選択されたら「○」を表示 */
+.radio-cell input[type="radio"]:checked + .radio-mark::after {
+  content: "○";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  color: #333;
+}
+
+.judge-td {
+    text-align: center;
+}
+
+.mark {
+    font-size: 1.2em;
+    visibility: hidden;
+    margin-left: 4px;
+}
+
+label {
+    cursor: pointer;
+}
+
+/* ラジオボタン非表示 */
+.judge-td input[type="radio"] {
+    display: none;
+}
+
+/* markを中央に配置して初期は非表示 */
+.judge-td .mark {
+    visibility: hidden;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #333;
+}
+
+/* ラベル全体をクリック可能に */
+.judge-td label {
+    display: block;
+    width: 36px;
+    height: 36px;
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* ラジオボタンが選択されたらmarkを表示 */
+.judge-td input[type="radio"]:checked + .mark {
+    visibility: visible;
+}
+/* ===== 長尾CSS-ここまで ===== */
