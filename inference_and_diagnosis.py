@@ -1,4 +1,4 @@
-# inference_and_diagnosis.py
+# inference_and_diagnosis.py 
 import torch
 import torch.nn as nn
 from torchvision import transforms
@@ -75,9 +75,9 @@ def run_inference(image_path, model_path="models/best_part_segmenter.pth", num_c
     original_img_array = np.array(input_image)
 
     preprocess = transforms.Compose([
-        transforms.Resize((128, 128)),
-        transforms.ToTensor(),
-    ])
+    transforms.Resize((128, 128), interpolation=transforms.InterpolationMode.BILINEAR),
+    transforms.ToTensor(),
+])
 
     input_tensor = preprocess(input_image).unsqueeze(0).to(device)
 
@@ -88,39 +88,52 @@ def run_inference(image_path, model_path="models/best_part_segmenter.pth", num_c
     _, predicted_mask = torch.max(output, 1)
     mask_array = predicted_mask.squeeze().cpu().numpy()
 
-    # --- 下部20%の錆誤検出除去 ---
+    # --- 下部20%の錆誤検出除去（必要ならON） ---
     H, W = mask_array.shape
     bottom = int(H * 0.8)
-    mask_array[bottom:, :][mask_array[bottom:, :] == 3] = 0
+    # mask_array[bottom:, :][mask_array[bottom:, :] == 3] = 0
 
-    # --- 劣化度計算（錆の有無も返す） ---
+    # --- 劣化度計算 ---
     degradation_ratio, has_rust = calculate_degradation(mask_array)
 
-    # ★錆ゼロ → 画像ノイズから微小劣化度を付与
+    # 錆ゼロ → ノイズ値を代替スコアに
     if not has_rust:
         degradation_ratio = estimate_noise_level(original_img_array)
 
-    # --- 結果画像保存 ---
-    mask_img = Image.fromarray(mask_array.astype(np.uint8), mode='L')
-    mask_img_resized = mask_img.resize(original_size, Image.NEAREST)
-    mask_array_resized = np.array(mask_img_resized)
+    # ----------------------------------------
+    # ★ 保存処理（本番で不要な場合はここだけ変更）
+    # ----------------------------------------
+    SAVE_OUTPUT = False    # ← 本番: False / 開発: True にするだけ
 
-    original_img_array = np.array(input_image)
-    foreground_mask = mask_array_resized != 0
-    background_removed_array = original_img_array * foreground_mask[:, :, None]
+    bg_removed_path = None
+    rust_mask_path = None
 
-    # ★ output/results 配下に保存
-    output_dir = os.path.join("output", "results")
-    os.makedirs(output_dir, exist_ok=True)
+    if SAVE_OUTPUT:
+        mask_img = Image.fromarray(mask_array.astype(np.uint8), mode='L')
+        mask_img_resized = mask_img.resize(original_size, Image.NEAREST)
+        mask_array_resized = np.array(mask_img_resized)
 
-    base = os.path.basename(image_path)
-    stem, _ = os.path.splitext(base)
+        foreground_mask = mask_array_resized != 0
+        background_removed_array = original_img_array * foreground_mask[:, :, None]
 
-    bg_removed_path = os.path.join(output_dir, f"{stem}_bg_removed.png")
-    rust_mask_path = os.path.join(output_dir, f"{stem}_rust_mask.png")
+        # 保存フォルダ
+        output_dir = os.path.join("output", "results")
+        os.makedirs(output_dir, exist_ok=True)
 
-    Image.fromarray(background_removed_array.astype(np.uint8)).save(bg_removed_path)
-    rust_mask = (mask_array_resized == 3).astype(np.uint8) * 255
-    Image.fromarray(rust_mask).save(rust_mask_path)
+        base = os.path.basename(image_path)
+        stem, _ = os.path.splitext(base)
+
+        # 保存パス
+        bg_removed_path = os.path.join(output_dir, f"{stem}_bg_removed.png")
+        rust_mask_path = os.path.join(output_dir, f"{stem}_rust_mask.png")
+
+        # 背景除去画像
+        Image.fromarray(background_removed_array.astype(np.uint8)).save(bg_removed_path)
+
+        # 錆マスク画像
+        rust_mask = (mask_array_resized == 3).astype(np.uint8) * 255
+        Image.fromarray(rust_mask).save(rust_mask_path)
+
+    # ----------------------------------------
 
     return degradation_ratio, bg_removed_path, rust_mask_path
