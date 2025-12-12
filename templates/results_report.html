@@ -1,5 +1,25 @@
 <!DOCTYPE html>
 <html lang="ja">
+<<<<<<< HEAD
+<head>
+    <meta charset="UTF-8">
+    <title>遊具管理システム</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header_title"><a href="index.html"><h1>遊具管理システム</h1></a></div>
+        <div class="alert"></div>
+        <div class="openbtn"><span></span><span></span><span></span></div>
+    </header>
+    <div class="wrapper">
+      <div id="results_report_container">
+        <p id="page_route">トップ > 結果報告書作成</p>
+        <div id="daily_completed_container_top">
+            <button id="daily_completed" type="button">保存</button>
+=======
   <head>
       <meta charset="UTF-8">
       <title>遊具管理システム | 結果報告書作成ページ</title>
@@ -42,6 +62,7 @@
         <p id="page_route"><a href="{{ url_for('home') }}">トップ</a> > <a href="{{ url_for('results_report') }}">結果報告書作成</a></p>        
         <div id="daily_completed_container_top">
           <button id="daily_completed" type="button">保存</button>
+>>>>>>> origin/main
         </div>
         <p class="daily_report_heading">公園名</p>
         <input class="text_box wide_box" type="text" name="park">

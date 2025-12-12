@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+from flask_sqlalchemy import SQLAlchemyEnum, SQLAlchemy
+from flask import Flask
+from datetime import datetime
+import enum
+# SQLAlchemyインスタンスを作成
+db = SQLAlchemy()
+
+#Enumの定義
+class RoleEnum(enum.Enum):
+    """ユーザーの役割"""
+=======
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import enum
@@ -8,15 +20,47 @@ db = SQLAlchemy()
 
 # Enum 定義
 class RoleEnum(enum.Enum):
+<<<<<<< HEAD
+>>>>>>> origin/main
+    STAFF = "職員"
+=======
     STAFF = "事務職員"
+>>>>>>> origin
     INSPECTOR = "点検者"
     MANAGER = "管理者"
 
 class EquipmentStatusEnum(enum.Enum):
+<<<<<<< HEAD
+<<<<<<< HEAD
+    """遊具の状態"""
+=======
+>>>>>>> origin/main
+    NORMAL = "正常"
+    CAUTION = "要注意"
+    PROHIBITED = "使用禁止"
+=======
     A = "異常なし"
     B = "経過観察"
     C = "異常あり"
+>>>>>>> origin
 
+<<<<<<< HEAD
+class InspectionResultEnum(enum.Enum):
+    """点検結果"""
+    NO_ISSUE = "異常なし"
+    OBSERVATION = "経過観察"
+    REPAIR_NEEDED = "要修理"
+
+class OverallResultEnum(enum.Enum):
+    """総合評価"""
+    A = "A"
+    B = "B"
+    C = "C"
+    D = "D"
+
+class ReportStatusEnum(enum.Enum):
+    """報告書の状態"""
+=======
 class InspectionPartEnum(enum.Enum):
     """点検部位"""
     CHAIN = "chain"      # 鎖
@@ -38,20 +82,46 @@ class GradeEnum(enum.Enum):
     D = "使用禁止措置" 
 
 class ReportStatusEnum(enum.Enum):
+>>>>>>> origin/main
     DRAFT = "下書き"
     SUBMITTED = "提出済"
     APPROVED = "承認済"
     REJECTED = "差戻"
 
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 
+#Userテーブル作成 
+class User(db.Model):
+    __tablename__= 'users'
+=======
+# ========================================
+=======
+
+>>>>>>> origin
 # User テーブル（変更なし）
 #引数にdb.Modelを入れることでDB テーブルと連動する Python オブジェクトになる
 class User(db.Model):
     __tablename__ = 'users'
+>>>>>>> origin/main
     employee_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     role = db.Column(db.Enum(RoleEnum), nullable=False)
+<<<<<<< HEAD
+    mail = db.Column(db.String(100), unique=True, nullable=False)
+    phone = db.Column(db.String(20))
+<<<<<<< HEAD
+    password = db
+    #リレーション
+    managed_parks = db.relationship('Park', backref='manager', lazy=True)
+    inspection_assignments = db.relationship('InspectionUser', backref='employee', lazy=True)
+    created_reports = db.relationship('Report', backref='creator', lazy=True)
+    
+# 公園テーブル
+=======
+=======
+>>>>>>> origin
     password = db.Column(db.String(255), nullable=False)
     
     # リレーション
@@ -67,20 +137,78 @@ class User(db.Model):
     uploaded_daily_report_photos = db.relationship('DailyReportPhoto', backref='uploader', lazy=True)
 
 
+<<<<<<< HEAD
+# ========================================
+# Park テーブル（変更なし）
+# ========================================
+>>>>>>> origin/main
+=======
 # Park テーブル
+>>>>>>> origin
 class Park(db.Model):
     __tablename__ = 'parks'
     park_id = db.Column(db.Integer, primary_key=True)
     park_name = db.Column(db.String(200), nullable=False)
     address = db.Column(db.String(500))
+<<<<<<< HEAD
+    manager_id = db.Column(db.Integer, db.ForeignKey('users.employee_id'))
+<<<<<<< HEAD
+    # リレーション
+    equipments = db.relationship('Equipment', backref='park', lazy=True)
+    reports = db.relationship('Report', backref='park', lazy=True)
+
+# 遊具テーブル
+=======
+    
+=======
     inspector_id = db.Column(db.Integer, db.ForeignKey('users.employee_id'))
 
     # リレーション
+>>>>>>> origin
     equipments = db.relationship('Equipment', backref='park', lazy=True)
     reports = db.relationship('Report', backref='park', lazy=True)
     daily_reports = db.relationship('DailyReport', backref='park', lazy=True)
 
 
+<<<<<<< HEAD
+# ========================================
+# Equipment テーブル（変更なし）
+# ========================================
+>>>>>>> origin/main
+class Equipment(db.Model):
+    __tablename__ = 'equipments'
+    equipment_id = db.Column(db.Integer, primary_key=True)
+    park_id = db.Column(db.Integer, db.ForeignKey('parks.park_id'), nullable=False)
+    equipment_name = db.Column(db.String(200), nullable=False)
+    install_date = db.Column(db.Date)
+    status = db.Column(db.Enum(EquipmentStatusEnum), default=EquipmentStatusEnum.NORMAL)
+<<<<<<< HEAD
+    # リレーション
+    inspections = db.relationship('Inspection', backref='equipment', lazy=True)
+
+# 点検記録テーブル
+class Inspection(db.Model):
+    __tablename__ = 'inspection'
+    inspection_id = db.Column(db.Integer, primary_key=True)
+    equipment_id = db.Column(db.Integer, db.ForeignKey('equipments.equipment_id'), nullable=False)
+    inspection_date = db.Column(db.DateTime, default=datetime.utcnow)
+    result = db.Column(db.Enum(InspectionResultEnum))
+    overall_result = db.Column(db.Enum(OverallResultEnum))
+    notes = db.Column(db.Text)
+    ai_result = db.Column(db.Text)
+    image_url = db.Column(db.String(500))
+    
+    # リレーション
+    assigned_users = db.relationship('InspectionUser', backref='inspection', lazy=True)
+    report_links = db.relationship('InspectionReport', backref='inspection', lazy=True)
+
+# 報告書テーブル
+class Report(db.Model):
+    __tablename__ = 'reports'
+    
+=======
+    
+=======
     @staticmethod #デコレーター(クラスのインスタンス化なしで呼び出し可能)
     def validate_inspector(inspector_id):
         """STAFF または INSPECTOR role だけを許可"""
@@ -108,6 +236,7 @@ class Equipments(db.Model):
     status = db.Column(db.Enum(EquipmentStatusEnum), default=EquipmentStatusEnum.A)
 
     # リレーション
+>>>>>>> origin
     inspections = db.relationship('Inspection', backref='equipment', lazy=True)
     daily_report_details = db.relationship('DailyReportDetail', backref='equipment', lazy=True)
 
@@ -246,6 +375,7 @@ class InspectionPhoto(db.Model):
 class Report(db.Model):
     """報告書（専門家点検の年4回報告書）"""
     __tablename__ = 'reports'
+>>>>>>> origin/main
     report_id = db.Column(db.Integer, primary_key=True)
     park_id = db.Column(db.Integer, db.ForeignKey('parks.park_id'), nullable=False)
     employee_id = db.Column(db.Integer, db.ForeignKey('users.employee_id'), nullable=False)
@@ -253,6 +383,34 @@ class Report(db.Model):
     file_url = db.Column(db.String(500))
     status = db.Column(db.Enum(ReportStatusEnum), default=ReportStatusEnum.DRAFT)
     
+<<<<<<< HEAD
+    # リレーション
+    inspection_links = db.relationship('InspectionReport', backref='report', lazy=True)
+
+
+# 中間テーブル
+class InspectionUser(db.Model):
+    """点検担当者（中間テーブル）"""
+    __tablename__ = 'inspection_users'
+    
+    inspection_user_id = db.Column(db.Integer, primary_key=True)
+    inspection_id = db.Column(db.Integer, db.ForeignKey('inspection.inspection_id'), nullable=False)
+    employee_id = db.Column(db.Integer, db.ForeignKey('users.employee_id'), nullable=False)
+    assigned_date = db.Column(db.DateTime, default=datetime.utcnow)
+
+class InspectionReport(db.Model):
+    """点検報告関連（中間テーブル）"""
+    __tablename__ = 'inspection_reports'
+    
+    inspection_report_id = db.Column(db.Integer, primary_key=True)
+    inspection_id = db.Column(db.Integer, db.ForeignKey('inspection.inspection_id'), nullable=False)
+    report_id = db.Column(db.Integer, db.ForeignKey('reports.report_id'), nullable=False)
+    added_date = db.Column(db.DateTime, default=datetime.utcnow)
+    
+
+
+
+=======
     inspection_links = db.relationship('InspectionReport', backref='report', lazy=True)
 
 # 中間テーブル
@@ -263,6 +421,9 @@ class InspectionReport(db.Model):
     inspection_id = db.Column(db.Integer, db.ForeignKey('inspection.inspection_id'), nullable=False)
     report_id = db.Column(db.Integer, db.ForeignKey('reports.report_id'), nullable=False)
     added_date = db.Column(db.DateTime, default=datetime.utcnow)
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 
 
 
@@ -351,3 +512,4 @@ class DailyReportPhoto(db.Model):
 
 
 
+>>>>>>> origin

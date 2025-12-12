@@ -1,0 +1,7 @@
+Flask
+flask-cors
+openpyxl
+pillow
+pandas
+matplotlib
+gunicorn

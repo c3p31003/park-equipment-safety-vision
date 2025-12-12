@@ -8,6 +8,12 @@ keras
 tensorflow
 Pillow
 numpy
+openpyxl
+pillow
+pandas
+matplotlib
+gunicorn
+
 
 #pip install -r requirements.txt
 # オプション: パスワードハッシュ化用

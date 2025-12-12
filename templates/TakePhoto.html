@@ -5,6 +5,36 @@
         <title>遊具管理システム | 遊具異常撮影ページ</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
+<<<<<<< HEAD
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body>
+        <header>
+            <div class="header_title"><a href="index.html"><h1>遊具管理システム</h1></a></div>
+            <div class="alert"></div>
+            <div class="openbtn"><span></span><span></span><span></span></div>
+        </header>
+        <div class="wrapper" id="TakePhoto">
+            <button><img class="BackButton" src="img/back.png"><p>戻る</p></button><br>
+
+            <!-- ここにカメラが入ります -->
+        
+            <div class="PhotoButton" id="photoButtonContainer">
+                <button id="photoButton"><img src="img/PhotoButton.png"></button>
+            </div>
+            <div class="NewButtons" id="newButtonsContainer" style="display: none;">
+                <button id="retakeButton">再撮影<img src="img/CameraIcon.png"></button>               
+                <button id="saveButton">保存<img src="./img/back.png"></button>
+            </div>
+
+        </div>
+        <footer>
+
+        </footer>
+    <script src="./JS/JS.js"></script>
+    </body>
+</html>
+=======
         <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
     </head>
     <body>
@@ -314,3 +344,4 @@
         <script src="{{ url_for('static', filename='JS/JS.js')}}"></script>
     </body>
 </html>
+>>>>>>> origin/main
