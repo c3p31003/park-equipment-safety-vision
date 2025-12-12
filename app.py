@@ -34,8 +34,8 @@ EMU = 9525
 ICON_PX = 16
 
 BASE_DIR = os.path.dirname(__file__)
-TEMPLATE_PATH = os.path.join(BASE_DIR, "template.xlsx")
-ICON_DIR = os.path.join(BASE_DIR, "icons")
+TEMPLATE_PATH = os.path.join(BASE_DIR, "backend/template.xlsx")
+ICON_DIR = os.path.join(BASE_DIR, "backend/icons")
 
 
 app = Flask(__name__)
@@ -61,22 +61,22 @@ migrate = Migrate(app, db)
 
 MODELS_CONFIG = {
     'chain': {
-        'path': './chain_best.keras',
+        'path': 'models/models/chain.keras',
         'size': 224,
         'classes': ['normal', 'rust_B', 'rust_C']
     },
     'joint': {
-        'path': './joint_best.keras',
+        'path': 'models/models/joint.keras',
         'size': 224,
         'classes': ['normal', 'rust_B', 'rust_C']
     },
     'pole': {
-        'path': './pole_best.keras',
+        'path': 'models/models/pole.keras',
         'size': 224,
         'classes': ['normal', 'rust_B', 'rust_C']
     },
     'seat': {
-        'path': './seat_best.keras',
+        'path': 'models/models/seat.keras',
         'size': 224,
         'classes': ['normal', 'rust_B', 'rust_C', 'crack_B', 'crack_C']
     }
@@ -86,8 +86,6 @@ inference_models = {}
 
 
 #ログイン機能
-
-
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -611,8 +609,10 @@ def health():
     }), 200
 
 
+# ============================================================
 # ～劣化診断機能～
 # HTML/JS からの写真アップロード → 劣化度を返す API
+# ============================================================
 @app.route("/api/degradation", methods=["POST"])
 def api_degradation():
     """
@@ -634,7 +634,8 @@ def api_degradation():
         degradation_ratio, _, _ = run_inference(tmp_path)
 
         # % に変換して返す
-        return jsonify({"degradation_ratio": round(degradation_ratio * 100, 2)})
+        return jsonify({"degradation_ratio": round(degradation_ratio, 2)})
+
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
