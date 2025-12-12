@@ -21,4 +21,7 @@ venv
 best_part_segmenter.pth
 CheckSheet_2.html
 CheckSheet.html
+.env
+.gitignore
+best_part_segmenter.pth
 
