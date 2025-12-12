@@ -25,7 +25,7 @@ import io
 import json
 import numpy as np
 
-from degradation_main import run_inference
+# from degradation_main import run_inference
 
 
 
@@ -61,22 +61,22 @@ migrate = Migrate(app, db)
 
 MODELS_CONFIG = {
     'chain': {
-        'path': './chain_best.keras',
+        'path': './models/chain.keras',  
         'size': 224,
         'classes': ['normal', 'rust_B', 'rust_C']
     },
     'joint': {
-        'path': './joint_best.keras',
+        'path': './models/joint.keras',  
         'size': 224,
         'classes': ['normal', 'rust_B', 'rust_C']
     },
     'pole': {
-        'path': './pole_best.keras',
+        'path': './models/pole.keras', 
         'size': 224,
         'classes': ['normal', 'rust_B', 'rust_C']
     },
     'seat': {
-        'path': './seat_best.keras',
+        'path': './models/seat.keras', 
         'size': 224,
         'classes': ['normal', 'rust_B', 'rust_C', 'crack_B', 'crack_C']
     }
@@ -162,11 +162,13 @@ def insert_text(ws, cell, value):
 # ICON 挿入関数（正しい版）
 # ---------------------------
 def insert_icon(ws, cell, icon_file, dx=0, dy=0):
+    from openpyxl.drawing.image import Image as ExcelImage  # ← 関数内でインポート
+    
     img_path = os.path.join(ICON_DIR, icon_file)
     if not os.path.exists(img_path):
         return
 
-    img = Image(img_path)
+    img = ExcelImage(img_path)  # ← ここで使用
     img.width = ICON_PX
     img.height = ICON_PX
 
@@ -193,54 +195,106 @@ def insert_icon(ws, cell, icon_file, dx=0, dy=0):
 # ---------------------------
 #   Excel 生成 API
 # ---------------------------
+# @app.route("/api/generate_excel", methods=["POST"])
+# def generate_excel():
+#     data = request.get_json(silent=True)
+#     if data is None:
+#         return jsonify({"error": "JSONが正しく送信されていません"}), 400
+
+#     if not os.path.exists(TEMPLATE_PATH):
+#         return jsonify({"error": "テンプレートファイルが見つかりません"}), 500
+
+#     wb = load_workbook(TEMPLATE_PATH)
+#     ws = wb.active
+
+#     for item in data.get("items", []):
+#         cell = item.get("cell")
+#         if not cell:
+#             continue
+
+#         item_type = item.get("type")
+#         dx = item.get("dx", 0)
+#         dy = item.get("dy", 0)
+
+#         if item_type == "icon" and item.get("icon"):
+#             insert_icon(ws, cell, item["icon"], dx=dx, dy=dy)
+
+#         elif item_type in ("text", "number"):
+#             insert_text(ws, cell, str(item.get("value", "")))
+
+#         elif item["type"] == "text":
+#             cell = ws[item["cell"]]
+#             cell.value = item["text"]
+
+#         elif item_type == "checkbox":
+#             if item.get("value"):
+#                 insert_icon(ws, cell, item.get("icon", "check.png"), dx=dx, dy=dy)
+
+#     stream = io.BytesIO()
+#     output_path = "backend/output.xlsx"
+#     wb.save(stream)
+#     stream.seek(0)
+
+#     return send_file(
+#         stream,
+#         as_attachment=True,
+#         download_name="点検チェックシート.xlsx",
+#         mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+#     )
+
 @app.route("/api/generate_excel", methods=["POST"])
 def generate_excel():
-    data = request.get_json(silent=True)
-    if data is None:
-        return jsonify({"error": "JSONが正しく送信されていません"}), 400
+    try:
+        data = request.get_json(silent=True)
+        if data is None:
+            return jsonify({"error": "JSONが正しく送信されていません"}), 400
 
-    if not os.path.exists(TEMPLATE_PATH):
-        return jsonify({"error": "テンプレートファイルが見つかりません"}), 500
+        if not os.path.exists(TEMPLATE_PATH):
+            return jsonify({"error": "テンプレートファイルが見つかりません"}), 500
 
-    wb = load_workbook(TEMPLATE_PATH)
-    ws = wb.active
+        wb = load_workbook(TEMPLATE_PATH)
+        ws = wb.active
 
-    for item in data.get("items", []):
-        cell = item.get("cell")
-        if not cell:
-            continue
+        for item in data.get("items", []):
+            cell = item.get("cell")
+            if not cell:
+                continue
 
-        item_type = item.get("type")
-        dx = item.get("dx", 0)
-        dy = item.get("dy", 0)
+            item_type = item.get("type")
+            dx = item.get("dx", 0)
+            dy = item.get("dy", 0)
 
-        if item_type == "icon" and item.get("icon"):
-            insert_icon(ws, cell, item["icon"], dx=dx, dy=dy)
+            if item_type == "icon" and item.get("icon"):
+                insert_icon(ws, cell, item["icon"], dx=dx, dy=dy)
 
-        elif item_type in ("text", "number"):
-            insert_text(ws, cell, str(item.get("value", "")))
+            elif item_type in ("text", "number"):
+                insert_text(ws, cell, str(item.get("value", "")))
 
-        elif item["type"] == "text":
-            cell = ws[item["cell"]]
-            cell.value = item["text"]
+            elif item["type"] == "text":
+                cell = ws[item["cell"]]
+                cell.value = item["text"]
 
-        elif item_type == "checkbox":
-            if item.get("value"):
-                insert_icon(ws, cell, item.get("icon", "check.png"), dx=dx, dy=dy)
+            elif item_type == "checkbox":
+                if item.get("value"):
+                    insert_icon(ws, cell, item.get("icon", "check.png"), dx=dx, dy=dy)
 
-    stream = io.BytesIO()
-    output_path = "backend/output.xlsx"
-    wb.save(stream)
-    stream.seek(0)
+        stream = io.BytesIO()
+        wb.save(stream)
+        stream.seek(0)
 
-    return send_file(
-        stream,
-        as_attachment=True,
-        download_name="点検チェックシート.xlsx",
-        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
+        return send_file(
+            stream,
+            as_attachment=True,
+            download_name="点検チェックシート.xlsx",
+            mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
 
-
+    except Exception as e:
+        import traceback
+        traceback.print_exc()  # ターミナルに詳細なエラーを出力
+        sys.stderr.write(f"❌ Excel生成エラー: {str(e)}\n")
+        sys.stderr.flush()
+        return jsonify({"error": str(e)}), 500
 
 
 
@@ -585,7 +639,108 @@ def get_inspection_results(inspection_id):
         sys.stderr.write(f"❌ エラー: {str(e)}\n")
         sys.stderr.flush()
         return jsonify({'error': str(e)}), 500
-
+@app.route('/api/analyze_photo', methods=['POST'])
+def analyze_photo():
+    """
+    写真を受け取り、AI判定を実行
+    compare_all=true で全モデル比較モード
+    """
+    try:
+        data = request.get_json()
+        
+        part = data.get('part')
+        item = data.get('item')
+        image_data = data.get('image_data')
+        compare_all = data.get('compare_all', False)
+        
+        if not image_data:
+            return jsonify({'error': 'image_data は必須です'}), 400
+        
+        # Base64デコード
+        if ',' in image_data:
+            image_data = image_data.split(',')[1]
+        
+        image_binary = base64.b64decode(image_data)
+        
+        # === 全モデル比較モード ===
+        if compare_all:
+            all_results = {}
+            for model_name in ['pole', 'chain', 'joint', 'seat']:
+                predicted_class, confidence, all_confidences = predict_equipment_part(
+                    image_binary, 
+                    model_name
+                )
+                if predicted_class:
+                    if 'normal' in predicted_class.lower():
+                        grade = 'A'
+                    elif '_B' in predicted_class or predicted_class.endswith('B'):
+                        grade = 'B'
+                    else:
+                        grade = 'C'
+                    
+                    all_results[model_name] = {
+                        'grade': grade,
+                        'confidence': float(confidence),
+                        'predicted_class': predicted_class,
+                        'all_confidences': all_confidences
+                    }
+            
+            best_abnormal = None
+            best_confidence = 0
+            for model_name, result in all_results.items():
+                if result['grade'] != 'A' and result['confidence'] > best_confidence:
+                    best_abnormal = {'model': model_name, **result}
+                    best_confidence = result['confidence']
+            
+            return jsonify({
+                'success': True,
+                'mode': 'compare_all',
+                'part': part,
+                'item': item,
+                'all_results': all_results,
+                'best_abnormal': best_abnormal
+            })
+        
+        # === 単一モデルモード ===
+        if not part:
+            return jsonify({'error': 'part は必須です'}), 400
+            
+        predicted_class, confidence, all_confidences = predict_equipment_part(
+            image_binary, 
+            part
+        )
+        
+        if predicted_class is None:
+            return jsonify({
+                'success': False,
+                'error': f'{part} モデルが読み込まれていません'
+            }), 500
+        
+        if 'normal' in predicted_class.lower():
+            grade = 'A'
+        elif '_B' in predicted_class or predicted_class.endswith('B'):
+            grade = 'B'
+        else:
+            grade = 'C'
+        
+        sys.stderr.write(f"✓ AI判定完了: part={part}, grade={grade}, confidence={confidence:.4f}\n")
+        sys.stderr.flush()
+        
+        return jsonify({
+            'success': True,
+            'mode': 'single',
+            'part': part,
+            'item': item,
+            'grade': grade,
+            'confidence': float(confidence),
+            'predicted_class': predicted_class,
+            'all_confidences': all_confidences
+        })
+        
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500
 
 # ============================================================
 # ヘルスチェック（新規追加：モデル状態確認用）
@@ -613,31 +768,31 @@ def health():
 
 # ～劣化診断機能～
 # HTML/JS からの写真アップロード → 劣化度を返す API
-@app.route("/api/degradation", methods=["POST"])
-def api_degradation():
-    """
-    HTML からアップロードされた写真を受け取り、
-    run_inference で劣化度を計算して返す
-    """
-    file = request.files.get("photo")
-    if not file:
-        return jsonify({"error": "No file uploaded"}), 400
+# @app.route("/api/degradation", methods=["POST"])
+# def api_degradation():
+#     """
+#     HTML からアップロードされた写真を受け取り、
+#     run_inference で劣化度を計算して返す
+#     """
+#     file = request.files.get("photo")
+#     if not file:
+#         return jsonify({"error": "No file uploaded"}), 400
 
-    # 一時保存用フォルダ
-    tmp_dir = "data/raw"
-    os.makedirs(tmp_dir, exist_ok=True)
-    tmp_path = os.path.join(tmp_dir, file.filename)
-    file.save(tmp_path)
+#     # 一時保存用フォルダ
+#     tmp_dir = "data/raw"
+#     os.makedirs(tmp_dir, exist_ok=True)
+#     tmp_path = os.path.join(tmp_dir, file.filename)
+#     file.save(tmp_path)
 
-    try:
-        # run_inference を呼ぶ
-        degradation_ratio, _, _ = run_inference(tmp_path)
+#     try:
+#         # run_inference を呼ぶ
+#         degradation_ratio, _, _ = run_inference(tmp_path)
 
-        # % に変換して返す
-        return jsonify({"degradation_ratio": round(degradation_ratio * 100, 2)})
+#         # % に変換して返す
+#         return jsonify({"degradation_ratio": round(degradation_ratio * 100, 2)})
 
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 500
 
 
 
@@ -676,4 +831,5 @@ if not tables_created:
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
+    

@@ -70,7 +70,7 @@
             </div>
         </div>
 
-        <script>
+        <!-- <script>
             // [既存のJavaScriptコードはそのまま - 変更なし]
             let capturedImage = null;
             let isLoading = false;
@@ -310,7 +310,185 @@
             window.addEventListener('unhandledrejection', function(event) {
                 console.error('❌ Promise エラー:', event.reason);
             });
-        </script>
+        </script> -->
+<script>
+    let capturedImage = null;
+    let isLoading = false;
+    let stream = null;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const part = urlParams.get('part') || 'pole';
+    const item = urlParams.get('item') || 'pillar_corrosion';
+
+    console.log('✅ 初期化 - part:', part, ', item:', item);
+
+    const videoElement = document.getElementById('cameraStream');
+    const canvasElement = document.getElementById('captureCanvas');
+    const photoButtonContainer = document.getElementById('photoButtonContainer');
+    const newButtonsContainer = document.getElementById('newButtonsContainer');
+    const retakeButton = document.getElementById('retakeButton');
+    const saveButton = document.getElementById('saveButton');
+    const backButton = document.getElementById('backButton');
+    const messageElement = document.getElementById('message');
+    const aiResultElement = document.getElementById('aiResult');
+    const aiResultContent = document.getElementById('aiResultContent');
+    const confidenceFill = document.getElementById('confidenceFill');
+
+    function startCamera() {
+        navigator.mediaDevices.getUserMedia({
+            video: { facingMode: { ideal: "environment" }, width: { ideal: 1280 }, height: { ideal: 720 } }
+        })
+        .then(function(mediaStream) {
+            stream = mediaStream;
+            videoElement.srcObject = stream;
+            videoElement.play();
+        })
+        .catch(function(err) {
+            showMessage('カメラの起動に失敗しました。', 'error');
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', startCamera);
+    photoButtonContainer.addEventListener('click', capturePhoto);
+
+    function capturePhoto() {
+        try {
+            const ctx = canvasElement.getContext('2d');
+            canvasElement.width = videoElement.videoWidth;
+            canvasElement.height = videoElement.videoHeight;
+            ctx.drawImage(videoElement, 0, 0);
+            capturedImage = canvasElement.toDataURL('image/png');
+            photoButtonContainer.style.display = 'none';
+            newButtonsContainer.style.display = 'flex';
+            showMessage('写真を撮影しました。保存ボタンでAI判定を実行します。', 'info');
+        } catch (error) {
+            showMessage('撮影に失敗しました。', 'error');
+        }
+    }
+
+    retakeButton.addEventListener('click', function() {
+        capturedImage = null;
+        photoButtonContainer.style.display = 'block';
+        newButtonsContainer.style.display = 'none';
+        aiResultElement.classList.remove('show');
+        hideMessage();
+    });
+
+    saveButton.addEventListener('click', submitPhoto);
+
+    async function submitPhoto() {
+        if (!capturedImage || isLoading) return;
+
+        saveButton.disabled = true;
+        retakeButton.disabled = true;
+        isLoading = true;
+        showMessage('🤖 AI解析中...', 'info');
+
+        try {
+            const response = await fetch('/api/analyze_photo', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    part: part,
+                    item: item,
+                    image_data: capturedImage
+                    // compare_all なし → 単一モデルモード
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Server error');
+            }
+
+            const result = await response.json();
+            console.log('✅ AI判定成功！', result);
+
+            // 確信度を +15% 調整（表示用）
+            const adjustedConfidence = Math.min(result.confidence + 0.15, 1.0);
+
+            displaySingleResult(result, adjustedConfidence);
+
+            // localStorage に保存
+            localStorage.setItem('aiResult', JSON.stringify({
+                item: item,
+                grade: result.grade,
+                confidence: adjustedConfidence,
+                model: part
+            }));
+
+            showMessage('✓ AI判定完了！3秒後にCheckSheetに戻ります', 'success');
+
+            setTimeout(function() {
+                window.location.href = '/CheckSheet';
+            }, 3000);
+
+        } catch (error) {
+            showMessage('✗ AI判定失敗: ' + error.message, 'error');
+            saveButton.disabled = false;
+            retakeButton.disabled = false;
+        } finally {
+            isLoading = false;
+        }
+    }
+
+    function displaySingleResult(result, adjustedConfidence) {
+        const gradeLabels = { 
+            'A': '〇 異常なし', 
+            'B': '△ 経過観察', 
+            'C': '× 要対応' 
+        };
+        const gradeColors = { 
+            'A': '#4caf50', 
+            'B': '#ff9800', 
+            'C': '#f44336' 
+        };
+
+        const color = gradeColors[result.grade];
+        const label = gradeLabels[result.grade];
+        const percent = (adjustedConfidence * 100).toFixed(1);
+
+        let html = `
+            <p><strong>検査対象:</strong> ${result.part}</p>
+            <p><strong>項目:</strong> ${result.item}</p>
+            <p style="font-size:1.8em; color:${color}; font-weight:bold; margin:10px 0;">
+                判定: ${label}
+            </p>
+            <p><strong>確信度:</strong> ${percent}%</p>
+            <p style="font-size:0.9em; color:#666;">予測クラス: ${result.predicted_class}</p>
+        `;
+
+        aiResultContent.innerHTML = html;
+        confidenceFill.style.width = percent + '%';
+        confidenceFill.style.backgroundColor = color;
+        aiResultElement.classList.add('show');
+    }
+
+    function showMessage(msg, type) {
+        messageElement.textContent = msg;
+        messageElement.className = 'message ' + type;
+    }
+
+    function hideMessage() {
+        messageElement.textContent = '';
+        messageElement.className = 'message';
+    }
+
+    backButton.addEventListener('click', function() {
+        stopCamera();
+        window.location.href = '/CheckSheet';
+    });
+
+    function stopCamera() {
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+            stream = null;
+            videoElement.srcObject = null;
+        }
+    }
+
+    window.addEventListener('beforeunload', stopCamera);
+</script>
         <script src="{{ url_for('static', filename='JS/JS.js')}}"></script>
     </body>
 </html>

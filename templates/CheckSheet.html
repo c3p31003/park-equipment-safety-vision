@@ -206,7 +206,7 @@
             </label>
         </td>
         <td rowspan="5" class="camera_cell">
-            <a href="/TakePhoto?inspection_id=1&amp;row_index=chain" class="camera_link">
+            <a href="/TakePhoto?inspection_id=1&part=pole&item=pillar_corrosion" class="camera_link">
                 <img src="/static/img/camera.png" alt="カメラボタン" class="camera_img">
             </a>
         </td>
@@ -318,7 +318,7 @@
             </label>
         </td>
         <td rowspan="5" class="camera_cell">
-            <a href="/TakePhoto?inspection_id=1&amp;row_index=chain" class="camera_link">
+            <a href="/TakePhoto?inspection_id=1&part=joint&item=joint_corrosion" class="camera_link">
                 <img src="/static/img/camera.png" alt="カメラボタン" class="camera_img">
             </a>
         </td>
@@ -420,7 +420,7 @@
                 <label><input type="radio" name="hanger_damage" value="C"><span class="mark">×</span></label>
             </td>
             <td rowspan="8" class="camera_cell">
-                <a href="/TakePhoto?inspection_id=1&amp;row_index=chain" class="camera_link">
+                <a href="/TakePhoto?inspection_id=1&part=joint&item=joint_corrosion" class="camera_link">
                     <img src="/static/img/camera.png" alt="カメラボタン" class="camera_img">
                 </a>
             </td>
@@ -525,7 +525,7 @@
                 <label><input type="radio" name="chain_twist" value="C"><span class="mark">×</span></label>
             </td>
             <td rowspan="7" class="camera_cell">
-                <a href="/TakePhoto?inspection_id=1&amp;row_index=chain" class="camera_link">
+                <a href="/TakePhoto?inspection_id=1&part=chain&item=chain_damage" class="camera_link">
                     <img src="/static/img/camera.png" alt="カメラボタン" class="camera_img">
                 </a>
             </td>
@@ -614,7 +614,7 @@
             <td class="judge-td"><label><input type="radio" name="seat_crack" value="B"><span class="mark">△</span></label></td>
             <td class="judge-td"><label><input type="radio" name="seat_crack" value="C"><span class="mark">×</span></label></td>
             <td rowspan="10" class="camera_cell">
-                <a href="/TakePhoto?inspection_id=1&amp;row_index=chain" class="camera_link">
+                <a href="/TakePhoto?inspection_id=1&part=seat&item=seat_damage" class="camera_link">
                     <img src="/static/img/camera.png" alt="カメラボタン" class="camera_img">
                 </a>
             </td>
@@ -952,9 +952,39 @@
                 </div>
             </div>
         </div>
-
-
         <script>
+            // AI判定結果の読み込みと反映
+            document.addEventListener('DOMContentLoaded', async function () {
+                console.log('📄 CheckSheet ページ読み込み');
+
+                // localStorage から AI 結果を取得
+                const aiResult = localStorage.getItem('aiResult');
+                if (aiResult) {
+                    const data = JSON.parse(aiResult);
+                    console.log('🤖 AI結果を反映:', data);
+                    
+                    // ラジオボタンを選択
+                    const radio = document.querySelector(`input[name="${data.item}"][value="${data.grade}"]`);
+                    if (radio) {
+                        radio.checked = true;
+                        console.log(`✓ ${data.item} の ${data.grade} を選択しました`);
+                        
+                        // 行をハイライト
+                        const row = radio.closest('tr');
+                        if (row) {
+                            row.style.backgroundColor = '#e3f2fd';
+                        }
+                    } else {
+                        console.warn(`⚠ ラジオボタンが見つかりません: name="${data.item}", value="${data.grade}"`);
+                    }
+                    
+                    // 使用済みなので削除
+                    localStorage.removeItem('aiResult');
+                }
+            });
+        </script>
+
+        <!-- <script>
             // AI判定結果の読み込みと反映
             document.addEventListener('DOMContentLoaded', async function () {
                 console.log('📄 CheckSheet ページ読み込み');
@@ -1016,7 +1046,7 @@
                     }
                 }
             }
-        </script>
+        </script> -->
         <script src="{{ url_for('static', filename='JS/JS.js')}}"></script>
 </body>
 
