@@ -148,19 +148,9 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 5. 環境変数の設定
 
-`.env`ファイルをプロジェクトルートに作成し、データベース接続情報を設定します：
 
-```env
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=your_database_user
-DB_PASSWORD=your_database_password
-DB_NAME=park_equipment_db
-```
-
-### 6. データベースのセットアップ
+### 5. データベースのセットアップ
 
 ```bash
 # データベースの作成（MySQLクライアントで実行）
