@@ -76,34 +76,42 @@ AI（機械学習）による画像認識機能を搭載し、ブランコなど
 ## 📁 プロジェクト構造
 
 ```
+## 📁 プロジェクト構造
+
+
 park-equipment-safety-vision/
 ├── app.py                    # メインアプリケーション
 ├── run.py                    # アプリケーション起動スクリプト
 ├── config.py                 # 設定ファイル
 ├── models.py                 # データベースモデル定義
 ├── requirements.txt          # Pythonパッケージ依存関係
-│
-├── backend/                  # バックエンド関連
-│   ├── app.py               # バックエンドロジック
-│   ├── template.xlsx        # 報告書テンプレート
-│   └── icons/               # アイコン画像
-│
-├── templates/                # HTMLテンプレート
-├── static/                   # 静的ファイル（CSS、JS、画像）
-├── docs/                     # ドキュメント・デモページ
-│   └── index.html           # デモページ
-│
-├── migrations/               # データベースマイグレーションファイル
-├── data/                     # 学習データ・モデルデータ
+├── .env                      # 環境変数設定ファイル
+├── .gitignore                # Git除外設定
+├── ER_DIAGRAM.md             # データベース設計図
+├── template.xlsx             # Excel報告書テンプレート
 │
 ├── train_models.py           # AIモデル訓練スクリプト
 ├── chain_generate_data.py    # 鎖データ生成
 ├── seat_generate_data.py     # 座面データ生成
 ├── upload_photo.py           # 写真アップロード機能
 ├── check_data.py             # データチェックユーティリティ
+├── test.py                   # テストスクリプト
 │
-├── template.xlsx             # Excel報告書テンプレート
-└── ER_DIAGRAM.md            # データベース設計図
+├── old_app.py                # 旧アプリケーション（参考用）
+├── models_old.py             # 旧モデル定義（参考用）
+│
+├── backend/                  # バックエンド関連
+│   └── app.py               # バックエンドロジック
+│
+├── templates/                # HTMLテンプレート
+├── static/                   # 静的ファイル（CSS、JS、画像）
+├── icons/                    # アイコン画像
+├── docs/                     # ドキュメント・デモページ
+│
+├── migrations/               # データベースマイグレーションファイル
+└── data/
+    └── raw/                  # 学習用生データ
+
 ```
 
 ## 🚀 セットアップ手順
