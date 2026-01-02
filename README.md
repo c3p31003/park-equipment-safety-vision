@@ -167,14 +167,14 @@ flask db migrate -m "Initial migration"
 flask db upgrade
 ```
 
-### 7. SSL証明書の生成（HTTPSアクセス用）
+### 6. SSL証明書の生成（HTTPSアクセス用）
 
 ```bash
 # 自己署名証明書の生成
 openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 365
 ```
 
-### 8. アプリケーションの起動
+### 7. アプリケーションの起動
 
 ```bash
 python run.py
